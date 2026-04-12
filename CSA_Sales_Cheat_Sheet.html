@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSA Sales Cheat Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#0F0F13;--bg2:#16161C;--bg3:#1E1E26;--card:#1A1A22;
+--border:#2A2A36;--border2:#3A3A48;
+--text:#E8E8F0;--text2:#9898B0;--text3:#6868808;
+--radius:12px;--radius-sm:8px;
+--franco:#FF4444;--mowilex:#22C997;--volk:#4A9EFF;
+--sterlyn:#FF8C42;--bayer:#4CAF50;--cotto:#5B9BD5;
+--dos:#26BFA8;--rucika:#FF6B35;--kansai:#E84040;
+--drymix:#C4976A;--arsi:#A855F7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* TOP BAR */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(15,15,19,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 16px}
+.topbar-inner{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.topbar-row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.app-title{font-size:13px;font-weight:700;color:var(--text2);letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+.search-wrap{flex:1;min-width:180px;position:relative}
+.search-wrap input{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 12px 8px 36px;border-radius:var(--radius-sm);font-size:13px;font-family:'Space Grotesk',sans-serif;outline:none;transition:border-color .2s}
+.search-wrap input:focus{border-color:var(--border2)}
+.search-wrap input::placeholder{color:var(--text2)}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text2)}
+.topbar-btns{display:flex;gap:6px;flex-shrink:0}
+.btn-mode{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:7px 12px;border-radius:var(--radius-sm);font-size:11px;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;white-space:nowrap;transition:all .2s;letter-spacing:.5px}
+.btn-mode:hover,.btn-mode.active{background:var(--border2);color:var(--text)}
+.btn-mode.highlight{background:#22C99720;border-color:#22C997;color:#22C997}
+
+/* BRAND TABS */
+.brand-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.brand-tabs::-webkit-scrollbar{display:none}
+.brand-tab{flex-shrink:0;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all .2s;letter-spacing:.3px;white-space:nowrap}
+.brand-tab.all{background:var(--bg3);border-color:var(--border2);color:var(--text)}
+.brand-tab.all.active{background:var(--text);color:var(--bg)}
+
+/* MAIN */
+.main{max-width:1400px;margin:0 auto;padding:16px}
+.results-info{font-size:11px;color:var(--text2);margin-bottom:12px;font-family:'DM Mono',monospace}
+
+/* GRID */
+.grid{display:grid;gap:10px;grid-template-columns:1fr}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .2s;position:relative}
+.card:hover{border-color:var(--border2)}
+.card-accent{height:3px;width:100%}
+.card-top{padding:12px 14px;cursor:pointer;display:flex;align-items:flex-start;gap:10px}
+.card-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.card-main{flex:1;min-width:0}
+.card-header{display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+.card-name{font-size:13px;font-weight:700;line-height:1.3;color:var(--text)}
+.badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px}
+.badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.5px;font-family:'DM Mono',monospace;white-space:nowrap}
+.badge-bs{background:#FFD70020;color:#FFD700;border:1px solid #FFD70040}
+.badge-bun{background:#22C99720;color:#22C997;border:1px solid #22C99740}
+.badge-warn{background:#FF444420;color:#FF8080;border:1px solid #FF444440}
+.card-kw{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;line-height:1.4}
+.card-sub{font-size:10px;color:var(--text2);margin-top:2px;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.card-chevron{font-size:12px;color:var(--text2);flex-shrink:0;transition:transform .2s;margin-top:3px}
+.card.open .card-chevron{transform:rotate(180deg)}
+
+/* CARD DETAIL */
+.card-detail{display:none;padding:0 14px 14px;border-top:1px solid var(--border)}
+.card.open .card-detail{display:block}
+.detail-sp{font-size:12px;color:var(--text);line-height:1.6;margin-bottom:10px;padding-top:10px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.detail-item{background:var(--bg3);border-radius:var(--radius-sm);padding:7px 9px}
+.detail-label{font-size:9px;font-weight:700;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;font-family:'DM Mono',monospace}
+.detail-val{font-size:11px;color:var(--text);line-height:1.4}
+.detail-tip{background:var(--bg3);border-left:3px solid;border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:8px 10px;font-size:11px;color:var(--text);line-height:1.5;margin-top:4px}
+.detail-warn{background:#FF444410;border:1px solid #FF444430;border-radius:var(--radius-sm);padding:7px 10px;font-size:11px;color:#FF9090;margin-top:6px;line-height:1.4}
+
+/* EMPTY */
+.empty{text-align:center;padding:60px 20px;color:var(--text2)}
+.empty-icon{font-size:40px;margin-bottom:10px}
+.empty-text{font-size:14px}
+
+/* DESKTOP */
+@media(min-width:768px){
+.grid{grid-template-columns:repeat(2,1fr)}
+.topbar-row1{flex-wrap:nowrap}
+}
+@media(min-width:1100px){
+.grid.desktop-wide{grid-template-columns:repeat(3,1fr)}
+}
+@media(min-width:1400px){
+.grid.desktop-wide{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-row1">
+      <div class="app-title">📋 Sales Cheat Sheet</div>
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="search" id="searchInput" placeholder="Cari produk, keyword, brand...">
+      </div>
+      <div class="topbar-btns">
+        <button class="btn-mode active" id="btnRingkas" onclick="setMode('ringkas')">Ringkas</button>
+        <button class="btn-mode" id="btnDetail" onclick="setMode('detail')">Detail</button>
+        <button class="btn-mode" id="btnDesktop" onclick="toggleDesktop()">🖥</button>
+      </div>
+    </div>
+    <div class="brand-tabs" id="brandTabs"></div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="results-info" id="resultsInfo"></div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+const BRANDS=[
+{id:'franco',label:'🔴 Franco',color:'#FF4444'},
+{id:'mowilex',label:'🟢 Mowilex',color:'#22C997'},
+{id:'volk',label:'🔵 VOLK',color:'#4A9EFF'},
+{id:'sterlyn',label:'🟠 Sterlyn',color:'#FF8C42'},
+{id:'bayer',label:'🟩 Bayer',color:'#4CAF50'},
+{id:'cotto',label:'🔷 COTTO',color:'#5B9BD5'},
+{id:'dos',label:'💎 DOS',color:'#26BFA8'},
+{id:'rucika',label:'🟧 Rucika',color:'#FF6B35'},
+{id:'kansai',label:'🔴 Kansai',color:'#E84040'},
+{id:'drymix',label:'🟤 Drymix',color:'#C4976A'},
+{id:'arsi',label:'🟣 Arsitektur',color:'#A855F7'},
+];
+
+const PRODUCTS=[
+// ── FRANCO ────────────────────────────────────────────────────
+{brand:'franco',cat:'Gerobak Sorong',icon:'🛒',
+name:'Franco-Steel',kw:'Rangka Kokoh · Anti-Karat · 200kg',
+sp:'Gerobak sorong baja dengan rangka kokoh dan bak tahan karat. Kapasitas 200kg, volume bak 65L, ban Pneumatic. Ideal untuk proyek konstruksi dan keperluan taman.',
+target:'Kontraktor, toko bangunan, perkebunan',channel:'GT / Proyek',
+tip:'Jual ke kontraktor & toko material. Selling point: ban Pneumatic 13" tahan medan berat + kapasitas angkut 200kg.',
+badges:[],warn:''},
+{brand:'franco',cat:'Gerobak Sorong',icon:'🛒',
+name:'Franco-Fiber',kw:'Ringan · Mudah Bersih · Pertanian',
+sp:'Gerobak sorong fiber yang ringan, tangguh, dan tahan karat. Bak fiber mudah dibersihkan. Kapasitas 180kg, ideal untuk pertanian, perkebunan, dan rumah tangga.',
+target:'Pertanian, perkebunan, rumah tangga, taman',channel:'GT / MT',
+tip:'Target konsumen pertanian dan tukang kebun. Benefit utama: ringan + mudah cuci vs gerobak besi yang berat dan berkarat.',
+badges:[],warn:''},
+
+// ── MOWILEX ────────────────────────────────────────────────────
+{brand:'mowilex',cat:'Woodstain',icon:'🪵',
+name:'Mowilex Woodstain (Transparan)',kw:'15+ Warna · Serat Kayu Terlihat · Premium',
+sp:'Cat kayu premium dengan hasil transparan sehingga serat kayu tetap terlihat. Tersedia 15+ pilihan warna dari Cherry, Walnut, Mahogany, Ebony, Aqua Blue hingga Rosewood. Ada lapisan 1, 2, 3 untuk warna makin pekat.',
+target:'Pemilik rumah kayu, developer premium, furniture',channel:'MT / Proyek',
+tip:'Tunjukkan color chart langsung ke customer — visual warna adalah jualan utamanya. Tawarkan paket: Wood Filler + Woodstain + Clear Finish.',
+badges:['bs'],warn:''},
+{brand:'mowilex',cat:'Woodstain',icon:'🪵',
+name:'Woodstain 2.0 Exterior',kw:'Anti-Cuaca · Outdoor · Tahan Lama',
+sp:'Varian woodstain khusus eksterior yang tahan terhadap cuaca, hujan, dan sinar UV. Cocok untuk kayu outdoor seperti pagar, pergola, dan taman.',
+target:'Rumah tapak, villa, developer',channel:'MT / Proyek',
+tip:'Cross-sell dengan Mowilex Weathercoat untuk rumah yang punya elemen kayu eksterior + dinding.',
+badges:[],warn:''},
+{brand:'mowilex',cat:'Cat Eksterior',icon:'🎨',
+name:'Mowilex Weathercoat',kw:'Anti Jamur · Tahan Cuaca · 100% Acrylic',
+sp:'Cat 100% acrylic khusus tembok luar. Tahan serangan jamur dan lumut, tahan alkali, tahan perubahan cuaca ekstrem.',
+target:'Rumah tapak, developer, ruko',channel:'GT / MT / Proyek',
+tip:'Pain point customer: tembok luar cepat jamuran dan kusam. Weathercoat = solusi jangka panjang yang mudah dijelaskan.',
+badges:['bs'],warn:''},
+{brand:'mowilex',cat:'Cat Eksterior',icon:'🎨',
+name:'Mowilex Elastomeric',kw:'Elastis · Tutup Retak · Anti-Bocor',
+sp:'Cat 100% acrylic elastis yang mampu menutup retak-retak rambut pada tembok luar secara otomatis. Ideal untuk dinding yang sering retak.',
+target:'Rumah lama, bangunan bertingkat, renovasi',channel:'GT / MT',
+tip:'Jual ke pemilik rumah lama yang sering lihat retak rambut di dinding. Demonstrasi elastisitas pakai jari langsung = closing lebih gampang.',
+badges:[],warn:''},
+{brand:'mowilex',cat:'Cat Interior',icon:'🏠',
+name:'Mowilex Emulsion',kw:'Daya Tutup Kuat · Warna Menawan · Interior',
+sp:'Cat acrylic emulsion copolymer VEOVA untuk keindahan dinding interior dengan warna-warna menawan dan daya tutup tinggi. Tersedia warna standar, pastel, dan VIP.',
+target:'Rumah tangga, developer, renovasi',channel:'GT / MT',
+tip:'Andalkan variasi warna "Wahana Warna-Warni Mowilex" sebagai selling point. Bawa katalog warna selalu saat kunjungan.',
+badges:['bs'],warn:''},
+{brand:'mowilex',cat:'Cat Interior',icon:'🏠',
+name:'Mowilex Vinyl Silk',kw:'Semi-Kilap · Mudah Bersih · No Mercury',
+sp:'Cat acrylic emulsion terpolymer VEOVA dengan hasil akhir semi-kilap. Kesan elegan, tidak mengandung mercury, kotoran mudah dibersihkan.',
+target:'Rumah premium, hotel, kantor',channel:'MT / Proyek',
+tip:'Tawarkan ke konsumen yang mau tampilan "premium" tanpa harus pakai cat mahal. Semi-kilap = dinding kelihatan lebih bersih dan mewah.',
+badges:[],warn:''},
+{brand:'mowilex',cat:'Cat Interior',icon:'🏠',
+name:'Mowilex Cendana',kw:'Ekonomis · Matt · Kopolymer VEOVA',
+sp:'Cat kopolymer VEOVA hasil akhir matt untuk interior. Tampilan menawan, tidak mengandung mercury, dan harga ekonomis.',
+target:'Rumah tangga, developer massal, kontraktor',channel:'GT',
+tip:'Posisikan sebagai "pilihan cerdas" — kualitas Mowilex dengan harga lebih terjangkau. Cocok untuk proyek skala besar.',
+badges:[],warn:''},
+{brand:'mowilex',cat:'Cat Khusus',icon:'🏗️',
+name:'Mowilex Roof Paint / Cat Genteng',kw:'Cat Genteng · Anti UV · Tahan Lama',
+sp:'Emulsi acrylic 100% khusus genteng semen, asbes (fiber cement), dan beton. Mengandung pigmen besi oksida sebagai penyerap sinar UV sehingga lapisan cat bertahan lama.',
+target:'Rumah tapak, perumahan, renovasi atap',channel:'GT / MT',
+tip:'Tawarkan saat musim hujan — moment tepat ketika konsumen sadar atap mereka kusam atau bocor.',
+badges:[],warn:''},
+{brand:'mowilex',cat:'Building Chemistry',icon:'🧱',
+name:'Mowilex Alcaplast (Acian Siap Pakai)',kw:'Anti Retak Rambut · Daya Rekat Tinggi · Siap Pakai',
+sp:'Campuran kering semen, silica flour, dan bahan pelekat copolymer. Mencegah retak rambut pada dinding, daya rekat tinggi, alkali rendah. Kemasan 5kg & 25kg.',
+target:'Kontraktor, tukang, developer',channel:'GT / Proyek',
+tip:'Bundle dengan cat Mowilex: "Cat sudah bagus, acinannya juga harus bagus — pakai Alcaplast biar nggak retak-retak."',
+badges:['bun'],warn:''},
+{brand:'mowilex',cat:'Building Chemistry',icon:'🧱',
+name:'Mowilex Alcabond (Bonding Agent)',kw:'Perekat Beton · Rekat Kuat · Anti-Retak',
+sp:'Bahan bonding agent daya lekat tinggi, sifat plastis baik. Membantu melekatkan beton lama dengan beton baru dan plasteran semen di tembok.',
+target:'Kontraktor renovasi, tukang bangunan',channel:'GT / Proyek',
+tip:'Wajib direkomendasikan saat ada proyek renovasi yang tambal beton atau plesteran ulang.',
+badges:['bun'],warn:''},
+{brand:'mowilex',cat:'Building Chemistry',icon:'🧱',
+name:'Mowilex Alcaproof (Waterproofing)',kw:'Anti-Bocor · Elastis · Dak & Kolam',
+sp:'Campuran tepung + emulsi acrylic + air. Daya lekat tinggi, tolak air baik, elastis. Cocok untuk dak beton, dinding, karpusan genteng, bak air, kolam ikan, talang, kamar mandi.',
+target:'Rumah tangga, kontraktor, developer',channel:'GT / MT',
+tip:'Pain point terbesar pemilik rumah = atap bocor. Alcaproof = solusi all-in-one yang mudah diaplikasikan sendiri.',
+badges:[],warn:''},
+{brand:'mowilex',cat:'Building Chemistry',icon:'🧱',
+name:'Mowilex Alcasmooth (Dempul Tembok)',kw:'Interior & Eksterior · Tahan Cuaca · Siap Pakai',
+sp:'Dempul tembok acrylic untuk dalam dan luar ruangan. Tahan cuaca, siap pakai. Kemasan 1kg & 3kg.',
+target:'Tukang cat, kontraktor',channel:'GT',
+tip:'Selalu bundle dengan pembelian cat Mowilex. "Sebelum cat, dempul dulu biar hasilnya rata dan mulus."',
+badges:['bun'],warn:''},
+
+// ── VOLK ────────────────────────────────────────────────────────
+{brand:'volk',cat:'Kloset (Hal. 07)',icon:'🚽',
+name:'Smart Toilet / Intelligent Toilet',kw:'Sensor · Auto-Flush · Modern Higienis',
+sp:'Kloset pintar dengan teknologi sensor otomatis bilas tanpa sentuh. Desain modern, sangat higienis, cocok untuk area publik dan rumah premium.',
+target:'Hotel, perkantoran, rumah premium, mal',channel:'MT / Proyek / Horeca',
+tip:'Post-pandemi: konsumen makin takut sentuh fasilitas publik. Touchless = selling point kuat. Tawarkan ke developer perumahan premium.',
+badges:['bs'],warn:''},
+{brand:'volk',cat:'Kloset (Hal. 07)',icon:'🚽',
+name:'One Piece Toilet',kw:'Desain Menyatu · Minimalis · Mudah Bersih',
+sp:'Kloset tangki dan bowl menyatu dalam satu desain. Tampilan minimalis dan modern, tidak ada celah kotor, lebih mudah dibersihkan.',
+target:'Rumah modern, apartemen, hotel',channel:'MT / Proyek',
+tip:'Jual visual dulu — tunjukkan foto. Konsumen langsung jatuh cinta dengan desain bersih tanpa sambungan.',
+badges:[],warn:''},
+{brand:'volk',cat:'Kloset (Hal. 07)',icon:'🚽',
+name:'Two Piece Toilet',kw:'Tangki Terpisah · Ekonomis · Mudah Servis',
+sp:'Kloset dengan tangki dan bowl terpisah. Lebih ekonomis dan mudah diservis jika ada kerusakan pada salah satu bagian.',
+target:'Rumah tapak, perumahan menengah, kos-kosan',channel:'GT / MT',
+tip:'Tawarkan sebagai pilihan "cerdas hemat" — kalau tangki rusak tinggal ganti tangki, tidak perlu ganti satu set.',
+badges:[],warn:''},
+{brand:'volk',cat:'Kloset (Hal. 07)',icon:'🚽',
+name:'Wall Hung Toilet',kw:'Gantung · Hemat Space · Modern',
+sp:'Kloset gantung tanpa kaki yang menempel di dinding. Lantai terlihat lebih luas dan mudah dibersihkan. Tampilan ultra-modern.',
+target:'Apartemen, kamar mandi kecil, desainer interior',channel:'MT / Proyek',
+tip:'Target apartemen dan rumah dengan kamar mandi kecil. "Kamar mandi keliatan lebih luas dan mudah ngepel lantainya."',
+badges:[],warn:''},
+{brand:'volk',cat:'Kloset (Hal. 07)',icon:'🚽',
+name:'Squat Toilet / Kloset Jongkok',kw:'Klasik · Kuat · Perawatan Mudah',
+sp:'Kloset jongkok klasik, konstruksi kuat, tahan lama, dan perawatan sangat mudah. Pilihan standar untuk kamar mandi utilitas.',
+target:'Rumah tapak, kos-kosan, masjid, sekolah',channel:'GT',
+tip:'Volume besar, margin stabil. Jual ke proyek perumahan menengah bawah dan fasilitas umum.',
+badges:[],warn:''},
+{brand:'volk',cat:'Jet Shower (Hal. 17)',icon:'🚿',
+name:'Jet Shower Set / Hose',kw:'Semprotan Kuat · Tekanan Stabil · Higienis',
+sp:'Set shower bidet fleksibel dengan semprotan air bertekanan stabil. Higienis, praktis, dan mudah dipasang di semua jenis toilet.',
+target:'Rumah tangga, hotel, masjid',channel:'GT / MT',
+tip:'Hampir semua orang butuh ini. Tawarkan selalu sebagai add-on saat jual kloset. Margin bagus, fast moving.',
+badges:['bs','bun'],warn:''},
+{brand:'volk',cat:'Cabinet & Lavatory (Hal. 19)',icon:'🪟',
+name:'Washbasin Cabinet',kw:'Kabinet Wastafel · Storage Rapi · Modern',
+sp:'Kabinet di bawah wastafel dengan ruang penyimpanan untuk sabun, peralatan mandi, dll. Tampilan modern dan rapi.',
+target:'Rumah premium, hotel, apartemen',channel:'MT / Proyek',
+tip:'Jual sebagai paket: Washbasin Cabinet + Above Counter Lavatory = set kamar mandi premium yang lengkap.',
+badges:['bun'],warn:''},
+{brand:'volk',cat:'Cabinet & Lavatory (Hal. 19)',icon:'🪟',
+name:'Above Counter Lavatory',kw:'Di Atas Meja · Elegan · Premium Look',
+sp:'Wastafel yang dipasang di atas countertop/meja. Tampilan elegan dan premium, jadi focal point kamar mandi.',
+target:'Rumah premium, hotel, vila, spa',channel:'MT / Proyek',
+tip:'"Kalau lihat foto-foto kamar mandi mewah di Instagram, pasti ada ini." Jual dengan visual yang kuat.',
+badges:[],warn:''},
+{brand:'volk',cat:'Cabinet & Lavatory (Hal. 19)',icon:'🪟',
+name:'Wall Hung Lavatory',kw:'Gantung · Hemat Ruang · Minimalis',
+sp:'Wastafel gantung yang menempel langsung di dinding, tanpa kaki. Lantai tetap bersih dan terlihat lebih luas.',
+target:'Apartemen, rumah minimalis, kamar mandi kecil',channel:'MT / Proyek',
+tip:'Sama seperti wall hung toilet — jual benefit "ruang keliatan lebih lega dan lantai gampang dibersihkan."',
+badges:[],warn:''},
+{brand:'volk',cat:'Shower (Hal. 27)',icon:'🚿',
+name:'Shower Column',kw:'Set Lengkap · Stylish · All-in-One',
+sp:'Set shower kolom lengkap dengan body spray, hand shower, dan overhead shower dalam satu unit. Tampilan stylish dan mewah.',
+target:'Rumah premium, hotel, vila',channel:'MT / Proyek',
+tip:'Jual sebagai "upgrade kamar mandi dalam satu item." Harga lebih tinggi tapi orang beli karena efek WOW-nya.',
+badges:['bs'],warn:''},
+{brand:'volk',cat:'Shower (Hal. 27)',icon:'🚿',
+name:'Bath Mixer',kw:'Panas Dingin · Kontrol Presisi · Anti Kaget',
+sp:'Kran mixer untuk kamar mandi yang menggabungkan air panas dan dingin dengan kontrol presisi suhu. Nyaman dan aman.',
+target:'Rumah tapak dengan water heater, hotel',channel:'MT / Proyek',
+tip:'Selalu bundle dengan Sterlyn Water Heater. "Beli water heater pasti butuh bath mixer yang bagus."',
+badges:['bun'],warn:''},
+{brand:'volk',cat:'Shower (Hal. 27)',icon:'🚿',
+name:'Hand Shower Set Rail',kw:'Bisa Atur Tinggi · Fleksibel · Sliding',
+sp:'Set hand shower dengan rel geser sehingga ketinggian shower bisa diatur sesuai pengguna. Fleksibel untuk semua anggota keluarga.',
+target:'Rumah keluarga, hotel',channel:'GT / MT',
+tip:'Benefit kuat: "Bisa dipakai anak kecil sampai orang dewasa tanpa susah-susah." Mudah dijelaskan.',
+badges:[],warn:''},
+{brand:'volk',cat:'Faucet (Hal. 31)',icon:'🚰',
+name:'Washbasin Mixer',kw:'Panas Dingin · Modern · Kontrol Suhu',
+sp:'Kran wastafel yang menggabungkan air panas dan dingin dalam satu gagang. Desain modern, kontrol suhu mudah.',
+target:'Rumah tapak, apartemen, hotel',channel:'MT / Proyek',
+tip:'Bundle dengan washbasin/lavatory. Jual sebagai satu paket tampilan yang matching.',
+badges:['bun'],warn:''},
+{brand:'volk',cat:'Faucet (Hal. 31)',icon:'🚰',
+name:'Deck Sink Tap Flexible',kw:'Leher Fleksibel · Multiarah · Dapur Modern',
+sp:'Kran dapur dengan kepala fleksibel yang bisa diarahkan ke mana saja. Sangat praktis untuk mencuci buah, sayur, dan peralatan besar.',
+target:'Dapur modern, rumah tangga, kafe',channel:'GT / MT',
+tip:'Demonstrasi langsung = instant closing. Putar-putar kepala kran yang fleksibel, customer pasti suka.',
+badges:['bs'],warn:''},
+{brand:'volk',cat:'Faucet (Hal. 31)',icon:'🚰',
+name:'Garden Tap',kw:'Outdoor · Kuat · Tahan Cuaca',
+sp:'Kran air khusus outdoor yang kuat dan tahan terhadap cuaca ekstrem, paparan matahari, dan air hujan.',
+target:'Rumah tapak, perumahan, kebun',channel:'GT',
+tip:'Jual ke perumahan tapak — hampir semua rumah butuh minimal 1-2 kran taman.',
+badges:[],warn:''},
+{brand:'volk',cat:'Kitchen Sink (Hal. 41)',icon:'🍽️',
+name:'Two Bowl Sink',kw:'2 Bak · Multitasking · Efisien Dapur',
+sp:'Kitchen sink 2 bak yang memungkinkan mencuci dan merendam sekaligus. Stainless steel, anti karat, mudah dibersihkan.',
+target:'Rumah tangga, dapur modern, apartemen',channel:'GT / MT',
+tip:'"Satu bak buat rendam, satu buat cuci — lebih efisien." Benefit praktis yang langsung dimengerti ibu rumah tangga.',
+badges:['bs'],warn:''},
+{brand:'volk',cat:'Kitchen Sink (Hal. 41)',icon:'🍽️',
+name:'One Bowl + Drainer',kw:'Compact · Area Tiris · Fungsional',
+sp:'Kitchen sink 1 bak dengan area tiris di sampingnya untuk menaruh peralatan yang baru dicuci. Fungsional dan compact.',
+target:'Rumah kecil, kos-kosan, apartemen studio',channel:'GT / MT',
+tip:'Ideal untuk dapur kecil. Jual benefit: "ada tempat tirisnya jadi nggak perlu lap-lap terus."',
+badges:[],warn:''},
+{brand:'volk',cat:'Bathroom Accessories (Hal. 45)',icon:'🔧',
+name:'Floor Drain VOLK',kw:'Anti Mampet · Stainless · Cepat Alir',
+sp:'Saringan air lantai berkualitas stainless anti karat. Anti mampet, aliran air cepat, mudah dibersihkan.',
+target:'Rumah tangga, hotel, kontraktor',channel:'GT / MT',
+tip:'Fast moving item. Bundle dengan setiap pembelian kloset atau shower.',
+badges:['bun'],warn:''},
+{brand:'volk',cat:'Bathroom Accessories (Hal. 45)',icon:'🔧',
+name:'Flexible Hose (Selang Fleksibel)',kw:'Fleksibel · Tahan Tekanan · Anti Bocor',
+sp:'Selang fleksibel penghubung kran ke pipa atau toilet ke tangki. Tahan tekanan tinggi dan anti bocor.',
+target:'Semua segmen',channel:'GT / MT',
+tip:'Consumable yang hampir selalu perlu diganti. Stok banyak = repeat purchase tinggi.',
+badges:[],warn:''},
+{brand:'volk',cat:'Shower Room (Hal. 47)',icon:'🚪',
+name:'Shower Room Oval / Square',kw:'Bilik Mandi · Clear Glass · Space Saver',
+sp:'Kabinett shower dengan kaca clear atau motif (privasi). Bentuk oval (elegan, hemat space) atau square (modern, clean look). Tahan benturan.',
+target:'Rumah premium, hotel, apartemen',channel:'MT / Proyek',
+tip:'"Kamar mandi jadi kelihatan 2x lebih mewah." Tunjukkan foto before-after. Efek visual sangat kuat untuk closing.',
+badges:['bs'],warn:''},
+{brand:'volk',cat:'Water Tub (Hal. 48)',icon:'🛁',
+name:'Water Tub 120L',kw:'Kapasitas Besar · Kuat · Tahan Lama',
+sp:'Bak air kapasitas 120 liter dengan material kuat dan tahan lama. Cocok untuk rumah yang tidak menggunakan shower.',
+target:'Rumah tapak, kos-kosan, kontraktor',channel:'GT',
+tip:'Jual di area yang belum familiar shower. Volume besar = masif dan mudah.',
+badges:[],warn:''},
+
+// ── STERLYN ────────────────────────────────────────────────────
+{brand:'sterlyn',cat:'Water Heater',icon:'🔥',
+name:'Sterlyn SD10 (10 Liter / 1-2 orang)',kw:'Instant · Hemat Listrik · Compact',
+sp:'Pemanas air listrik 10L, 200 Watt. Ideal untuk 1-2 orang. Sapphire enamel coated tank anti kerak, waterproof IPX4, ELCB 10mA perlindungan listrik bocor. Dimensi: 324x324x315mm.',
+target:'Kos-kosan, apartemen studio, single',channel:'MT / Proyek',
+tip:'Bundle dengan VOLK Bath Mixer. Ukuran kecil = hemat listrik = selling point ibu-ibu yang khawatir tagihan PLN naik.',
+badges:['bun'],warn:''},
+{brand:'sterlyn',cat:'Water Heater',icon:'🔥',
+name:'Sterlyn SD15 (15 Liter / 2-3 orang)',kw:'Keluarga Kecil · Hemat Energi · Sapphire',
+sp:'Pemanas air listrik 15L, 350 Watt. Ideal untuk keluarga 2-3 orang. Teknologi Sapphire Enamel 3 lapisan anti kerak dan karat. Dimensi: 368x368x340mm.',
+target:'Pasangan muda, keluarga kecil, rumah tapak',channel:'MT / Proyek',
+tip:'"Mandi air hangat setiap hari tanpa takir tagihan listrik meledak." High density PUF Insulation = air tetap hangat lama.',
+badges:['bs'],warn:''},
+{brand:'sterlyn',cat:'Water Heater',icon:'🔥',
+name:'Sterlyn SD30 (30 Liter / 4-5 orang)',kw:'Keluarga Besar · 350W · Anti-Karat Safir',
+sp:'Pemanas air listrik 30L, 350 Watt. Untuk keluarga 4-5 orang. Fitur lengkap: Anti Bacterial AG+, over pressure protection, over heat protection, ELCB. Dimensi: 440x440x420mm.',
+target:'Keluarga, rumah dengan 2+ kamar mandi',channel:'MT / Proyek',
+tip:'Jelaskan 5 proteksi sekaligus: ELCB + Safety Valve + Thermostat + Anti Bacterial + Waterproof IPX4 = value for money yang jelas.',
+badges:[],warn:''},
+{brand:'sterlyn',cat:'Teknologi Sterlyn',icon:'⚡',
+name:'ELCB 10mA (Anti Kesetrum)',kw:'Keamanan Listrik · Putus Otomatis · Anti Kesetrum',
+sp:'Earth Leakage Circuit Breaker 10mA yang memutus listrik otomatis saat terjadi kebocoran arus. Mencegah risiko kesetrum di kamar mandi basah.',
+target:'Semua pengguna',channel:'',
+tip:'Gunakan ini saat customer tanya soal keamanan. "Ini lebih aman dari water heater biasa — kalau ada kebocoran listrik, langsung mati sendiri."',
+badges:[],warn:''},
+{brand:'sterlyn',cat:'Aksesoris Instalasi',icon:'🔧',
+name:'Aksesoris Instalasi (Selang, Mini Mixer)',kw:'Instalasi Lengkap · Konvensional & Praktis',
+sp:'Paket aksesoris pendukung instalasi water heater: selang air panas, double nepel, knee & T-knee, seal tape (konvensional) ATAU mini mixer (praktis).',
+target:'Tukang plumber, kontraktor',channel:'GT / MT',
+tip:'Selalu tawarkan paket instalasi lengkap saat jual water heater. Revenue tambahan dari aksesoris yang margin-nya bagus.',
+badges:['bun'],warn:''},
+
+// ── BAYER ────────────────────────────────────────────────────────
+{brand:'bayer',cat:'Anti-Rayap',icon:'🐛',
+name:'Agenda 25 EC (Anti Rayap Non-Repellent)',kw:'Efek Domino · 5 Tahun · Basmi Koloni',
+sp:'Termitisida berbahan aktif Fipronil. Bersifat Non-Repellent: rayap tidak sadar membawa racun ke koloni dan menularkan ke seluruh anggota (efek domino). Jangka panjang: 5+ tahun di Asia Tenggara. Aman lingkungan, Green Label. Tersedia 100ml & 1 liter.',
+target:'Developer, kontraktor, jasa pest control, pemilik rumah baru',channel:'GT / MT / Proyek',
+tip:'USP: basmi SAMPAI KE KOLONI. Bukan cuma tepi-tepi saja. Paling efektif untuk pra dan pasca konstruksi. Biaya per m² hanya Rp 33.000 vs kompetitor yang bisa Rp 35.000.',
+badges:['bs'],warn:''},
+{brand:'bayer',cat:'Anti-Rayap',icon:'🐛',
+name:'Cislin 25 EC (Anti Rayap Knockdown)',kw:'Bunuh Seketika · Knockdown · Cepat Terlihat',
+sp:'Insektisida berbahan aktif Deltametrin 25g/l. Bersifat Repellent + Killing Agent: membunuh rayap yang kontak langsung SEKETIKA dan mengusir sisanya. Tidak berbau, tidak meninggalkan bercak. Kemasan 100ml & 500ml.',
+target:'Rumah yang SUDAH ada rayap, pemilik rumah, kontraktor',channel:'GT / MT',
+tip:'"Kalau rayap sudah keliatan dan mau langsung mati sekarang, pakai Cislin. Kalau mau proteksi jangka panjang dari awal, pakai Agenda." 1 botol 500ml bisa cover 40m²!',
+badges:['bs'],warn:''},
+{brand:'bayer',cat:'Racun Tikus',icon:'🐀',
+name:'Racumin WB (Racun Tikus Wax Block)',kw:'Anti Tikus · Tidak Mati Rasa · Aman Peliharaan',
+sp:'Racun tikus antikoagulan (Coumatetralyl) berbentuk wax block biru 50gr. Tikus tidak menyadari bahwa umpan berbahaya (tidak ada efek jera). Mati dalam 3-8 hari. Tidak mentransfer racun ke hewan peliharaan yang memakan bangkainya.',
+target:'Rumah tangga, warung, gudang, restoran',channel:'GT / MT / Horeca',
+tip:'"Tikus nggak jera, terus makan sampai mati. Dan aman buat kucing atau anjing peliharaan." Dua USP itu saja sudah cukup untuk closing.',
+badges:['bs'],warn:'Letakkan di jalur tikus, jauh dari jangkauan anak-anak. Gunakan sarung tangan saat pegang.'},
+
+// ── COTTO ────────────────────────────────────────────────────────
+{brand:'cotto',cat:'Kloset',icon:'🚽',
+name:'Kloset COTTO Boom / Ronda / Simply Connect',kw:'Hemat Air · Soft-Close · Garansi Seumur Hidup',
+sp:'Kloset premium dengan fitur Dual Flush hemat air 12.5%. Tutup Soft-Close anti-banting. Garansi keramik SEUMUR HIDUP. Teknologi terpercaya dari Thailand.',
+target:'Rumah tangga, developer, kontraktor, hotel',channel:'MT / Proyek',
+tip:'Garansi seumur hidup = argumen paling kuat vs kompetitor murah China. "Beli sekali, nggak perlu khawatir ganti-ganti."',
+badges:['bs'],warn:''},
+{brand:'cotto',cat:'Kloset',icon:'🚽',
+name:'Kloset COTTO Optimum / Micc (Touchless)',kw:'Touchless · Auto-Flush · Zero Contact',
+sp:'Kloset pintar dengan teknologi bilas otomatis tanpa sentuh. Sensor infrared yang responsif. Ideal untuk area publik dan rumah premium yang mengutamakan higienitas.',
+target:'Hotel, mal, perkantoran, rumah premium',channel:'MT / Proyek / Horeca',
+tip:'Post-pandemi = demand touchless naik drastis. Tawarkan ke developer perumahan premium sebagai "fitur yang belum punya kompetitor di harga segmen ini."',
+badges:['bs'],warn:''},
+{brand:'cotto',cat:'Fitting',icon:'🚰',
+name:'Keran & Shower COTTO (Solid Brass)',kw:'Solid Brass · Extra Chrome · 5 Tahun Garansi',
+sp:'100% Solid Brass (Kuningan Padat) berlapis nikel Extra Chrome. Garansi body keran 5 tahun. Material premium yang tidak mudah berkarat dan tetap mengkilap.',
+target:'Rumah tapak, hotel, developer',channel:'MT / Proyek',
+tip:'"Solid Brass vs keran murah: solid brass tetap mengkilap 5+ tahun, keran murah 6 bulan sudah berkarat." Argumen yang langsung dirasakan relevan oleh customer.',
+badges:[],warn:''},
+{brand:'cotto',cat:'Floor Drain',icon:'🕳️',
+name:'Smart Drain Anti-Bacteria COTTO',kw:'Anti-Bau · Anti-Kecoa · 45L/menit',
+sp:'Floor drain cerdas yang bebas bau got dan kecoa. Aliran air hingga 45 liter/menit. Saringan yang mudah diangkat dan dibersihkan. Lapisan anti-bakteri.',
+target:'Rumah tangga, hotel, kontraktor renovasi',channel:'GT / MT',
+tip:'Pain point nomor 1: bau kamar mandi. "Smart Drain ini solusinya — kecoa nggak bisa naik, bau nggak ada, air cepat ngalir." Bundle wajib dengan setiap pembelian kloset.',
+badges:['bun'],warn:''},
+
+// ── DOS ────────────────────────────────────────────────────────
+{brand:'dos',cat:'Tangki Air',icon:'💧',
+name:'Tangki Air DOS Chaba / Jungle Bird / Montblanc',kw:'Anti-Lumut · Food Grade · Garansi 20-25 Tahun',
+sp:'Tangki air No.1 di Thailand. 100% Anti-Lumut, material Food Grade aman, UV Protection warna tidak pudar. Garansi luar biasa: 20-25 tahun. Teknologi terpercaya.',
+target:'Perumahan, developer, pabrik, pertanian, rumah tapak',channel:'GT / MT / Proyek',
+tip:'"Beli tangki DOS itu beli sekali untuk 20 tahun." Anti-lumut + Food Grade = air lebih bersih dan aman. Garansi panjang adalah differentiator utama.',
+badges:['bs'],warn:''},
+{brand:'dos',cat:'Grease Trap',icon:'🍳',
+name:'DOS G-Tek Grease Trap (15L & 40L)',kw:'Pemisah Lemak · Wajib Horeca · Anti-Mampet',
+sp:'Grease trap terbaik untuk memisahkan lemak sisa makanan dari saluran pembuangan. Tersedia 15L (dapur rumah/kafe kecil) dan 40L (restoran/hotel). Saluran bebas mampet dan bau.',
+target:'Restoran, hotel, kafe, katering, dapur pabrik',channel:'Horeca / Proyek',
+tip:'Jual sebagai "kewajiban dapur bersih", bukan pilihan. "Tanpa grease trap, saluran dapur pasti mampet dalam 6 bulan." Demand dari Horeca sangat tinggi.',
+badges:['bs'],warn:''},
+{brand:'dos',cat:'Septic Tank',icon:'🔧',
+name:'Septic Tank DOS Hero',kw:'Tanpa Bau · Limbah Aman · Anti-Mampet',
+sp:'Septic tank modern dengan teknologi Spiral Cross Flow Media yang mencegah mampet. Limbah aman dibuang ke lingkungan, tidak menimbulkan bau busuk.',
+target:'Developer perumahan, rumah tapak baru, area pedesaan',channel:'Proyek / GT',
+tip:'Jual ke developer dengan argumen hemat lahan dan bebas maintenance. "Dibanding septic konvensional, ini jauh lebih higienis dan nggak perlu sering dikuras."',
+badges:[],warn:''},
+
+// ── RUCIKA ────────────────────────────────────────────────────────
+{brand:'rucika',cat:'Pipa PVC',icon:'⚙️',
+name:'Pipa Rucika AW (Air Bersih Bertekanan)',kw:'Standar JIS Jepang · Bertekanan · Kuat',
+sp:'Pipa PVC untuk instalasi air bersih bertekanan. Standar JIS Jepang — kualitas yang diakui dan lolos spesifikasi proyek pemerintah dan developer besar. Kuat dan isolator terbaik.',
+target:'Kontraktor, developer, tukang bangunan',channel:'GT / MT / Proyek',
+tip:'"Standar JIS Jepang" adalah kata kunci untuk proyek pemda dan developer — mereka wajib pakai material berstandar. Rucika AW = lolos spek.',
+badges:[],warn:''},
+{brand:'rucika',cat:'Pipa PVC',icon:'⚙️',
+name:'Pipa Rucika D/VU (Saluran Buang)',kw:'Saluran Buang · Ekonomis · Anti-Sumbat',
+sp:'Pipa PVC untuk saluran pembuangan tanpa tekanan. Standar JIS, ekonomis untuk proyek skala besar. Selalu dipasang bersama Tipe AW dalam satu proyek.',
+target:'Kontraktor, developer, tukang',channel:'GT / MT / Proyek',
+tip:'Bundle wajib dengan AW: setiap proyek butuh keduanya. "Beli AW wajib beli D/VU juga — nggak mungkin hanya butuh satu tipe saja dalam satu bangunan."',
+badges:['bun'],warn:''},
+{brand:'rucika',cat:'Lem Pipa',icon:'🔴',
+name:'RuGlue Solvent Cement',kw:'Mensenyawakan · Bebas Bocor · Wajib Tiap Pipa',
+sp:'Lem pipa BUKAN sekadar perekat — RuGlue MENSENYAWAKAN dua pipa menjadi satu kesatuan. Tidak bisa dilepas, tidak bisa bocor. Solusi mutlak instalasi bebas bocor seumur hidup.',
+target:'Kontraktor, tukang, developer, semua pengguna pipa',channel:'GT / MT / Proyek',
+tip:'WAJIB di-bundle dengan setiap pembelian pipa. High frequency, repeat purchase. "Beli pipa tanpa RuGlue itu kayak beli motor tanpa bensin."',
+badges:['bs','bun'],warn:''},
+{brand:'rucika',cat:'Fitting',icon:'⚙️',
+name:'Rucika Access Fitting (Pengganti Bak Kontrol)',kw:'Pasang 1,5 Jam · Higienis · Anti-Tikus',
+sp:'Pengganti bak kontrol beton konvensional. Pemasangan hanya 1,5 jam (vs 3 hari cor beton). Higienis, kedap bau, anti-tikus masuk, dan tidak perlu perawatan.',
+target:'Developer perumahan, kontraktor renovasi',channel:'MT / Proyek',
+tip:'"Developer bisa hemat 2 hari kerja per titik bak kontrol." Untuk proyek 50 rumah, penghematan waktu sangat signifikan. ROI yang sangat jelas.',
+badges:[],warn:''},
+{brand:'rucika',cat:'Fitting',icon:'⚙️',
+name:'Rucika Special Fitting (Ruang Sempit)',kw:'Space Sempit · Tanpa Inchian · Hemat Material',
+sp:'Fitting khusus untuk instalasi di ruang atau area yang sempit. Mengeliminasi kebutuhan pipa tambahan (inchian), menghemat material dan tempat secara signifikan.',
+target:'Kontraktor renovasi, apartemen, ruko, gedung bertingkat',channel:'MT / Proyek',
+tip:'Solusi teknis yang sulit disaingi. Tawarkan ke kontraktor renovasi apartemen dan ruko yang selalu punya masalah ruang sempit.',
+badges:[],warn:''},
+
+// ── KANSAI ────────────────────────────────────────────────────────
+{brand:'kansai',cat:'Cat Fungsional',icon:'🎨',
+name:'Kansai Ftalit Duo (Cat Besi 2-in-1)',kw:'2-in-1 · Hemat 30% Waktu · Anti Karat',
+sp:'Cat besi revolusioner: cat dasar anti-karat + cat akhir dalam SATU kaleng. Kering hanya 5-8 jam. Pengerjaan 30% lebih cepat dari cat besi konvensional. Hemat ongkos tukang.',
+target:'Kontraktor besi, tukang las, developer, bengkel',channel:'GT / MT / Proyek',
+tip:'"30% lebih cepat" = hemat berapa hari kerja tukang = hemat berapa juta rupiah? Hitung langsung bersama customer untuk closing lebih kuat.',
+badges:['bs'],warn:''},
+{brand:'kansai',cat:'Cat Fungsional',icon:'🎨',
+name:'Kansai Anti-Mosquito',kw:'Penangkal DBD · Teruji IPB · Aman Anak',
+sp:'Cat pertama di Indonesia yang mengandung bahan penangkal nyamuk DBD teruji di Institut Pertanian Bogor (IPB). Aman untuk keluarga dan hewan peliharaan. Cat dinding yang aktif melindungi.',
+target:'Rumah tangga dengan anak kecil, perumahan, sekolah, klinik',channel:'GT / MT',
+tip:'Emotional trigger kuat: "DBD masih nomor 1 penyebab kematian anak di Indonesia. Cat ini bisa bantu lindungi keluarga." Teruji IPB = kredibilitas tinggi.',
+badges:['bs'],warn:''},
+{brand:'kansai',cat:'Cat Interior',icon:'🏠',
+name:'Kansai Property Interior (Pro Health System)',kw:'Anti-Bakteri · Dinding Sehat · Pro Health',
+sp:'Cat interior dengan teknologi Pro Health System yang aktif mematikan kuman dan bakteri penyakit di permukaan dinding. Dinding bersih bukan berarti dinding sehat — ini yang sehat.',
+target:'Rumah tangga, developer, klinik, sekolah, daycare',channel:'GT / MT / Proyek',
+tip:'Post-pandemi mindset: "Bersih aja nggak cukup — harus sehat." Kansai Pro Health mematikan bakteri, bukan cuma nutup-nutupin.',
+badges:[],warn:''},
+{brand:'kansai',cat:'Cat Premium',icon:'⭐',
+name:'DiamondShield / PearlSheen / RubyMatt',kw:'Garansi 12 Tahun · Singapore Green · Anti Noda',
+sp:'Lini premium Kansai dengan garansi 12 tahun. Tahan cuaca ekstrem, anti-noda, bersertifikat Singapore Green Label. Cocok untuk developer yang butuh jaminan kualitas jangka panjang.',
+target:'Developer perumahan premium, properti komersial, hotel',channel:'MT / Proyek',
+tip:'"Developer bisa kasih garansi dinding ke pembeli rumah selama 12 tahun." Itu selling point ke buyer perumahan yang sangat kuat.',
+badges:[],warn:''},
+{brand:'kansai',cat:'Waterproofing',icon:'💧',
+name:'Kansai Rainblock (4-in-1 Anti-Bocor)',kw:'Elastis 300% · Anti-Bocor · Tutup Retak Rambut',
+sp:'Pelapis anti-bocor super elastis hingga 300% yang otomatis menutup retak-retak rambut secara sempurna. 4 fungsi sekaligus: waterproof, anti UV, elastis, dan cat akhir.',
+target:'Rumah tangga, kontraktor renovasi, developer',channel:'GT / MT',
+tip:'"Elastis 300% itu artinya kalau dinding retak 3mm, lapisan ini masih menutup sempurna." Visual yang mudah dipahami, closing lebih gampang.',
+badges:[],warn:''},
+
+// ── DRYMIX ────────────────────────────────────────────────────────
+{brand:'drymix',cat:'Pekerjaan Dinding',icon:'🧱',
+name:'Drymix Thinbed 100 (Perekat Bata Ringan)',kw:'Perekat Hebel · Presisi · Minim Retak',
+sp:'Perekat khusus bata ringan (hebel/AAC) dengan formula kuat. Lapisan sangat tipis tapi rekat sempurna, hasil presisi, dan minim retak rambut.',
+target:'Kontraktor, developer, tukang bangunan',channel:'GT / MT / Proyek',
+tip:'WAJIB bundle dengan setiap pembelian bata ringan. "Bata hebel wajib pakai Thinbed, bukan semen biasa — hasilnya beda jauh."',
+badges:['bun'],warn:''},
+{brand:'drymix',cat:'Pekerjaan Dinding',icon:'🧱',
+name:'Drymix Plester, Acian & Skimcoat',kw:'Mulus · Langsung Cat · Hemat Plamir',
+sp:'Sistem tiga lapis: plester rata + acian halus + skimcoat finishing. Hasil akhir mulus tanpa retak rambut dan langsung siap dicat tanpa perlu plamir tambahan.',
+target:'Kontraktor, tukang, developer',channel:'GT / MT / Proyek',
+tip:'"Nggak perlu plamir lagi = hemat material + hemat ongkos tukang + selesai lebih cepat." Tiga keuntungan sekaligus yang langsung dirasakan.',
+badges:[],warn:''},
+{brand:'drymix',cat:'Tile Adhesive',icon:'⬜',
+name:'Drymix Tile Adhesive PLUS (Tile on Tile)',kw:'Anti-Popping · Tile on Tile · Basah & Kolam',
+sp:'Tile adhesive premium yang mencegah keramik meledak atau lepas (anti-popping). Satu-satunya yang cocok untuk tumpuk keramik baru di atas keramik lama (Tile on Tile). Tahan di area basah dan kolam renang.',
+target:'Kontraktor renovasi, developer, tukang keramik',channel:'GT / MT / Proyek',
+tip:'"Renovasi nggak perlu bongkar keramik lama — pasang keramik baru di atasnya langsung." Hemat biaya bongkar yang besar. Tile on Tile makin populer.',
+badges:['bs'],warn:''},
+{brand:'drymix',cat:'Tile Adhesive',icon:'⬜',
+name:'Drymix Tile Adhesive Standard',kw:'Anti-Lepas · Ekonomis · Volume Tinggi',
+sp:'Perekat keramik standar untuk area kering. Anti-lepas, formula stabil, dan ekonomis untuk proyek masif seperti perumahan massal.',
+target:'Developer massal, kontraktor proyek besar',channel:'GT / Proyek',
+tip:'Bundle dengan pembelian keramik di distributor. Volume besar = margin stabil. Tawarkan paket keramik + adhesive sekaligus.',
+badges:['bun'],warn:''},
+{brand:'drymix',cat:'Beton Instan',icon:'🏗️',
+name:'Drymix Beton Instan (K-100 s/d K-500)',kw:'Cor Praktis · Tanpa Batching Plant · K-100-K-500',
+sp:'Beton instan siap pakai untuk pengecoran kolom, balok, dan pondasi. Tersedia berbagai kekuatan dari K-100 hingga K-500 untuk semua kebutuhan struktur.',
+target:'Sub-kontraktor kecil, developer, rumah tapak',channel:'GT / Proyek',
+tip:'Target sub-kontraktor kecil yang tidak punya batching plant. "Tinggal tambah air, langsung cor. Nggak perlu mesin, nggak perlu takaran ribet."',
+badges:[],warn:''},
+
+// ── ARSITEKTUR ────────────────────────────────────────────────────
+{brand:'arsi',cat:'Pintu KNOX',icon:'🚪',
+name:'Pintu KNOX HDF Primed / HDF / Eco Series',kw:'Presisi Pabrik · Anti-Melintir · Pasang Kering',
+sp:'Pintu Engineering ramah lingkungan dengan ukuran presisi pabrik. Minim muai-susut, anti-melintir, pemasangan kering (tidak perlu cat ulang di lapangan). Hemat ongkos finishing.',
+target:'Developer perumahan, kontraktor, hotel',channel:'MT / Proyek',
+tip:'"Developer bisa pasang pintu tanpa harus cat ulang di lapangan = hemat waktu + hemat tukang." Presisi pabrik juga berarti tidak ada celah angin atau masalah buka-tutup.',
+badges:[],warn:'⚠️ TIDAK untuk kamar mandi/toilet! WAJIB ada kanopi/pelindung dari hujan dan matahari langsung. Tanpa pelindung, pintu bisa rusak dan garansi gugur.'},
+{brand:'arsi',cat:'Atap & Kanopi',icon:'☂️',
+name:'Supralite / Supraroof (Plastik PP/PET)',kw:'UV Resistance · Bening Kuat · Tahan Ekstrem',
+sp:'Plastik bening berkualitas tinggi dengan perlindungan UV sehingga warna tidak kuning dan rapuh. Tahan suhu ekstrem. Cocok untuk kanopi teras, carport, dan penutup pagar.',
+target:'Rumah tapak, developer, kontraktor',channel:'GT / MT',
+tip:'"Bening tapi nggak kuning dan nggak retak." UV Resistance adalah differentiator utama vs plastik atap biasa yang cepat rapuh.',
+badges:[],warn:''},
+{brand:'arsi',cat:'Glass Block',icon:'🟦',
+name:'Jinghua Glass Block',kw:'Cahaya 80% · Privasi Terjaga · Modern',
+sp:'Glass block yang mentransmisikan 80% cahaya alami ke dalam ruangan sambil tetap menjaga privasi. Tahan benturan, mudah dibersihkan, dan menjadi elemen estetika arsitektur modern.',
+target:'Rumah premium, hotel, ruko, kafe, kantor',channel:'MT / Proyek',
+tip:'"Cahaya masuk tapi tetap privat — cocok untuk kamar mandi, tangga, atau dinding partisi yang mau terlihat modern." Tren open-feel design yang makin populer.',
+badges:[],warn:''},
+];
+
+let currentBrand='all';
+let currentMode='ringkas';
+let desktopMode=false;
+let searchTerm='';
+
+function init(){
+  const tabs=document.getElementById('brandTabs');
+  let html=`<div class="brand-tab all active" data-brand="all" onclick="filterBrand('all')">Semua (${PRODUCTS.length})</div>`;
+  BRANDS.forEach(b=>{
+    const count=PRODUCTS.filter(p=>p.brand===b.id).length;
+    html+=`<div class="brand-tab" data-brand="${b.id}" style="border-color:${b.color}20;color:${b.color}" onclick="filterBrand('${b.id}')">${b.label} (${count})</div>`;
+  });
+  tabs.innerHTML=html;
+  render();
+  document.getElementById('searchInput').addEventListener('input',e=>{
+    searchTerm=e.target.value.toLowerCase();
+    render();
+  });
+}
+
+function filterBrand(id){
+  currentBrand=id;
+  document.querySelectorAll('.brand-tab').forEach(t=>{
+    t.classList.toggle('active',t.dataset.brand===id);
+  });
+  render();
+}
+
+function setMode(m){
+  currentMode=m;
+  document.getElementById('btnRingkas').classList.toggle('active',m==='ringkas');
+  document.getElementById('btnDetail').classList.toggle('active',m==='detail');
+  if(m==='detail'){
+    document.querySelectorAll('.card').forEach(c=>c.classList.add('open'));
+  } else {
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('open'));
+  }
+}
+
+function toggleDesktop(){
+  desktopMode=!desktopMode;
+  const btn=document.getElementById('btnDesktop');
+  const grid=document.getElementById('grid');
+  btn.classList.toggle('highlight',desktopMode);
+  grid.classList.toggle('desktop-wide',desktopMode);
+  btn.textContent=desktopMode?'📱':'🖥';
+}
+
+function getBrandColor(brandId){
+  return BRANDS.find(b=>b.id===brandId)?.color||'#888';
+}
+
+function render(){
+  let filtered=PRODUCTS.filter(p=>{
+    const matchBrand=currentBrand==='all'||p.brand===currentBrand;
+    const q=searchTerm;
+    const matchSearch=!q||
+      p.name.toLowerCase().includes(q)||
+      p.kw.toLowerCase().includes(q)||
+      p.brand.toLowerCase().includes(q)||
+      p.cat.toLowerCase().includes(q)||
+      p.sp.toLowerCase().includes(q)||
+      (p.tip&&p.tip.toLowerCase().includes(q));
+    return matchBrand&&matchSearch;
+  });
+
+  document.getElementById('resultsInfo').textContent=
+    `Menampilkan ${filtered.length} dari ${PRODUCTS.length} produk${searchTerm?' — hasil pencarian: "'+searchTerm+'"':''}`;
+
+  const grid=document.getElementById('grid');
+  if(filtered.length===0){
+    grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><div class="empty-text">Produk tidak ditemukan. Coba kata kunci lain.</div></div>`;
+    return;
+  }
+
+  grid.innerHTML=filtered.map((p,i)=>{
+    const color=getBrandColor(p.brand);
+    const isOpen=currentMode==='detail';
+    const badgeHtml=p.badges.map(b=>{
+      if(b==='bs') return '<span class="badge badge-bs">🔥 BEST SELLER</span>';
+      if(b==='bun') return '<span class="badge badge-bun">🔗 BUNDLING</span>';
+      return '';
+    }).join('');
+
+    return `
+<div class="card${isOpen?' open':''}" id="card-${i}">
+  <div class="card-accent" style="background:${color}"></div>
+  <div class="card-top" onclick="toggleCard(${i})">
+    <div class="card-icon">${p.icon}</div>
+    <div class="card-main">
+      <div class="card-sub">${p.brand.toUpperCase()} · ${p.cat}</div>
+      <div class="card-name">${p.name}</div>
+      <div class="badges">${badgeHtml}</div>
+      <div class="card-kw" style="margin-top:5px">${p.kw.split('·').map(k=>`<span style="color:${color};opacity:.85">◆</span> ${k.trim()}`).join(' ')}</div>
+    </div>
+    <div class="card-chevron">▼</div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-sp">${p.sp}</div>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="detail-label">Target Market</div>
+        <div class="detail-val">${p.target||'-'}</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Channel</div>
+        <div class="detail-val">${p.channel||'-'}</div>
+      </div>
+    </div>
+    ${p.tip?`<div class="detail-tip" style="border-color:${color}"><strong>💡 Tips Lapangan:</strong> ${p.tip}</div>`:''}
+    ${p.warn?`<div class="detail-warn">⚠️ ${p.warn}</div>`:''}
+  </div>
+</div>`;
+  }).join('');
+}
+
+function toggleCard(i){
+  const card=document.getElementById('card-'+i);
+  card.classList.toggle('open');
+}
+
+init();
+</script>
+</body>
+</html>
