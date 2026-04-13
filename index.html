@@ -3,47 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0F0F13">
 <title>CSA Sales Cheat Sheet</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
 --bg:#0F0F13;--bg2:#16161C;--bg3:#1E1E26;--card:#1A1A22;
 --border:#2A2A36;--border2:#3A3A48;
---text:#E8E8F0;--text2:#9898B0;--text3:#6868808;
+--text:#E8E8F0;--text2:#9898B0;--text3:#686880;
 --radius:12px;--radius-sm:8px;
 --franco:#FF4444;--mowilex:#22C997;--volk:#4A9EFF;
 --sterlyn:#FF8C42;--bayer:#4CAF50;--cotto:#5B9BD5;
 --dos:#26BFA8;--rucika:#FF6B35;--kansai:#E84040;
 --drymix:#C4976A;--arsi:#A855F7;
+--mu:#F5A623;--duratruss:#607D8B;--knauf:#FF6F00;--aplus:#00BCD4;--blesscon:#795548;
+--sidebar-w:258px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh;overflow-x:hidden}
 
 /* TOP BAR */
-.topbar{position:sticky;top:0;z-index:100;background:rgba(15,15,19,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 16px}
-.topbar-inner{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
-.topbar-row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.app-title{font-size:13px;font-weight:700;color:var(--text2);letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
-.search-wrap{flex:1;min-width:180px;position:relative}
-.search-wrap input{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 12px 8px 36px;border-radius:var(--radius-sm);font-size:13px;font-family:'Space Grotesk',sans-serif;outline:none;transition:border-color .2s}
+.topbar{position:sticky;top:0;z-index:200;background:rgba(15,15,19,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 16px}
+.topbar-inner{display:flex;flex-direction:column;gap:8px}
+.topbar-row1{display:flex;align-items:center;gap:8px}
+.app-title{font-size:12px;font-weight:700;color:var(--text2);letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+.btn-menu{background:var(--bg3);border:1px solid var(--border);color:var(--text2);width:34px;height:34px;border-radius:var(--radius-sm);font-size:15px;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.btn-menu:hover{background:var(--border2);color:var(--text)}
+.search-wrap{flex:1;min-width:160px;position:relative}
+.search-wrap input{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 40px 8px 34px;border-radius:var(--radius-sm);font-size:13px;font-family:'Space Grotesk',sans-serif;outline:none;transition:border-color .2s}
 .search-wrap input:focus{border-color:var(--border2)}
 .search-wrap input::placeholder{color:var(--text2)}
-.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text2)}
-.topbar-btns{display:flex;gap:6px;flex-shrink:0}
-.btn-mode{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:7px 12px;border-radius:var(--radius-sm);font-size:11px;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;white-space:nowrap;transition:all .2s;letter-spacing:.5px}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--text2);pointer-events:none}
+.search-hint{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:1px 5px;pointer-events:none;transition:opacity .2s}
+.search-wrap input:focus~.search-hint{opacity:0}
+.topbar-btns{display:flex;gap:5px;flex-shrink:0}
+.btn-mode{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:7px 11px;border-radius:var(--radius-sm);font-size:11px;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;white-space:nowrap;transition:all .2s;letter-spacing:.5px}
 .btn-mode:hover,.btn-mode.active{background:var(--border2);color:var(--text)}
 .btn-mode.highlight{background:#22C99720;border-color:#22C997;color:#22C997}
 
 /* BRAND TABS */
 .brand-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
 .brand-tabs::-webkit-scrollbar{display:none}
-.brand-tab{flex-shrink:0;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all .2s;letter-spacing:.3px;white-space:nowrap}
+.brand-tab{flex-shrink:0;padding:5px 11px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all .2s;letter-spacing:.3px;white-space:nowrap}
 .brand-tab.all{background:var(--bg3);border-color:var(--border2);color:var(--text)}
 .brand-tab.all.active{background:var(--text);color:var(--bg)}
 
+/* CATEGORY PILLS */
+.cat-pills{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding-bottom:1px}
+.cat-pills::-webkit-scrollbar{display:none}
+.cat-pills:empty{display:none}
+.cat-pill{flex-shrink:0;padding:4px 10px;border-radius:14px;font-size:10px;font-weight:600;cursor:pointer;background:var(--bg3);border:1px solid var(--border);color:var(--text3);transition:all .2s;white-space:nowrap;font-family:'DM Mono',monospace}
+.cat-pill:hover{border-color:var(--border2);color:var(--text2)}
+.cat-pill.active{background:var(--border2);color:var(--text);border-color:var(--border2)}
+
+/* LAYOUT */
+.layout{display:flex}
+
+/* SIDEBAR */
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;
+  background:var(--bg2);border-right:1px solid var(--border);
+  overflow-y:auto;overflow-x:hidden;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+  position:fixed;left:0;
+  z-index:150;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.sidebar-header{padding:14px 12px 6px;font-size:9px;font-weight:700;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;font-family:'DM Mono',monospace}
+
+/* TREE */
+.tree-root{padding:0 6px 12px}
+.tree-all{display:flex;align-items:center;justify-content:space-between;padding:7px 8px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;font-weight:700;color:var(--text2);transition:all .15s;margin-bottom:3px;gap:6px}
+.tree-all:hover,.tree-all.active{background:var(--bg3);color:var(--text)}
+.tree-group{margin-bottom:2px}
+.tree-gh{display:flex;align-items:center;padding:6px 8px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;font-weight:700;color:var(--text2);transition:all .15s;user-select:none;gap:6px}
+.tree-gh:hover,.tree-gh.group-active{background:var(--bg3);color:var(--text)}
+.tree-gh-chevron{margin-left:auto;font-size:9px;color:var(--text3);transition:transform .2s;flex-shrink:0;width:14px;text-align:center}
+.tree-group.open>.tree-gh>.tree-gh-chevron{transform:rotate(180deg)}
+.tree-children{display:none;padding-left:8px;padding-bottom:2px}
+.tree-group.open>.tree-children{display:block}
+.tree-leaf{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;border-radius:var(--radius-sm);cursor:pointer;font-size:11px;color:var(--text3);transition:all .15s;gap:6px;user-select:none}
+.tree-leaf:hover,.tree-leaf.active{background:var(--bg3);color:var(--text2)}
+.tree-leaf.active{color:var(--text)}
+.tree-badge{font-size:9px;font-family:'DM Mono',monospace;background:var(--bg);border:1px solid var(--border);color:var(--text3);padding:1px 5px;border-radius:8px;flex-shrink:0;min-width:24px;text-align:center}
+.tree-leaf.active .tree-badge,.tree-gh.group-active .tree-badge,.tree-all.active .tree-badge{background:var(--border2);border-color:var(--border2);color:var(--text2)}
+.tree-gh-toggle{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:auto}
+.tree-gh-toggle:hover{background:var(--bg2)}
+
+/* SIDEBAR OVERLAY */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:140;backdrop-filter:blur(2px)}
+body.sidebar-open .sidebar-overlay{display:block}
+body.sidebar-open .sidebar{transform:translateX(0)!important}
+
 /* MAIN */
-.main{max-width:1400px;margin:0 auto;padding:16px}
-.results-info{font-size:11px;color:var(--text2);margin-bottom:12px;font-family:'DM Mono',monospace}
+.main-content{flex:1;min-width:0;padding:14px}
+.results-info{font-size:11px;color:var(--text2);margin-bottom:12px;font-family:'DM Mono',monospace;transition:opacity .25s}
+.results-info.fading{opacity:0}
 
 /* GRID */
 .grid{display:grid;gap:10px;grid-template-columns:1fr}
@@ -55,19 +112,16 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 .card-top{padding:12px 14px;cursor:pointer;display:flex;align-items:flex-start;gap:10px}
 .card-icon{font-size:20px;flex-shrink:0;margin-top:1px}
 .card-main{flex:1;min-width:0}
-.card-header{display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap;margin-bottom:4px}
-.card-name{font-size:13px;font-weight:700;line-height:1.3;color:var(--text)}
+.card-sub{font-size:10px;color:var(--text2);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.card-name{font-size:13px;font-weight:700;line-height:1.3;color:var(--text);margin:2px 0}
 .badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px}
 .badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.5px;font-family:'DM Mono',monospace;white-space:nowrap}
 .badge-bs{background:#FFD70020;color:#FFD700;border:1px solid #FFD70040}
 .badge-bun{background:#22C99720;color:#22C997;border:1px solid #22C99740}
 .badge-warn{background:#FF444420;color:#FF8080;border:1px solid #FF444440}
-.card-kw{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;line-height:1.4}
-.card-sub{font-size:10px;color:var(--text2);margin-top:2px;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.card-kw{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;line-height:1.4;margin-top:4px}
 .card-chevron{font-size:12px;color:var(--text2);flex-shrink:0;transition:transform .2s;margin-top:3px}
 .card.open .card-chevron{transform:rotate(180deg)}
-
-/* CARD DETAIL */
 .card-detail{display:none;padding:0 14px 14px;border-top:1px solid var(--border)}
 .card.open .card-detail{display:block}
 .detail-sp{font-size:12px;color:var(--text);line-height:1.6;margin-bottom:10px;padding-top:10px}
@@ -78,33 +132,52 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 .detail-tip{background:var(--bg3);border-left:3px solid;border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:8px 10px;font-size:11px;color:var(--text);line-height:1.5;margin-top:4px}
 .detail-warn{background:#FF444410;border:1px solid #FF444430;border-radius:var(--radius-sm);padding:7px 10px;font-size:11px;color:#FF9090;margin-top:6px;line-height:1.4}
 
+/* HIGHLIGHT */
+mark.hl{background:#FFD70030;color:#FFD700;border-radius:2px;padding:0 1px}
+
 /* EMPTY */
 .empty{text-align:center;padding:60px 20px;color:var(--text2)}
 .empty-icon{font-size:40px;margin-bottom:10px}
 .empty-text{font-size:14px}
 
-/* DESKTOP */
+/* SCROLL TO TOP */
+.scroll-top{position:fixed;bottom:22px;right:22px;z-index:400;width:38px;height:38px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:0;pointer-events:none;font-family:'Space Grotesk',sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.scroll-top.visible{opacity:1;pointer-events:all}
+.scroll-top:hover{background:var(--border2);color:var(--text)}
+
+/* RESPONSIVE */
 @media(min-width:768px){
-.grid{grid-template-columns:repeat(2,1fr)}
-.topbar-row1{flex-wrap:nowrap}
+  .grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(min-width:1100px){
-.grid.desktop-wide{grid-template-columns:repeat(3,1fr)}
+  .grid.desktop-wide{grid-template-columns:repeat(3,1fr)}
 }
 @media(min-width:1400px){
-.grid.desktop-wide{grid-template-columns:repeat(4,1fr)}
+  .grid.desktop-wide{grid-template-columns:repeat(4,1fr)}
+}
+@media(min-width:901px){
+  .sidebar{transform:none!important}
+  .main-content{margin-left:var(--sidebar-w)}
+}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .btn-menu{display:flex}
+  .topbar-row1{flex-wrap:nowrap}
+  .app-title{display:none}
 }
 </style>
 </head>
 <body>
 
-<div class="topbar">
+<div class="topbar" id="topbar">
   <div class="topbar-inner">
     <div class="topbar-row1">
-      <div class="app-title">📋 Sales Cheat Sheet</div>
+      <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()" title="Menu Produk">☰</button>
+      <div class="app-title">📋 CSA Sales Cheat Sheet</div>
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input type="search" id="searchInput" placeholder="Cari produk, keyword, brand...">
+        <input type="search" id="searchInput" placeholder="Cari produk, brand, keyword…">
+        <span class="search-hint">/</span>
       </div>
       <div class="topbar-btns">
         <button class="btn-mode active" id="btnRingkas" onclick="setMode('ringkas')">Ringkas</button>
@@ -113,15 +186,27 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
       </div>
     </div>
     <div class="brand-tabs" id="brandTabs"></div>
+    <div class="cat-pills" id="catPills"></div>
   </div>
 </div>
 
-<div class="main">
-  <div class="results-info" id="resultsInfo"></div>
-  <div class="grid" id="grid"></div>
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">Navigasi Produk</div>
+    <div class="tree-root" id="productTree"></div>
+  </aside>
+  <div class="main-content">
+    <div class="results-info" id="resultsInfo"></div>
+    <div class="grid" id="grid"></div>
+  </div>
 </div>
 
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <script>
+// ── BRANDS ────────────────────────────────────────────────────────
 const BRANDS=[
 {id:'franco',label:'🔴 Franco',color:'#FF4444'},
 {id:'mowilex',label:'🟢 Mowilex',color:'#22C997'},
@@ -134,10 +219,16 @@ const BRANDS=[
 {id:'kansai',label:'🔴 Kansai',color:'#E84040'},
 {id:'drymix',label:'🟤 Drymix',color:'#C4976A'},
 {id:'arsi',label:'🟣 Arsitektur',color:'#A855F7'},
+{id:'mu',label:'🟡 MU Mortar',color:'#F5A623'},
+{id:'duratruss',label:'⚫ Duratruss',color:'#607D8B'},
+{id:'knauf',label:'🟠 Knauf',color:'#FF6F00'},
+{id:'aplus',label:'🔵 Aplus',color:'#00BCD4'},
+{id:'blesscon',label:'🟤 Blesscon',color:'#795548'},
 ];
 
+// ── PRODUCTS ────────────────────────────────────────────────────────
 const PRODUCTS=[
-// ── FRANCO ────────────────────────────────────────────────────
+// ── FRANCO ────────────────────────────────────────────────────────
 {brand:'franco',cat:'Gerobak Sorong',icon:'🛒',
 name:'Franco-Steel',kw:'Rangka Kokoh · Anti-Karat · 200kg',
 sp:'Gerobak sorong baja dengan rangka kokoh dan bak tahan karat. Kapasitas 200kg, volume bak 65L, ban Pneumatic. Ideal untuk proyek konstruksi dan keperluan taman.',
@@ -151,7 +242,7 @@ target:'Pertanian, perkebunan, rumah tangga, taman',channel:'GT / MT',
 tip:'Target konsumen pertanian dan tukang kebun. Benefit utama: ringan + mudah cuci vs gerobak besi yang berat dan berkarat.',
 badges:[],warn:''},
 
-// ── MOWILEX ────────────────────────────────────────────────────
+// ── MOWILEX ────────────────────────────────────────────────────────
 {brand:'mowilex',cat:'Woodstain',icon:'🪵',
 name:'Mowilex Woodstain (Transparan)',kw:'15+ Warna · Serat Kayu Terlihat · Premium',
 sp:'Cat kayu premium dengan hasil transparan sehingga serat kayu tetap terlihat. Tersedia 15+ pilihan warna dari Cherry, Walnut, Mahogany, Ebony, Aqua Blue hingga Rosewood. Ada lapisan 1, 2, 3 untuk warna makin pekat.',
@@ -566,83 +657,327 @@ sp:'Glass block yang mentransmisikan 80% cahaya alami ke dalam ruangan sambil te
 target:'Rumah premium, hotel, ruko, kafe, kantor',channel:'MT / Proyek',
 tip:'"Cahaya masuk tapi tetap privat — cocok untuk kamar mandi, tangga, atau dinding partisi yang mau terlihat modern." Tren open-feel design yang makin populer.',
 badges:[],warn:''},
+
+// ── MU (MORTAR UTAMA) — BRAND BARU ────────────────────────────────
+{brand:'mu',cat:'Mortar Instan',icon:'🧱',
+name:'MU-380 Semen Instan Pasangan Bata Ringan',kw:'Perekat Hebel · Anti Retak · Standar SNI',
+sp:'Mortar instan khusus pasangan bata ringan (hebel/AAC). Formula pre-mixed siap pakai, cukup tambah air. Daya rekat tinggi, minim susut, anti retak. Kemasan 40kg.',
+target:'Kontraktor, developer, tukang',channel:'GT / Proyek',
+tip:'Selalu bundle dengan pembelian hebel. Tanpa mortar yang tepat, hebel gampang retak di sambungan. MU-380 = solusi sistem yang lengkap.',
+badges:['bun'],warn:''},
+{brand:'mu',cat:'Mortar Instan',icon:'🧱',
+name:'MU-400 Plester Instan',kw:'Plester Cepat · Presisi · Hemat Air',
+sp:'Mortar instan untuk plesteran dinding. Campuran semen, pasir silika, dan aditif khusus yang menghasilkan permukaan rata dan presisi. Hemat air, working time lebih panjang dari plester manual.',
+target:'Kontraktor, tukang, developer massal',channel:'GT / Proyek',
+tip:'Bandingkan waktu aplikasi vs campuran manual — MU-400 jauh lebih konsisten dan hemat tenaga. ROI terasa di proyek skala besar.',
+badges:[],warn:''},
+{brand:'mu',cat:'Mortar Instan',icon:'🪣',
+name:'MU-450 Acian Putih Instan',kw:'Putih Bersih · Halus · Siap Cat',
+sp:'Acian berbasis semen putih dengan kehalusan tinggi. Hasil akhir mulus, putih merata, dan langsung siap dicat tanpa perlu plamir tambahan. Kemasan 20kg & 40kg.',
+target:'Kontraktor finishing, tukang cat, developer',channel:'GT / MT / Proyek',
+tip:'Bundle dengan cat Mowilex atau Kansai — "acian sudah halus, cat tinggal jalan." Hemat 1 layer plamir = hemat waktu + material.',
+badges:['bun'],warn:''},
+{brand:'mu',cat:'Tile Adhesive',icon:'⬜',
+name:'MU-480 Tile Adhesive',kw:'Anti-Slip · Daya Rekat Kuat · Interior & Eksterior',
+sp:'Perekat keramik dan granit untuk lantai dan dinding interior maupun eksterior. Anti-slip saat aplikasi basah, daya rekat kuat pada berbagai substrat. Kemasan 25kg & 40kg.',
+target:'Kontraktor, tukang keramik, developer',channel:'GT / Proyek',
+tip:'Satu brand untuk semua pekerjaan mortar = simplifikasi procurement kontraktor. Tawarkan paket sistem MU lengkap.',
+badges:[],warn:''},
+
+// ── DURATRUSS — BRAND BARU ────────────────────────────────────────
+{brand:'duratruss',cat:'Rangka Atap',icon:'🏗️',
+name:'Duratruss Baja Ringan (Rangka Atap)',kw:'Anti Karat G550 · Ringan Kuat · Garansi Struktur',
+sp:'Rangka atap baja ringan G550 dengan lapisan anti-karat zincalume. Lebih ringan dari kayu, anti rayap, anti karat, presisi pabrik. Cocok untuk rumah tapak, ruko, dan bangunan komersial bentang lebar.',
+target:'Kontraktor, developer perumahan, tukang bangunan',channel:'GT / MT / Proyek',
+tip:'Pain point kayu: rayap + lapuk + mahal + susut. Baja ringan Duratruss: bebas semua masalah itu + lebih cepat pasang. Kalau span lebar, baja ringan WAJIB.',
+badges:['bs'],warn:''},
+{brand:'duratruss',cat:'Rangka Plafon',icon:'📐',
+name:'Duratruss Hollow & Furring Channel (Rangka Plafon/Partisi)',kw:'Hollow Presisi · Anti Karat · Serbaguna',
+sp:'Profil baja ringan hollow dan furring channel untuk rangka plafon gypsum, partisi dinding, dan berbagai kebutuhan interior. Material presisi, anti-karat, mudah dipotong dan disambung.',
+target:'Kontraktor interior, tukang plafon, developer',channel:'GT / MT / Proyek',
+tip:'Bundle wajib dengan gypsum Knauf. "Rangka Duratruss + Gypsum Knauf = sistem plafon dan partisi paling populer di proyek Indonesia."',
+badges:['bun'],warn:''},
+
+// ── KNAUF — BRAND BARU ────────────────────────────────────────────
+{brand:'knauf',cat:'Partisi & Plafon',icon:'🪟',
+name:'Knauf Gypsum Board (Standar, Moisture, Fire)',kw:'Ringan · Presisi · Standar Internasional',
+sp:'Gypsum board standar Knauf untuk plafon dan partisi interior. Tersedia varian standar, moisture resistant (hijau, untuk area lembap), dan fire resistant (merah, tahan api) sesuai kebutuhan ruang.',
+target:'Kontraktor, developer, hotel, perkantoran',channel:'MT / Proyek',
+tip:'Tiga varian untuk tiga kebutuhan berbeda — jual sistem, bukan lembaran. "Kamar mandi pakai yang hijau, koridor pakai yang merah, ruang lain yang standar." Mudah cross-sell sekaligus.',
+badges:['bs'],warn:''},
+{brand:'knauf',cat:'Partisi & Plafon',icon:'🪣',
+name:'Knauf Compound (Joint Compound & Finishing)',kw:'Sambungan Rapi · Anti Retak · Finishing Halus',
+sp:'Compound khusus untuk menutup sambungan antar gypsum board dan finishing permukaan agar mulus. Formula cepat kering, minim susut, dan menghasilkan permukaan siap cat yang sempurna.',
+target:'Kontraktor interior, tukang gypsum',channel:'MT / Proyek',
+tip:'WAJIB bundle dengan setiap pembelian gypsum. "Gypsum tanpa compound yang benar pasti keliatan sambungannya."',
+badges:['bun'],warn:''},
+{brand:'knauf',cat:'Partisi & Plafon',icon:'🏠',
+name:'Knauf Plafon Armstrong / Mineral Fiber Ceiling',kw:'Akustik · Anti Api · Perkantoran & Hotel',
+sp:'Panel plafon mineral fiber untuk kebutuhan akustik dan estetika perkantoran, hotel, dan bangunan komersial. Tahan api, mudah dibuka untuk akses MEP (plumbing, elektrikal), dan tersedia berbagai motif.',
+target:'Developer komersial, hotel, perkantoran, mal',channel:'MT / Proyek',
+tip:'Nilai jual utama: akses MEP mudah tanpa bongkar plafon. "Hotel dan kantor selalu butuh ini karena instalasi AC dan kabel sering perlu diakses."',
+badges:[],warn:''},
+
+// ── APLUS — BRAND BARU ────────────────────────────────────────────
+{brand:'aplus',cat:'Keramik & Granit',icon:'⬛',
+name:'Aplus Granit Lantai (60x60, 80x80, 100x100)',kw:'Motif Premium · Anti Gores · Harga Kompetitif',
+sp:'Granit lantai dengan berbagai motif marmer, beton, dan kayu yang premium. Ukuran besar (60x60 hingga 100x100) dengan permukaan anti gores, mudah dibersihkan, dan harga kompetitif untuk segmen menengah ke atas.',
+target:'Developer perumahan menengah-atas, kontraktor, toko material',channel:'GT / MT / Proyek',
+tip:'Tampilan marmer tanpa harga marmer asli. "Granit Aplus motif marmer bisa tutup seluruh lantai dengan biaya 30-40% lebih murah dari marmer asli, tapi tampilannya hampir sama."',
+badges:['bs'],warn:''},
+{brand:'aplus',cat:'Keramik & Granit',icon:'🟦',
+name:'Aplus Keramik Dinding (25x40, 30x60)',kw:'Motif Bervariasi · Anti Jamur · Kamar Mandi',
+sp:'Keramik dinding dengan motif bervariasi untuk kamar mandi, dapur, dan area basah. Formula anti-jamur, permukaan halus mudah dibersihkan, dan warna tahan lama.',
+target:'Rumah tapak, developer, renovasi',channel:'GT / MT',
+tip:'Bundle wajib dengan perekat MU-480 dan grout. "Satu paket keramik Aplus + adhesive + grout = tukang tinggal pasang."',
+badges:['bun'],warn:''},
+
+// ── BLESSCON — BRAND BARU ────────────────────────────────────────
+{brand:'blesscon',cat:'Material Struktur',icon:'🧱',
+name:'Blesscon Bata Ringan / Hebel AAC',kw:'Ringan · Isolasi Panas · Presisi Dimensi',
+sp:'Bata ringan AAC (Autoclaved Aerated Concrete) dengan densitas rendah namun kuat tekan tinggi. Isolasi panas dan suara yang baik, dimensi presisi sehingga hemat mortar, dan proses pasang lebih cepat dari bata konvensional.',
+target:'Developer perumahan, kontraktor, tukang bangunan',channel:'GT / MT / Proyek',
+tip:'Tiga keunggulan yang mudah dijelaskan: (1) Lebih ringan = beban struktur berkurang. (2) Lebih presisi = mortar lebih sedikit. (3) Isolasi panas = rumah lebih adem. Selalu bundle dengan MU-380.',
+badges:['bs','bun'],warn:''},
+{brand:'blesscon',cat:'Panel Precast',icon:'🏗️',
+name:'Blesscon Panel Precast (Dinding & Lantai)',kw:'Cepat Pasang · Solid · Proyek Masif',
+sp:'Panel beton precast untuk dinding dan lantai. Diproduksi di pabrik dengan kontrol kualitas ketat, lalu dipasang langsung di lapangan. Proses konstruksi jauh lebih cepat dan kualitas lebih konsisten dari cor di tempat.',
+target:'Developer perumahan massal, kontraktor proyek besar',channel:'Proyek',
+tip:'Untuk developer yang bangun ratusan unit: panel precast bisa potong waktu konstruksi per unit hingga 40%. ROI sangat jelas untuk proyek skala besar.',
+badges:[],warn:''},
 ];
 
+// ── PRODUCT TREE ─────────────────────────────────────────────────
+const PRODUCT_TREE=[
+{id:'all',type:'root',label:'📦 Semua Produk'},
+{id:'grp-cat',type:'group',label:'🎨 Cat & Coating',expanded:true,children:[
+  {id:'leaf-cat-int',type:'leaf',label:'Cat Interior',cats:['Cat Interior']},
+  {id:'leaf-cat-ext',type:'leaf',label:'Cat Eksterior',cats:['Cat Eksterior']},
+  {id:'leaf-cat-kayu',type:'leaf',label:'Cat Kayu (Woodstain)',cats:['Woodstain']},
+  {id:'leaf-cat-besi',type:'leaf',label:'Cat Besi',cats:['Cat Fungsional','Cat Premium']},
+  {id:'leaf-cat-wp',type:'leaf',label:'Waterproofing',cats:['Waterproofing']},
+  {id:'leaf-cat-gen',type:'leaf',label:'Cat Genteng',cats:['Cat Khusus']},
+]},
+{id:'grp-mat',type:'group',label:'🧱 Material Bangunan',expanded:false,children:[
+  {id:'leaf-mat-mortar',type:'leaf',label:'Semen & Mortar Instan',cats:['Mortar Instan']},
+  {id:'leaf-mat-tile',type:'leaf',label:'Perekat Keramik (Tile Adhesive)',cats:['Tile Adhesive']},
+  {id:'leaf-mat-plester',type:'leaf',label:'Plester & Acian',cats:['Pekerjaan Dinding']},
+  {id:'leaf-mat-beton',type:'leaf',label:'Beton Instan',cats:['Beton Instan']},
+  {id:'leaf-mat-bata',type:'leaf',label:'Bata Ringan & Aksesori',cats:['Material Struktur']},
+]},
+{id:'grp-str',type:'group',label:'🔩 Struktur & Rangka',expanded:false,children:[
+  {id:'leaf-str-baja',type:'leaf',label:'Rangka Baja Ringan',cats:['Rangka Atap']},
+  {id:'leaf-str-hollow',type:'leaf',label:'Truss & Hollow (Duratruss)',cats:['Rangka Plafon']},
+  {id:'leaf-str-partisi',type:'leaf',label:'Partisi & Plafon (Knauf)',cats:['Partisi & Plafon']},
+  {id:'leaf-str-panel',type:'leaf',label:'Panel & Precast (Blesscon)',cats:['Panel Precast']},
+]},
+{id:'grp-san',type:'group',label:'🚿 Sanitasi & Pipa',expanded:false,children:[
+  {id:'leaf-san-kloset',type:'leaf',label:'Kloset & Aksesori',cats:['Kloset (Hal. 07)','Kloset','Floor Drain']},
+  {id:'leaf-san-wastafel',type:'leaf',label:'Wastafel & Shower',cats:['Cabinet & Lavatory (Hal. 19)','Shower (Hal. 27)','Jet Shower (Hal. 17)','Shower Room (Hal. 47)','Faucet (Hal. 31)','Kitchen Sink (Hal. 41)','Bathroom Accessories (Hal. 45)','Water Tub (Hal. 48)'],brands:['volk']},
+  {id:'leaf-san-pipa',type:'leaf',label:'Pipa PVC & Fitting',cats:['Pipa PVC','Lem Pipa','Fitting'],brands:['rucika']},
+  {id:'leaf-san-grease',type:'leaf',label:'Grease Trap',cats:['Grease Trap']},
+  {id:'leaf-san-septic',type:'leaf',label:'Septic Tank',cats:['Septic Tank','Tangki Air']},
+]},
+{id:'grp-fin',type:'group',label:'🪟 Finishing & Arsitektur',expanded:false,children:[
+  {id:'leaf-fin-pintu',type:'leaf',label:'Pintu & Kusen',cats:['Pintu KNOX']},
+  {id:'leaf-fin-atap',type:'leaf',label:'Atap & Kanopi',cats:['Atap & Kanopi']},
+  {id:'leaf-fin-glass',type:'leaf',label:'Glass Block',cats:['Glass Block']},
+  {id:'leaf-fin-keramik',type:'leaf',label:'Keramik & Granit (COTTO, Aplus)',cats:['Keramik & Granit','Fitting'],brands:['cotto','aplus']},
+  {id:'leaf-fin-aksesoris',type:'leaf',label:'Aksesori Bangunan',cats:['Building Chemistry','Aksesoris Instalasi','Teknologi Sterlyn','Anti-Rayap','Racun Tikus','Water Heater']},
+]},
+{id:'grp-alat',type:'group',label:'🛒 Alat & Aksesori',expanded:false,children:[
+  {id:'leaf-alat-gerobak',type:'leaf',label:'Gerobak Sorong',cats:['Gerobak Sorong']},
+]},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────
 let currentBrand='all';
 let currentMode='ringkas';
 let desktopMode=false;
 let searchTerm='';
+let currentTreeId='all';
+let currentCat='';
+let _catList=[];
 
-function init(){
-  const tabs=document.getElementById('brandTabs');
-  let html=`<div class="brand-tab all active" data-brand="all" onclick="filterBrand('all')">Semua (${PRODUCTS.length})</div>`;
-  BRANDS.forEach(b=>{
-    const count=PRODUCTS.filter(p=>p.brand===b.id).length;
-    html+=`<div class="brand-tab" data-brand="${b.id}" style="border-color:${b.color}20;color:${b.color}" onclick="filterBrand('${b.id}')">${b.label} (${count})</div>`;
-  });
-  tabs.innerHTML=html;
-  render();
-  document.getElementById('searchInput').addEventListener('input',e=>{
-    searchTerm=e.target.value.toLowerCase();
-    render();
-  });
+// ── TREE HELPERS ─────────────────────────────────────────────────
+function matchesLeaf(p,leaf){
+  if(!leaf.cats) return true;
+  const catOk=leaf.cats.includes(p.cat);
+  const brandOk=!leaf.brands||leaf.brands.includes(p.brand);
+  return catOk&&brandOk;
+}
+function findNode(id,nodes){
+  for(const n of nodes){
+    if(n.id===id) return n;
+    if(n.children){const f=findNode(id,n.children);if(f)return f;}
+  }
+  return null;
+}
+function matchesTree(p){
+  if(currentTreeId==='all') return true;
+  const node=findNode(currentTreeId,PRODUCT_TREE);
+  if(!node) return true;
+  if(node.type==='leaf') return matchesLeaf(p,node);
+  if(node.type==='group') return node.children.some(c=>c.type==='leaf'&&matchesLeaf(p,c));
+  return true;
+}
+function countNode(node){
+  if(node.type==='root') return PRODUCTS.length;
+  if(node.type==='leaf') return PRODUCTS.filter(p=>matchesLeaf(p,node)).length;
+  if(node.type==='group'){
+    // Deduplicate: a product might match multiple children
+    const set=new Set();
+    node.children.forEach(c=>{if(c.type==='leaf')PRODUCTS.forEach((p,i)=>{if(matchesLeaf(p,c))set.add(i);});});
+    return set.size;
+  }
+  return 0;
 }
 
+// ── TREE RENDER ──────────────────────────────────────────────────
+function renderTree(){
+  const el=document.getElementById('productTree');
+  let h='';
+  h+=`<div class="tree-all${currentTreeId==='all'?' active':''}" data-tid="all">📦 Semua Produk<span class="tree-badge">${PRODUCTS.length}</span></div>`;
+  for(const grp of PRODUCT_TREE){
+    if(grp.type!=='group') continue;
+    const cnt=countNode(grp);
+    const isOpen=grp.expanded;
+    const isGrpActive=currentTreeId===grp.id;
+    h+=`<div class="tree-group${isOpen?' open':''}" id="tg-${grp.id}">`;
+    h+=`<div class="tree-gh${isGrpActive?' group-active':''}" data-tid="${grp.id}">${grp.label}<span class="tree-badge">${cnt}</span><span class="tree-gh-chevron" data-toggle="${grp.id}">▼</span></div>`;
+    h+=`<div class="tree-children">`;
+    for(const leaf of grp.children){
+      if(leaf.type!=='leaf') continue;
+      const lc=countNode(leaf);
+      const isActive=currentTreeId===leaf.id;
+      h+=`<div class="tree-leaf${isActive?' active':''}" data-tid="${leaf.id}"><span>${leaf.label}</span><span class="tree-badge">${lc}</span></div>`;
+    }
+    h+=`</div></div>`;
+  }
+  el.innerHTML=h;
+  el.querySelectorAll('[data-tid]').forEach(el=>{
+    el.addEventListener('click',function(e){
+      const id=this.dataset.tid;
+      selectTree(id);
+    });
+  });
+  el.querySelectorAll('[data-toggle]').forEach(btn=>{
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      toggleGroup(this.dataset.toggle);
+    });
+  });
+}
+function toggleGroup(gid){
+  const grp=PRODUCT_TREE.find(g=>g.id===gid);
+  if(grp) grp.expanded=!grp.expanded;
+  const el=document.getElementById('tg-'+gid);
+  if(el) el.classList.toggle('open',grp&&grp.expanded);
+}
+function selectTree(id){
+  currentTreeId=id;
+  currentBrand='all';
+  currentCat='';
+  // Auto-expand parent group
+  PRODUCT_TREE.forEach(g=>{
+    if(g.type==='group'&&g.children&&g.children.some(c=>c.id===id)){
+      g.expanded=true;
+    }
+  });
+  // Sync brand tabs
+  document.querySelectorAll('.brand-tab').forEach(t=>t.classList.toggle('active',t.dataset.brand==='all'));
+  renderTree();
+  renderCatPills();
+  render();
+  // Close mobile sidebar
+  if(window.innerWidth<=900) document.body.classList.remove('sidebar-open');
+}
+
+// ── BRAND TABS ───────────────────────────────────────────────────
+function renderBrandTabs(){
+  const el=document.getElementById('brandTabs');
+  let h=`<div class="brand-tab all active" data-brand="all">Semua (${PRODUCTS.length})</div>`;
+  BRANDS.forEach(b=>{
+    const cnt=PRODUCTS.filter(p=>p.brand===b.id).length;
+    h+=`<div class="brand-tab" data-brand="${b.id}" style="border-color:${b.color}20;color:${b.color}">${b.label} (${cnt})</div>`;
+  });
+  el.innerHTML=h;
+  el.querySelectorAll('.brand-tab').forEach(tab=>{
+    tab.addEventListener('click',()=>filterBrand(tab.dataset.brand));
+  });
+}
 function filterBrand(id){
   currentBrand=id;
-  document.querySelectorAll('.brand-tab').forEach(t=>{
-    t.classList.toggle('active',t.dataset.brand===id);
-  });
+  currentTreeId='all';
+  currentCat='';
+  document.querySelectorAll('.brand-tab').forEach(t=>t.classList.toggle('active',t.dataset.brand===id));
+  renderTree();
+  renderCatPills();
   render();
 }
 
-function setMode(m){
-  currentMode=m;
-  document.getElementById('btnRingkas').classList.toggle('active',m==='ringkas');
-  document.getElementById('btnDetail').classList.toggle('active',m==='detail');
-  if(m==='detail'){
-    document.querySelectorAll('.card').forEach(c=>c.classList.add('open'));
-  } else {
-    document.querySelectorAll('.card').forEach(c=>c.classList.remove('open'));
-  }
+// ── CATEGORY PILLS ────────────────────────────────────────────────
+function renderCatPills(){
+  const el=document.getElementById('catPills');
+  const base=PRODUCTS.filter(p=>{
+    const tm=matchesTree(p);
+    const bm=currentTreeId!=='all'?true:(currentBrand==='all'||p.brand===currentBrand);
+    return tm&&bm;
+  });
+  const cats=[...new Set(base.map(p=>p.cat))].sort();
+  if(cats.length<=1){el.innerHTML='';return;}
+  _catList=['', ...cats];
+  let h=`<div class="cat-pill${!currentCat?' active':''}" data-ci="0">Semua (${base.length})</div>`;
+  cats.forEach((c,i)=>{
+    const cnt=base.filter(p=>p.cat===c).length;
+    h+=`<div class="cat-pill${currentCat===c?' active':''}" data-ci="${i+1}">${c} (${cnt})</div>`;
+  });
+  el.innerHTML=h;
+  el.querySelectorAll('.cat-pill').forEach(pill=>{
+    pill.addEventListener('click',()=>{
+      const ci=parseInt(pill.dataset.ci);
+      currentCat=_catList[ci]||'';
+      renderCatPills();
+      render();
+    });
+  });
+  updateTopbarH();
 }
 
-function toggleDesktop(){
-  desktopMode=!desktopMode;
-  const btn=document.getElementById('btnDesktop');
-  const grid=document.getElementById('grid');
-  btn.classList.toggle('highlight',desktopMode);
-  grid.classList.toggle('desktop-wide',desktopMode);
-  btn.textContent=desktopMode?'📱':'🖥';
+// ── HIGHLIGHT ─────────────────────────────────────────────────────
+function hl(text,term){
+  if(!term||!text) return text||'';
+  const esc=term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  return text.replace(new RegExp(esc,'gi'),m=>`<mark class="hl">${m}</mark>`);
 }
 
-function getBrandColor(brandId){
-  return BRANDS.find(b=>b.id===brandId)?.color||'#888';
-}
+// ── MAIN RENDER ───────────────────────────────────────────────────
+function getBrandColor(bid){return BRANDS.find(b=>b.id===bid)?.color||'#888';}
 
 function render(){
-  let filtered=PRODUCTS.filter(p=>{
-    const matchBrand=currentBrand==='all'||p.brand===currentBrand;
+  const filtered=PRODUCTS.filter(p=>{
+    const tm=matchesTree(p);
+    const bm=currentTreeId!=='all'?true:(currentBrand==='all'||p.brand===currentBrand);
+    const cm=!currentCat||p.cat===currentCat;
     const q=searchTerm;
-    const matchSearch=!q||
-      p.name.toLowerCase().includes(q)||
-      p.kw.toLowerCase().includes(q)||
-      p.brand.toLowerCase().includes(q)||
-      p.cat.toLowerCase().includes(q)||
-      p.sp.toLowerCase().includes(q)||
-      (p.tip&&p.tip.toLowerCase().includes(q));
-    return matchBrand&&matchSearch;
+    const sm=!q||[p.name,p.kw,p.brand,p.cat,p.sp,p.tip||''].some(s=>s.toLowerCase().includes(q));
+    return tm&&bm&&cm&&sm;
   });
 
-  document.getElementById('resultsInfo').textContent=
-    `Menampilkan ${filtered.length} dari ${PRODUCTS.length} produk${searchTerm?' — hasil pencarian: "'+searchTerm+'"':''}`;
+  // Animated counter
+  const ri=document.getElementById('resultsInfo');
+  ri.classList.add('fading');
+  setTimeout(()=>{
+    ri.textContent=`Menampilkan ${filtered.length} dari ${PRODUCTS.length} produk${searchTerm?' — "'+searchTerm+'"':''}`;
+    ri.classList.remove('fading');
+  },150);
 
   const grid=document.getElementById('grid');
   if(filtered.length===0){
     grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><div class="empty-text">Produk tidak ditemukan. Coba kata kunci lain.</div></div>`;
     return;
   }
-
+  const q=searchTerm;
   grid.innerHTML=filtered.map((p,i)=>{
     const color=getBrandColor(p.brand);
     const isOpen=currentMode==='detail';
@@ -651,31 +986,25 @@ function render(){
       if(b==='bun') return '<span class="badge badge-bun">🔗 BUNDLING</span>';
       return '';
     }).join('');
-
+    const kwHtml=p.kw.split('·').map(k=>`<span style="color:${color};opacity:.8">◆</span> ${hl(k.trim(),q)}`).join(' ');
     return `
-<div class="card${isOpen?' open':''}" id="card-${i}">
+<div class="card${isOpen?' open':''}" id="card-${i}" data-cat="${p.cat}" data-brand="${p.brand}">
   <div class="card-accent" style="background:${color}"></div>
   <div class="card-top" onclick="toggleCard(${i})">
     <div class="card-icon">${p.icon}</div>
     <div class="card-main">
       <div class="card-sub">${p.brand.toUpperCase()} · ${p.cat}</div>
-      <div class="card-name">${p.name}</div>
+      <div class="card-name">${hl(p.name,q)}</div>
       <div class="badges">${badgeHtml}</div>
-      <div class="card-kw" style="margin-top:5px">${p.kw.split('·').map(k=>`<span style="color:${color};opacity:.85">◆</span> ${k.trim()}`).join(' ')}</div>
+      <div class="card-kw">${kwHtml}</div>
     </div>
     <div class="card-chevron">▼</div>
   </div>
   <div class="card-detail">
     <div class="detail-sp">${p.sp}</div>
     <div class="detail-grid">
-      <div class="detail-item">
-        <div class="detail-label">Target Market</div>
-        <div class="detail-val">${p.target||'-'}</div>
-      </div>
-      <div class="detail-item">
-        <div class="detail-label">Channel</div>
-        <div class="detail-val">${p.channel||'-'}</div>
-      </div>
+      <div class="detail-item"><div class="detail-label">Target Market</div><div class="detail-val">${p.target||'-'}</div></div>
+      <div class="detail-item"><div class="detail-label">Channel</div><div class="detail-val">${p.channel||'-'}</div></div>
     </div>
     ${p.tip?`<div class="detail-tip" style="border-color:${color}"><strong>💡 Tips Lapangan:</strong> ${p.tip}</div>`:''}
     ${p.warn?`<div class="detail-warn">⚠️ ${p.warn}</div>`:''}
@@ -684,9 +1013,67 @@ function render(){
   }).join('');
 }
 
-function toggleCard(i){
-  const card=document.getElementById('card-'+i);
-  card.classList.toggle('open');
+function toggleCard(i){document.getElementById('card-'+i)?.classList.toggle('open');}
+
+// ── UI CONTROLS ───────────────────────────────────────────────────
+function setMode(m){
+  currentMode=m;
+  document.getElementById('btnRingkas').classList.toggle('active',m==='ringkas');
+  document.getElementById('btnDetail').classList.toggle('active',m==='detail');
+  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('open',m==='detail'));
+}
+function toggleDesktop(){
+  desktopMode=!desktopMode;
+  const btn=document.getElementById('btnDesktop');
+  const grid=document.getElementById('grid');
+  btn.classList.toggle('highlight',desktopMode);
+  grid.classList.toggle('desktop-wide',desktopMode);
+  btn.textContent=desktopMode?'📱':'🖥';
+}
+function toggleSidebar(){
+  document.body.classList.toggle('sidebar-open');
+}
+
+// ── TOPBAR HEIGHT ─────────────────────────────────────────────────
+function updateTopbarH(){
+  const h=document.getElementById('topbar').offsetHeight;
+  const sb=document.getElementById('sidebar');
+  sb.style.top=h+'px';
+  sb.style.height=(window.innerHeight-h)+'px';
+}
+
+// ── SCROLL TO TOP ─────────────────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>320);
+});
+
+// ── KEYBOARD SHORTCUT ─────────────────────────────────────────────
+document.addEventListener('keydown',e=>{
+  if(e.key==='/'&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){
+    e.preventDefault();
+    document.getElementById('searchInput').focus();
+  }
+  if(e.key==='Escape'){
+    document.getElementById('searchInput').blur();
+    document.body.classList.remove('sidebar-open');
+  }
+});
+
+// ── INIT ──────────────────────────────────────────────────────────
+function init(){
+  renderBrandTabs();
+  renderTree();
+  renderCatPills();
+  render();
+
+  document.getElementById('searchInput').addEventListener('input',e=>{
+    searchTerm=e.target.value.toLowerCase().trim();
+    renderCatPills();
+    render();
+  });
+
+  updateTopbarH();
+  window.addEventListener('resize',updateTopbarH);
 }
 
 init();
