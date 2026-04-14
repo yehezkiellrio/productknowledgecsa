@@ -3,195 +3,154 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0F0F13">
+<meta name="theme-color" content="#0A0A0F">
 <title>CSA Product Knowledge</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
---bg:#0F0F13;--bg2:#16161C;--bg3:#1E1E26;--card:#1A1A22;
---border:#2A2A36;--border2:#3A3A48;
---text:#E8E8F0;--text2:#9898B0;--text3:#686880;
---radius:12px;--radius-sm:8px;
---accent:#22C997;--accent2:#4A9EFF;--danger:#FF4444;
---franco:#FF4444;--mowilex:#22C997;--volk:#4A9EFF;
---sterlyn:#FF8C42;--bayer:#4CAF50;--cotto:#5B9BD5;
---dos:#26BFA8;--rucika:#FF6B35;--kansai:#E84040;
---drymix:#C4976A;--arsi:#A855F7;
---mu:#F5A623;--duratruss:#607D8B;--knauf:#FF6F00;--aplus:#00BCD4;--blesscon:#795548;
---sidebar-w:258px;
+--bg:#0A0A0F;--bg2:#111118;--bg3:#191922;--card:#13131B;
+--border:#222233;--border2:#333348;--border3:#44445A;
+--text:#EEEEF5;--text2:#9999B5;--text3:#666680;
+--radius:14px;--radius-sm:10px;
+--accent:#00E09E;--accent2:#5B8DEF;--danger:#FF4466;
+--franco:#FF4444;--mowilex:#00E09E;--volk:#5B8DEF;--sterlyn:#FF8C42;--bayer:#4CAF50;--cotto:#5B9BD5;--dos:#26BFA8;--rucika:#FF6B35;--kansai:#E84040;--drymix:#C4976A;--arsi:#A855F7;--mu:#F5A623;--duratruss:#607D8B;--knauf:#FF6F00;--aplus:#00BCD4;--blesscon:#795548;
+--sidebar-w:260px;--ease:cubic-bezier(.4,0,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh;overflow-x:hidden}
-
-/* TOPBAR */
-.topbar{position:sticky;top:0;z-index:200;background:rgba(15,15,19,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 16px}
-.topbar-inner{display:flex;flex-direction:column;gap:8px}
-.topbar-row1{display:flex;align-items:center;gap:8px}
-.app-title{font-size:12px;font-weight:700;color:var(--text2);letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
-.btn-menu{background:var(--bg3);border:1px solid var(--border);color:var(--text2);width:34px;height:34px;border-radius:var(--radius-sm);font-size:15px;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden}
+.topbar{position:sticky;top:0;z-index:200;background:rgba(10,10,15,0.92);backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid var(--border);padding:12px 16px}
+.topbar-inner{display:flex;flex-direction:column;gap:10px}
+.topbar-row1{display:flex;align-items:center;gap:10px}
+.app-title{font-size:13px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap}
+.btn-menu{background:var(--bg3);border:1px solid var(--border);color:var(--text2);width:36px;height:36px;border-radius:var(--radius-sm);font-size:15px;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s var(--ease)}
 .btn-menu:hover{background:var(--border2);color:var(--text)}
 .search-wrap{flex:1;min-width:120px;position:relative}
-.search-wrap input{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 14px 8px 34px;border-radius:var(--radius-sm);font-size:13px;font-family:'Space Grotesk',sans-serif;outline:none;transition:border-color .2s}
-.search-wrap input:focus{border-color:var(--accent)}
+.search-wrap input{width:100%;background:var(--bg3);border:1.5px solid var(--border);color:var(--text);padding:9px 14px 9px 36px;border-radius:var(--radius-sm);font-size:13px;font-family:'Outfit',sans-serif;outline:none;transition:all .25s var(--ease)}
+.search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,224,158,0.1)}
 .search-wrap input::placeholder{color:var(--text3)}
-.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--text3);pointer-events:none}
+.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text3);pointer-events:none}
 .topbar-btns{display:flex;gap:5px;flex-shrink:0}
-.btn-mode{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:7px 11px;border-radius:var(--radius-sm);font-size:11px;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;white-space:nowrap;transition:all .2s;letter-spacing:.5px}
-.btn-mode:hover,.btn-mode.active{background:var(--border2);color:var(--text)}
-.btn-mode.accent{background:var(--accent)20;border-color:var(--accent);color:var(--accent)}
-.btn-mode.danger{background:var(--danger)15;border-color:var(--danger)60;color:#FF8080}
-
-/* BRAND TABS */
+.btn-mode{background:var(--bg3);border:1.5px solid var(--border);color:var(--text2);padding:7px 12px;border-radius:var(--radius-sm);font-size:11px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;white-space:nowrap;transition:all .2s var(--ease)}
+.btn-mode:hover{background:var(--border);color:var(--text)}
+.btn-mode.active{background:var(--border2);color:var(--text);border-color:var(--border2)}
+.btn-mode.accent{background:rgba(0,224,158,0.12);border-color:var(--accent);color:var(--accent)}
 .brand-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
 .brand-tabs::-webkit-scrollbar{display:none}
-.brand-tab{flex-shrink:0;padding:5px 11px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all .2s;letter-spacing:.3px;white-space:nowrap}
-.brand-tab.all{background:var(--bg3);border-color:var(--border2);color:var(--text)}
-.brand-tab.all.active{background:var(--text);color:var(--bg)}
-
-/* CAT PILLS */
-.cat-pills{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding-bottom:1px}
+.brand-tab{flex-shrink:0;padding:6px 13px;border-radius:50px;font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all .2s var(--ease);white-space:nowrap}
+.brand-tab:hover{background:var(--bg3)}
+.brand-tab.all{background:var(--bg3);border-color:var(--border);color:var(--text2)}
+.brand-tab.all.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.cat-pills{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none}
 .cat-pills::-webkit-scrollbar{display:none}
 .cat-pills:empty{display:none}
-.cat-pill{flex-shrink:0;padding:4px 10px;border-radius:14px;font-size:10px;font-weight:600;cursor:pointer;background:var(--bg3);border:1px solid var(--border);color:var(--text3);transition:all .2s;white-space:nowrap;font-family:'DM Mono',monospace}
+.cat-pill{flex-shrink:0;padding:4px 11px;border-radius:50px;font-size:10px;font-weight:600;cursor:pointer;border:1px solid var(--border);color:var(--text3);transition:all .2s var(--ease);white-space:nowrap;font-family:'JetBrains Mono',monospace}
 .cat-pill:hover{border-color:var(--border2);color:var(--text2)}
 .cat-pill.active{background:var(--border2);color:var(--text);border-color:var(--border2)}
-
-/* LAYOUT */
 .layout{display:flex}
-
-/* SIDEBAR */
-.sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--border) transparent;position:fixed;left:0;z-index:150;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;position:fixed;left:0;z-index:150;transition:transform .3s var(--ease)}
 .sidebar::-webkit-scrollbar{width:3px}
 .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.sidebar-header{padding:14px 12px 6px;font-size:9px;font-weight:700;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;font-family:'DM Mono',monospace}
-
-/* TREE */
-.tree-root{padding:0 6px 12px}
-.tree-all{display:flex;align-items:center;justify-content:space-between;padding:7px 8px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;font-weight:700;color:var(--text2);transition:all .15s;margin-bottom:3px;gap:6px}
+.sidebar-header{padding:16px 14px 8px;font-size:9px;font-weight:700;color:var(--text3);letter-spacing:2px;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.tree-root{padding:0 8px 16px}
+.tree-all{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;font-weight:700;color:var(--text2);transition:all .15s;margin-bottom:4px;gap:6px}
 .tree-all:hover,.tree-all.active{background:var(--bg3);color:var(--text)}
 .tree-group{margin-bottom:2px}
-.tree-gh{display:flex;align-items:center;padding:6px 8px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;font-weight:700;color:var(--text2);transition:all .15s;user-select:none;gap:6px}
+.tree-gh{display:flex;align-items:center;padding:7px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;font-weight:600;color:var(--text2);transition:all .15s;user-select:none;gap:6px}
 .tree-gh:hover,.tree-gh.group-active{background:var(--bg3);color:var(--text)}
-.tree-gh-chevron{margin-left:auto;font-size:9px;color:var(--text3);transition:transform .2s;flex-shrink:0;width:14px;text-align:center}
+.tree-gh-chevron{margin-left:auto;font-size:9px;color:var(--text3);transition:transform .25s var(--ease);flex-shrink:0;width:14px;text-align:center}
 .tree-group.open>.tree-gh>.tree-gh-chevron{transform:rotate(180deg)}
-.tree-children{display:none;padding-left:8px;padding-bottom:2px}
+.tree-children{display:none;padding-left:10px}
 .tree-group.open>.tree-children{display:block}
-.tree-leaf{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;border-radius:var(--radius-sm);cursor:pointer;font-size:11px;color:var(--text3);transition:all .15s;gap:6px;user-select:none}
-.tree-leaf:hover,.tree-leaf.active{background:var(--bg3);color:var(--text2)}
-.tree-leaf.active{color:var(--text)}
-.tree-badge{font-size:9px;font-family:'DM Mono',monospace;background:var(--bg);border:1px solid var(--border);color:var(--text3);padding:1px 5px;border-radius:8px;flex-shrink:0;min-width:24px;text-align:center}
-
-/* SIDEBAR OVERLAY */
-.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:140;backdrop-filter:blur(2px)}
+.tree-leaf{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:11px;color:var(--text3);transition:all .15s;gap:6px;user-select:none}
+.tree-leaf:hover,.tree-leaf.active{background:var(--bg3);color:var(--text)}
+.tree-badge{font-size:9px;font-family:'JetBrains Mono',monospace;background:var(--bg);border:1px solid var(--border);color:var(--text3);padding:2px 6px;border-radius:50px;flex-shrink:0;min-width:24px;text-align:center;font-weight:600}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:140;backdrop-filter:blur(4px)}
 body.sidebar-open .sidebar-overlay{display:block}
 body.sidebar-open .sidebar{transform:translateX(0)!important}
-
-/* MAIN */
-.main-content{flex:1;min-width:0;padding:14px}
-.results-info{font-size:11px;color:var(--text2);margin-bottom:12px;font-family:'DM Mono',monospace;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-
-/* GRID */
-.grid{display:grid;gap:10px;grid-template-columns:1fr}
-
-/* CARD */
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .2s;position:relative}
-.card:hover{border-color:var(--border2)}
-.card-accent{height:3px;width:100%}
-.card-img-wrap{width:100%;background:var(--bg3);overflow:hidden;position:relative;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center}
-.card-img-wrap img{width:100%;height:auto;display:block;transition:transform .3s}
-.card:hover .card-img-wrap img{transform:scale(1.03)}
-.card-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;opacity:.3}
-.card-img-upload{position:absolute;bottom:6px;right:6px;background:rgba(15,15,19,.85);border:1px solid var(--border2);color:var(--text);padding:4px 10px;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;display:none;transition:all .2s;font-family:'Space Grotesk',sans-serif;backdrop-filter:blur(4px)}
-.card-img-upload:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.main-content{flex:1;min-width:0;padding:16px}
+.results-info{font-size:11px;color:var(--text3);margin-bottom:14px;font-family:'JetBrains Mono',monospace}
+.grid{display:grid;gap:12px;grid-template-columns:1fr}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .3s var(--ease);position:relative;animation:cardIn .4s var(--ease) both}
+.card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.card-accent{height:3px;width:100%;opacity:.8}
+.card-img-wrap{width:100%;background:var(--bg3);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border)}
+.card-img-wrap img{width:100%;height:auto;display:block;transition:transform .4s var(--ease)}
+.card:hover .card-img-wrap img{transform:scale(1.04)}
+.card-img-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,var(--card));pointer-events:none}
+.card-img-placeholder{width:100%;padding:28px 0;display:flex;align-items:center;justify-content:center;font-size:42px;opacity:.2}
+.card-img-upload{position:absolute;bottom:8px;right:8px;z-index:2;background:rgba(10,10,15,.85);border:1px solid var(--border2);color:var(--text);padding:5px 12px;border-radius:50px;font-size:10px;font-weight:600;cursor:pointer;display:none;transition:all .2s;font-family:'Outfit',sans-serif;backdrop-filter:blur(8px)}
+.card-img-upload:hover{background:var(--accent);border-color:var(--accent);color:#000}
 body.admin-mode .card-img-upload{display:flex;align-items:center;gap:4px}
-.card-top{padding:12px 14px;cursor:pointer;display:flex;align-items:flex-start;gap:10px}
-.card-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.card-top{padding:14px 16px;cursor:pointer;display:flex;align-items:flex-start;gap:10px}
+.card-icon{font-size:22px;flex-shrink:0;margin-top:1px}
 .card-main{flex:1;min-width:0}
-.card-sub{font-size:10px;color:var(--text2);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
-.card-name{font-size:13px;font-weight:700;line-height:1.3;color:var(--text);margin:2px 0}
-.badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px}
-.badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.5px;font-family:'DM Mono',monospace;white-space:nowrap}
-.badge-bs{background:#FFD70020;color:#FFD700;border:1px solid #FFD70040}
-.badge-bun{background:#22C99720;color:#22C997;border:1px solid #22C99740}
-.card-kw{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;line-height:1.4;margin-top:4px}
-.card-chevron{font-size:12px;color:var(--text3);flex-shrink:0;transition:transform .2s;margin-top:3px}
+.card-sub{font-size:10px;color:var(--text3);font-weight:600;letter-spacing:.8px;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.card-name{font-size:14px;font-weight:700;line-height:1.3;color:var(--text);margin:3px 0}
+.badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
+.badge{font-size:9px;font-weight:700;padding:3px 8px;border-radius:50px;font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.badge-bs{background:rgba(255,215,0,0.1);color:#FFD700;border:1px solid rgba(255,215,0,0.25)}
+.badge-bun{background:rgba(0,224,158,0.1);color:var(--accent);border:1px solid rgba(0,224,158,0.25)}
+.card-kw{font-size:11px;color:var(--text2);font-family:'JetBrains Mono',monospace;line-height:1.5;margin-top:5px}
+.card-chevron{font-size:11px;color:var(--text3);flex-shrink:0;transition:transform .25s var(--ease);margin-top:4px}
 .card.open .card-chevron{transform:rotate(180deg)}
-.card-detail{display:none;padding:0 14px 14px;border-top:1px solid var(--border)}
-.card.open .card-detail{display:block}
-.detail-sp{font-size:12px;color:var(--text);line-height:1.6;margin-bottom:10px;padding-top:10px}
-.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
-.detail-item{background:var(--bg3);border-radius:var(--radius-sm);padding:7px 9px}
-.detail-label{font-size:9px;font-weight:700;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;font-family:'DM Mono',monospace}
-.detail-val{font-size:11px;color:var(--text);line-height:1.4}
-.detail-tip{background:var(--bg3);border-left:3px solid;border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:8px 10px;font-size:11px;color:var(--text);line-height:1.5;margin-top:4px}
-.detail-warn{background:#FF444410;border:1px solid #FF444430;border-radius:var(--radius-sm);padding:7px 10px;font-size:11px;color:#FF9090;margin-top:6px;line-height:1.4}
-.card-admin-bar{display:none;padding:8px 14px;border-top:1px solid var(--border);gap:6px}
+.card-detail{display:none;padding:0 16px 16px;border-top:1px solid var(--border)}
+.card.open .card-detail{display:block;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.detail-sp{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:12px;padding-top:12px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.detail-item{background:var(--bg3);border-radius:var(--radius-sm);padding:10px 12px;border:1px solid var(--border)}
+.detail-label{font-size:9px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;font-family:'JetBrains Mono',monospace}
+.detail-val{font-size:12px;color:var(--text);line-height:1.4}
+.detail-tip{background:var(--bg3);border-left:3px solid;border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:10px 12px;font-size:12px;color:var(--text);line-height:1.6;margin-top:6px}
+.detail-warn{background:rgba(255,68,102,0.06);border:1px solid rgba(255,68,102,0.2);border-radius:var(--radius-sm);padding:10px 12px;font-size:12px;color:#FF8899;margin-top:8px;line-height:1.5}
+.card-admin-bar{display:none;padding:10px 16px;border-top:1px solid var(--border);gap:8px}
 body.admin-mode .card-admin-bar{display:flex}
-.btn-card-action{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:4px 10px;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all .15s}
-.btn-card-action:hover{background:var(--border2);color:var(--text)}
-.btn-card-action.del{color:#FF8080;border-color:#FF444430}
-.btn-card-action.del:hover{background:#FF444420;border-color:#FF4444}
-
-mark.hl{background:#FFD70030;color:#FFD700;border-radius:2px;padding:0 1px}
-
-.empty{text-align:center;padding:60px 20px;color:var(--text2)}
-.empty-icon{font-size:40px;margin-bottom:10px}
-.empty-text{font-size:14px}
-
-/* SCROLL TOP */
-.scroll-top{position:fixed;bottom:22px;right:22px;z-index:400;width:38px;height:38px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:0;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.btn-card-action{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:5px 12px;border-radius:50px;font-size:10px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .15s}
+.btn-card-action:hover{background:var(--border);color:var(--text)}
+.btn-card-action.del{color:#FF8899;border-color:rgba(255,68,102,0.25)}
+.btn-card-action.del:hover{background:rgba(255,68,102,0.15)}
+mark.hl{background:rgba(255,215,0,0.2);color:#FFD700;border-radius:3px;padding:0 2px}
+.empty{text-align:center;padding:80px 20px;color:var(--text3)}
+.empty-icon{font-size:48px;margin-bottom:12px;opacity:.5}
+.empty-text{font-size:15px;font-weight:500}
+.scroll-top{position:fixed;bottom:24px;right:24px;z-index:400;width:40px;height:40px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;opacity:0;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.5)}
 .scroll-top.visible{opacity:1;pointer-events:all}
-.scroll-top:hover{background:var(--border2);color:var(--text)}
-
-/* MODAL OVERLAY */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(4px);padding:16px}
+.scroll-top:hover{background:var(--accent);border-color:var(--accent);color:#000;transform:translateY(-2px)}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(6px);padding:16px}
 .modal-overlay.show{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);width:100%;max-width:540px;max-height:90vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;animation:modalIn .2s ease}
-@keyframes modalIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.modal-head{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:2}
-.modal-title{font-size:15px;font-weight:700;color:var(--text)}
-.modal-close{background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;padding:4px;transition:color .2s}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);width:100%;max-width:540px;max-height:90vh;overflow-y:auto;scrollbar-width:thin;animation:modalIn .25s var(--ease)}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-head{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:2}
+.modal-title{font-size:16px;font-weight:700}
+.modal-close{background:none;border:none;color:var(--text3);font-size:22px;cursor:pointer;padding:4px;transition:color .2s;line-height:1}
 .modal-close:hover{color:var(--text)}
-.modal-body{padding:18px}
-
-/* FORM */
-.form-group{margin-bottom:14px}
-.form-label{display:block;font-size:11px;font-weight:700;color:var(--text2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;font-family:'DM Mono',monospace}
-.form-input,.form-select,.form-textarea{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:var(--radius-sm);font-size:13px;font-family:'Space Grotesk',sans-serif;outline:none;transition:border-color .2s}
-.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent)}
-.form-select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239898B0'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.modal-body{padding:20px}
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--bg3);border:1.5px solid var(--border);color:var(--text);padding:10px 14px;border-radius:var(--radius-sm);font-size:13px;font-family:'Outfit',sans-serif;outline:none;transition:all .2s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,224,158,0.08)}
+.form-select{cursor:pointer;appearance:none}
 .form-select option{background:var(--bg2);color:var(--text)}
 .form-textarea{resize:vertical;min-height:80px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.form-check{display:flex;gap:8px;flex-wrap:wrap}
-.form-check label{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--text2);cursor:pointer}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-check{display:flex;gap:10px;flex-wrap:wrap}
+.form-check label{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text2);cursor:pointer;font-weight:500}
 .form-check input{accent-color:var(--accent)}
-.btn-submit{background:var(--accent);border:none;color:#fff;padding:10px 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:700;cursor:pointer;font-family:'Space Grotesk',sans-serif;width:100%;transition:all .2s;letter-spacing:.5px}
-.btn-submit:hover{filter:brightness(1.1)}
-.btn-submit:disabled{opacity:.5;cursor:not-allowed}
-
-/* PIN MODAL */
-.pin-input{text-align:center;font-size:28px;letter-spacing:12px;font-family:'DM Mono',monospace;padding:14px;background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);color:var(--accent);width:200px;margin:0 auto;display:block}
-.pin-input:focus{border-color:var(--accent)}
-.pin-error{color:var(--danger);font-size:12px;text-align:center;margin-top:8px;min-height:18px}
-.pin-hint{color:var(--text3);font-size:11px;text-align:center;margin-top:12px}
-
-/* LOADING */
-.loading-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:999;transition:width .3s;border-radius:0 2px 2px 0}
-
-/* ADMIN FLOATING */
-.admin-fab{position:fixed;bottom:22px;left:22px;z-index:400;background:var(--accent);color:#fff;border:none;padding:10px 16px;border-radius:50px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Space Grotesk',sans-serif;display:none;align-items:center;gap:6px;box-shadow:0 4px 20px rgba(34,201,151,.3);transition:all .2s}
+.btn-submit{background:linear-gradient(135deg,var(--accent),#00C488);border:none;color:#000;padding:12px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;width:100%;transition:all .2s}
+.btn-submit:hover{filter:brightness(1.1);box-shadow:0 4px 20px rgba(0,224,158,0.25)}
+.btn-submit:disabled{opacity:.4;cursor:not-allowed}
+.pin-input{text-align:center;font-size:28px;letter-spacing:8px;font-family:'JetBrains Mono',monospace;padding:14px;background:var(--bg);border:2px solid var(--border);border-radius:var(--radius);color:var(--accent);width:220px;margin:0 auto;display:block;transition:all .2s}
+.pin-input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(0,224,158,0.1)}
+.pin-error{color:var(--danger);font-size:12px;text-align:center;margin-top:8px;min-height:18px;font-weight:500}
+.loading-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:999;transition:width .3s;border-radius:0 3px 3px 0}
+.admin-fab{position:fixed;bottom:24px;left:24px;z-index:400;background:linear-gradient(135deg,var(--accent),#00C488);color:#000;border:none;padding:12px 20px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;display:none;align-items:center;gap:6px;box-shadow:0 4px 24px rgba(0,224,158,0.3);transition:all .25s}
 body.admin-mode .admin-fab{display:flex}
-.admin-fab:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(34,201,151,.4)}
-
-/* TOAST */
-.toast{position:fixed;top:20px;right:20px;z-index:600;background:var(--bg2);border:1px solid var(--accent);color:var(--text);padding:12px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.4);animation:toastIn .3s ease;display:none}
-.toast.show{display:block}
-.toast.error{border-color:var(--danger)}
+.admin-fab:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,224,158,0.4)}
+.toast{position:fixed;top:20px;right:20px;z-index:600;background:var(--bg2);border:1px solid var(--accent);color:var(--text);padding:14px 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;box-shadow:0 8px 40px rgba(0,0,0,.5);animation:toastIn .3s;display:none}
+.toast.show{display:block}.toast.error{border-color:var(--danger)}
 @keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-
-/* RESPONSIVE */
 @media(min-width:768px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1100px){.grid.desktop-wide{grid-template-columns:repeat(3,1fr)}}
 @media(min-width:1400px){.grid.desktop-wide{grid-template-columns:repeat(4,1fr)}}
@@ -200,729 +159,84 @@ body.admin-mode .admin-fab{display:flex}
 </style>
 </head>
 <body>
-
-<!-- LOADING BAR -->
 <div class="loading-bar" id="loadingBar" style="width:0%"></div>
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
-
-<!-- TOPBAR -->
-<div class="topbar" id="topbar">
-  <div class="topbar-inner">
-    <div class="topbar-row1">
-      <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
-      <div class="app-title">📋 CSA Product Knowledge</div>
-      <div class="search-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="search" id="searchInput" placeholder="Cari produk, brand, keyword…">
-      </div>
-      <div class="topbar-btns">
-        <button class="btn-mode active" id="btnRingkas" onclick="setMode('ringkas')">Ringkas</button>
-        <button class="btn-mode" id="btnDetail" onclick="setMode('detail')">Detail</button>
-        <button class="btn-mode" id="btnDesktop" onclick="toggleDesktop()">🖥</button>
-        <button class="btn-mode" id="btnAdmin" onclick="handleAdminBtn()">🔐</button>
-      </div>
-    </div>
-    <div class="brand-tabs" id="brandTabs"></div>
-    <div class="cat-pills" id="catPills"></div>
-  </div>
-</div>
-
+<div class="topbar" id="topbar"><div class="topbar-inner"><div class="topbar-row1">
+<button class="btn-menu" onclick="toggleSidebar()">☰</button>
+<div class="app-title">CSA Product Knowledge</div>
+<div class="search-wrap"><span class="search-icon">🔍</span><input type="search" id="searchInput" placeholder="Cari produk, brand, keyword…"></div>
+<div class="topbar-btns">
+<button class="btn-mode active" id="btnRingkas" onclick="setMode('ringkas')">Ringkas</button>
+<button class="btn-mode" id="btnDetail" onclick="setMode('detail')">Detail</button>
+<button class="btn-mode" id="btnDesktop" onclick="toggleDesktop()">🖥</button>
+<button class="btn-mode" id="btnAdmin" onclick="handleAdminBtn()">🔐</button>
+</div></div>
+<div class="brand-tabs" id="brandTabs"></div>
+<div class="cat-pills" id="catPills"></div>
+</div></div>
 <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
-
 <div class="layout">
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">Navigasi Produk</div>
-    <div class="tree-root" id="productTree"></div>
-  </aside>
-  <div class="main-content">
-    <div class="results-info" id="resultsInfo"></div>
-    <div class="grid" id="grid"></div>
-  </div>
+<aside class="sidebar" id="sidebar"><div class="sidebar-header">Navigasi Produk</div><div class="tree-root" id="productTree"></div></aside>
+<div class="main-content"><div class="results-info" id="resultsInfo"></div><div class="grid" id="grid"></div></div>
 </div>
-
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-
-<!-- ADD PRODUCT FAB -->
 <button class="admin-fab" onclick="openProductForm()">＋ Tambah Produk</button>
-
-<!-- PIN MODAL -->
-<div class="modal-overlay" id="pinModal">
-  <div class="modal" style="max-width:360px">
-    <div class="modal-head">
-      <div class="modal-title">🔐 Admin Login</div>
-      <button class="modal-close" onclick="closeModal('pinModal')">&times;</button>
-    </div>
-    <div class="modal-body" style="text-align:center">
-      <p style="color:var(--text2);font-size:13px;margin-bottom:16px">Masukkan PIN untuk akses editor</p>
-      <input type="password" class="pin-input" id="pinInput" maxlength="10" placeholder="••••" autofocus>
-      <div class="pin-error" id="pinError"></div>
-      <button class="btn-submit" style="margin-top:16px;width:200px" onclick="verifyPin()">Masuk</button>
-      <div class="pin-hint">PIN default: 1234</div>
-    </div>
-  </div>
-</div>
-
-<!-- PRODUCT FORM MODAL -->
-<div class="modal-overlay" id="productModal">
-  <div class="modal">
-    <div class="modal-head">
-      <div class="modal-title" id="formTitle">Tambah Produk</div>
-      <button class="modal-close" onclick="closeModal('productModal')">&times;</button>
-    </div>
-    <div class="modal-body">
-      <input type="hidden" id="editId">
-      <div class="form-group">
-        <label class="form-label">Brand</label>
-        <select class="form-select" id="fBrand"></select>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Kategori</label>
-          <input class="form-input" id="fCat" placeholder="e.g. Cat Interior">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Icon (emoji)</label>
-          <input class="form-input" id="fIcon" placeholder="🎨" maxlength="4">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Nama Produk</label>
-        <input class="form-input" id="fName" placeholder="Nama produk…">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Keywords (pisah pakai ·)</label>
-        <input class="form-input" id="fKw" placeholder="Keyword 1 · Keyword 2 · Keyword 3">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Selling Points</label>
-        <textarea class="form-textarea" id="fSp" placeholder="Deskripsi selling points…"></textarea>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Target Market</label>
-          <input class="form-input" id="fTarget" placeholder="e.g. Kontraktor, developer">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Channel</label>
-          <input class="form-input" id="fChannel" placeholder="e.g. GT / MT / Proyek">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Tips Lapangan</label>
-        <textarea class="form-textarea" id="fTip" placeholder="Tips jualan di lapangan…" style="min-height:60px"></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Warning / Peringatan</label>
-        <input class="form-input" id="fWarn" placeholder="(opsional)">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Badges</label>
-        <div class="form-check">
-          <label><input type="checkbox" id="fBadgeBs" value="bs"> 🔥 Best Seller</label>
-          <label><input type="checkbox" id="fBadgeBun" value="bun"> 🔗 Bundling</label>
-        </div>
-      </div>
-      <button class="btn-submit" id="btnSaveProduct" onclick="saveProduct()">Simpan Produk</button>
-    </div>
-  </div>
-</div>
-
-<!-- HIDDEN FILE INPUT FOR IMAGE UPLOAD -->
+<div class="modal-overlay" id="pinModal"><div class="modal" style="max-width:380px"><div class="modal-head"><div class="modal-title">🔐 Admin Login</div><button class="modal-close" onclick="closeModal('pinModal')">&times;</button></div><div class="modal-body" style="text-align:center"><p style="color:var(--text2);font-size:13px;margin-bottom:18px">Masukkan PIN untuk akses editor</p><input type="password" class="pin-input" id="pinInput" maxlength="10" placeholder="••••"><div class="pin-error" id="pinError"></div><button class="btn-submit" style="margin-top:18px;width:220px" onclick="verifyPin()">Masuk</button></div></div></div>
+<div class="modal-overlay" id="productModal"><div class="modal"><div class="modal-head"><div class="modal-title" id="formTitle">Tambah Produk</div><button class="modal-close" onclick="closeModal('productModal')">&times;</button></div><div class="modal-body">
+<input type="hidden" id="editId">
+<div class="form-group"><label class="form-label">Brand</label><select class="form-select" id="fBrand"></select></div>
+<div class="form-row"><div class="form-group"><label class="form-label">Kategori</label><input class="form-input" id="fCat" placeholder="e.g. Cat Interior"></div><div class="form-group"><label class="form-label">Icon</label><input class="form-input" id="fIcon" placeholder="🎨" maxlength="4"></div></div>
+<div class="form-group"><label class="form-label">Nama Produk</label><input class="form-input" id="fName" placeholder="Nama produk…"></div>
+<div class="form-group"><label class="form-label">Keywords (pisah ·)</label><input class="form-input" id="fKw" placeholder="Keyword 1 · Keyword 2"></div>
+<div class="form-group"><label class="form-label">Selling Points</label><textarea class="form-textarea" id="fSp" placeholder="Deskripsi…"></textarea></div>
+<div class="form-row"><div class="form-group"><label class="form-label">Target</label><input class="form-input" id="fTarget" placeholder="Kontraktor, developer"></div><div class="form-group"><label class="form-label">Channel</label><input class="form-input" id="fChannel" placeholder="GT / MT / Proyek"></div></div>
+<div class="form-group"><label class="form-label">Tips Lapangan</label><textarea class="form-textarea" id="fTip" placeholder="Tips jualan…" style="min-height:60px"></textarea></div>
+<div class="form-group"><label class="form-label">Warning</label><input class="form-input" id="fWarn" placeholder="(opsional)"></div>
+<div class="form-group"><label class="form-label">Badges</label><div class="form-check"><label><input type="checkbox" id="fBadgeBs" value="bs"> 🔥 Best Seller</label><label><input type="checkbox" id="fBadgeBun" value="bun"> 🔗 Bundling</label></div></div>
+<button class="btn-submit" id="btnSaveProduct" onclick="saveProduct()">Simpan Produk</button>
+</div></div></div>
 <input type="file" id="imgUpload" accept="image/jpeg,image/png,image/webp" style="display:none">
-
 <script>
-// ═══════════════════════════════════════════════════════════════
-// SUPABASE CONFIG
-// ═══════════════════════════════════════════════════════════════
-const SUPABASE_URL = 'https://viwyrdoqqrrvvkdwdhkq.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpd3lyZG9xcXJydnZrZHdkaGtxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNjY2MzQsImV4cCI6MjA5MTc0MjYzNH0.fqg9n8srg2Rv-iWXaf2ZuVgBL9cjTxaubHZqqQzcPO0';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// ═══════════════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════════════
-let BRANDS = [];
-let PRODUCTS = [];
-let currentBrand = 'all';
-let currentMode = 'ringkas';
-let desktopMode = false;
-let searchTerm = '';
-let currentTreeId = 'all';
-let currentCat = '';
-let _catList = [];
-let isAdmin = false;
-let uploadTargetProductId = null;
-
-// ═══════════════════════════════════════════════════════════════
-// PRODUCT TREE (navigation structure - kept client-side)
-// ═══════════════════════════════════════════════════════════════
-const PRODUCT_TREE=[
-{id:'all',type:'root',label:'📦 Semua Produk'},
-{id:'grp-cat',type:'group',label:'🎨 Cat & Coating',expanded:true,children:[
-  {id:'leaf-cat-int',type:'leaf',label:'Cat Interior',cats:['Cat Interior']},
-  {id:'leaf-cat-ext',type:'leaf',label:'Cat Eksterior',cats:['Cat Eksterior']},
-  {id:'leaf-cat-kayu',type:'leaf',label:'Cat Kayu (Woodstain)',cats:['Woodstain']},
-  {id:'leaf-cat-besi',type:'leaf',label:'Cat Besi',cats:['Cat Fungsional','Cat Premium']},
-  {id:'leaf-cat-wp',type:'leaf',label:'Waterproofing',cats:['Waterproofing']},
-  {id:'leaf-cat-gen',type:'leaf',label:'Cat Genteng',cats:['Cat Khusus']},
-]},
-{id:'grp-mat',type:'group',label:'🧱 Material Bangunan',expanded:false,children:[
-  {id:'leaf-mat-mortar',type:'leaf',label:'Semen & Mortar Instan',cats:['Mortar Instan']},
-  {id:'leaf-mat-tile',type:'leaf',label:'Perekat Keramik',cats:['Tile Adhesive']},
-  {id:'leaf-mat-plester',type:'leaf',label:'Plester & Acian',cats:['Pekerjaan Dinding']},
-  {id:'leaf-mat-beton',type:'leaf',label:'Beton Instan',cats:['Beton Instan']},
-  {id:'leaf-mat-bata',type:'leaf',label:'Bata Ringan & Aksesori',cats:['Material Struktur']},
-]},
-{id:'grp-str',type:'group',label:'🔩 Struktur & Rangka',expanded:false,children:[
-  {id:'leaf-str-baja',type:'leaf',label:'Rangka Baja Ringan',cats:['Rangka Atap']},
-  {id:'leaf-str-hollow',type:'leaf',label:'Truss & Hollow',cats:['Rangka Plafon']},
-  {id:'leaf-str-partisi',type:'leaf',label:'Partisi & Plafon',cats:['Partisi & Plafon']},
-  {id:'leaf-str-panel',type:'leaf',label:'Panel & Precast',cats:['Panel Precast']},
-]},
-{id:'grp-san',type:'group',label:'🚿 Sanitasi & Pipa',expanded:false,children:[
-  {id:'leaf-san-kloset',type:'leaf',label:'Kloset & Aksesori',cats:['Kloset (Hal. 07)','Kloset','Floor Drain']},
-  {id:'leaf-san-wastafel',type:'leaf',label:'Wastafel & Shower',cats:['Cabinet & Lavatory (Hal. 19)','Shower (Hal. 27)','Jet Shower (Hal. 17)','Shower Room (Hal. 47)','Faucet (Hal. 31)','Kitchen Sink (Hal. 41)','Bathroom Accessories (Hal. 45)','Water Tub (Hal. 48)'],brands:['volk']},
-  {id:'leaf-san-pipa',type:'leaf',label:'Pipa PVC & Fitting',cats:['Pipa PVC','Lem Pipa','Fitting'],brands:['rucika']},
-  {id:'leaf-san-grease',type:'leaf',label:'Grease Trap',cats:['Grease Trap']},
-  {id:'leaf-san-septic',type:'leaf',label:'Septic Tank',cats:['Septic Tank','Tangki Air']},
-]},
-{id:'grp-fin',type:'group',label:'🪟 Finishing & Arsitektur',expanded:false,children:[
-  {id:'leaf-fin-pintu',type:'leaf',label:'Pintu & Kusen',cats:['Pintu KNOX']},
-  {id:'leaf-fin-atap',type:'leaf',label:'Atap & Kanopi',cats:['Atap & Kanopi']},
-  {id:'leaf-fin-glass',type:'leaf',label:'Glass Block',cats:['Glass Block']},
-  {id:'leaf-fin-keramik',type:'leaf',label:'Keramik & Granit',cats:['Keramik & Granit','Fitting'],brands:['cotto','aplus']},
-  {id:'leaf-fin-aksesoris',type:'leaf',label:'Aksesori Bangunan',cats:['Building Chemistry','Aksesoris Instalasi','Teknologi Sterlyn','Anti-Rayap','Racun Tikus','Water Heater']},
-]},
-{id:'grp-alat',type:'group',label:'🛒 Alat & Aksesori',expanded:false,children:[
-  {id:'leaf-alat-gerobak',type:'leaf',label:'Gerobak Sorong',cats:['Gerobak Sorong']},
-]},
-];
-
-// Brand color map (for fast lookup)
-const BRAND_COLORS = {
-  franco:'#FF4444',mowilex:'#22C997',volk:'#4A9EFF',sterlyn:'#FF8C42',
-  bayer:'#4CAF50',cotto:'#5B9BD5',dos:'#26BFA8',rucika:'#FF6B35',
-  kansai:'#E84040',drymix:'#C4976A',arsi:'#A855F7',mu:'#F5A623',
-  duratruss:'#607D8B',knauf:'#FF6F00',aplus:'#00BCD4',blesscon:'#795548'
-};
-
-// ═══════════════════════════════════════════════════════════════
-// LOADING
-// ═══════════════════════════════════════════════════════════════
-function setLoading(pct) {
-  const bar = document.getElementById('loadingBar');
-  bar.style.width = pct + '%';
-  if (pct >= 100) setTimeout(() => { bar.style.opacity = '0'; setTimeout(() => { bar.style.width = '0%'; bar.style.opacity = '1'; }, 300); }, 400);
-}
-
-function showToast(msg, isError) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show' + (isError ? ' error' : '');
-  setTimeout(() => t.className = 'toast', 3000);
-}
-
-// ═══════════════════════════════════════════════════════════════
-// DATA LOADING
-// ═══════════════════════════════════════════════════════════════
-async function loadData() {
-  setLoading(20);
-  try {
-    const [brandsRes, productsRes] = await Promise.all([
-      sb.from('brands').select('*').order('sort_order'),
-      sb.from('products').select('*').order('created_at')
-    ]);
-    if (brandsRes.error) throw brandsRes.error;
-    if (productsRes.error) throw productsRes.error;
-    BRANDS = brandsRes.data || [];
-    PRODUCTS = (productsRes.data || []).map(p => ({
-      ...p,
-      badges: Array.isArray(p.badges) ? p.badges : []
-    }));
-    setLoading(80);
-  } catch (e) {
-    console.error('Load error:', e);
-    showToast('Gagal memuat data: ' + e.message, true);
-  }
-  setLoading(100);
-}
-
-// ═══════════════════════════════════════════════════════════════
-// TREE HELPERS
-// ═══════════════════════════════════════════════════════════════
-function matchesLeaf(p, leaf) {
-  if (!leaf.cats) return true;
-  const catOk = leaf.cats.includes(p.cat);
-  const brandOk = !leaf.brands || leaf.brands.includes(p.brand);
-  return catOk && brandOk;
-}
-function findNode(id, nodes) {
-  for (const n of nodes) {
-    if (n.id === id) return n;
-    if (n.children) { const f = findNode(id, n.children); if (f) return f; }
-  }
-  return null;
-}
-function matchesTree(p) {
-  if (currentTreeId === 'all') return true;
-  const node = findNode(currentTreeId, PRODUCT_TREE);
-  if (!node) return true;
-  if (node.type === 'leaf') return matchesLeaf(p, node);
-  if (node.type === 'group') return node.children.some(c => c.type === 'leaf' && matchesLeaf(p, c));
-  return true;
-}
-function countNode(node) {
-  if (node.type === 'root') return PRODUCTS.length;
-  if (node.type === 'leaf') return PRODUCTS.filter(p => matchesLeaf(p, node)).length;
-  if (node.type === 'group') {
-    const set = new Set();
-    node.children.forEach(c => { if (c.type === 'leaf') PRODUCTS.forEach((p, i) => { if (matchesLeaf(p, c)) set.add(i); }); });
-    return set.size;
-  }
-  return 0;
-}
-
-// ═══════════════════════════════════════════════════════════════
-// RENDER: TREE
-// ═══════════════════════════════════════════════════════════════
-function renderTree() {
-  const el = document.getElementById('productTree');
-  let h = '';
-  h += `<div class="tree-all${currentTreeId === 'all' ? ' active' : ''}" data-tid="all">📦 Semua Produk<span class="tree-badge">${PRODUCTS.length}</span></div>`;
-  for (const grp of PRODUCT_TREE) {
-    if (grp.type !== 'group') continue;
-    const cnt = countNode(grp);
-    const isOpen = grp.expanded;
-    const isActive = currentTreeId === grp.id;
-    h += `<div class="tree-group${isOpen ? ' open' : ''}" id="tg-${grp.id}">`;
-    h += `<div class="tree-gh${isActive ? ' group-active' : ''}" data-tid="${grp.id}">${grp.label}<span class="tree-badge">${cnt}</span><span class="tree-gh-chevron" data-toggle="${grp.id}">▼</span></div>`;
-    h += `<div class="tree-children">`;
-    for (const leaf of grp.children) {
-      if (leaf.type !== 'leaf') continue;
-      const lc = countNode(leaf);
-      h += `<div class="tree-leaf${currentTreeId === leaf.id ? ' active' : ''}" data-tid="${leaf.id}"><span>${leaf.label}</span><span class="tree-badge">${lc}</span></div>`;
-    }
-    h += `</div></div>`;
-  }
-  el.innerHTML = h;
-  el.querySelectorAll('[data-tid]').forEach(e => e.addEventListener('click', function () { selectTree(this.dataset.tid); }));
-  el.querySelectorAll('[data-toggle]').forEach(b => b.addEventListener('click', function (e) { e.stopPropagation(); toggleGroup(this.dataset.toggle); }));
-}
-function toggleGroup(gid) {
-  const grp = PRODUCT_TREE.find(g => g.id === gid);
-  if (grp) grp.expanded = !grp.expanded;
-  const el = document.getElementById('tg-' + gid);
-  if (el) el.classList.toggle('open', grp && grp.expanded);
-}
-function selectTree(id) {
-  currentTreeId = id;
-  currentBrand = 'all';
-  currentCat = '';
-  PRODUCT_TREE.forEach(g => { if (g.type === 'group' && g.children && g.children.some(c => c.id === id)) g.expanded = true; });
-  document.querySelectorAll('.brand-tab').forEach(t => t.classList.toggle('active', t.dataset.brand === 'all'));
-  renderTree(); renderCatPills(); render();
-  if (window.innerWidth <= 900) document.body.classList.remove('sidebar-open');
-}
-
-// ═══════════════════════════════════════════════════════════════
-// RENDER: BRAND TABS
-// ═══════════════════════════════════════════════════════════════
-function renderBrandTabs() {
-  const el = document.getElementById('brandTabs');
-  let h = `<div class="brand-tab all active" data-brand="all">Semua (${PRODUCTS.length})</div>`;
-  BRANDS.forEach(b => {
-    const cnt = PRODUCTS.filter(p => p.brand === b.id).length;
-    if (cnt === 0) return;
-    h += `<div class="brand-tab" data-brand="${b.id}" style="border-color:${b.color}20;color:${b.color}">${b.label} (${cnt})</div>`;
-  });
-  el.innerHTML = h;
-  el.querySelectorAll('.brand-tab').forEach(tab => tab.addEventListener('click', () => filterBrand(tab.dataset.brand)));
-}
-function filterBrand(id) {
-  currentBrand = id; currentTreeId = 'all'; currentCat = '';
-  document.querySelectorAll('.brand-tab').forEach(t => t.classList.toggle('active', t.dataset.brand === id));
-  renderTree(); renderCatPills(); render();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// RENDER: CATEGORY PILLS
-// ═══════════════════════════════════════════════════════════════
-function renderCatPills() {
-  const el = document.getElementById('catPills');
-  const base = PRODUCTS.filter(p => {
-    const tm = matchesTree(p);
-    const bm = currentTreeId !== 'all' ? true : (currentBrand === 'all' || p.brand === currentBrand);
-    return tm && bm;
-  });
-  const cats = [...new Set(base.map(p => p.cat))].sort();
-  if (cats.length <= 1) { el.innerHTML = ''; return; }
-  _catList = ['', ...cats];
-  let h = `<div class="cat-pill${!currentCat ? ' active' : ''}" data-ci="0">Semua (${base.length})</div>`;
-  cats.forEach((c, i) => {
-    const cnt = base.filter(p => p.cat === c).length;
-    h += `<div class="cat-pill${currentCat === c ? ' active' : ''}" data-ci="${i + 1}">${c} (${cnt})</div>`;
-  });
-  el.innerHTML = h;
-  el.querySelectorAll('.cat-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
-      currentCat = _catList[parseInt(pill.dataset.ci)] || '';
-      renderCatPills(); render();
-    });
-  });
-  updateTopbarH();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// HIGHLIGHT
-// ═══════════════════════════════════════════════════════════════
-function hl(text, term) {
-  if (!term || !text) return text || '';
-  const esc = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return text.replace(new RegExp(esc, 'gi'), m => `<mark class="hl">${m}</mark>`);
-}
-
-// ═══════════════════════════════════════════════════════════════
-// RENDER: MAIN CARDS
-// ═══════════════════════════════════════════════════════════════
-function getBrandColor(bid) { return BRAND_COLORS[bid] || BRANDS.find(b => b.id === bid)?.color || '#888'; }
-
-function render() {
-  const filtered = PRODUCTS.filter(p => {
-    const tm = matchesTree(p);
-    const bm = currentTreeId !== 'all' ? true : (currentBrand === 'all' || p.brand === currentBrand);
-    const cm = !currentCat || p.cat === currentCat;
-    const q = searchTerm;
-    const sm = !q || [p.name, p.kw, p.brand, p.cat, p.sp, p.tip || ''].some(s => (s || '').toLowerCase().includes(q));
-    return tm && bm && cm && sm;
-  });
-
-  const ri = document.getElementById('resultsInfo');
-  ri.innerHTML = `<span>Menampilkan ${filtered.length} dari ${PRODUCTS.length} produk${searchTerm ? ' — "' + searchTerm + '"' : ''}</span>`;
-
-  const grid = document.getElementById('grid');
-  if (filtered.length === 0) {
-    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><div class="empty-text">Produk tidak ditemukan.</div></div>`;
-    return;
-  }
-  const q = searchTerm;
-  grid.innerHTML = filtered.map(p => {
-    const color = getBrandColor(p.brand);
-    const isOpen = currentMode === 'detail';
-    const badgeHtml = (p.badges || []).map(b => {
-      if (b === 'bs') return '<span class="badge badge-bs">🔥 BEST SELLER</span>';
-      if (b === 'bun') return '<span class="badge badge-bun">🔗 BUNDLING</span>';
-      return '';
-    }).join('');
-    const kwHtml = (p.kw || '').split('·').map(k => `<span style="color:${color};opacity:.8">◆</span> ${hl(k.trim(), q)}`).join(' ');
-
-    const imgSrc = p.image_url || '';
-    const imgHtml = imgSrc
-      ? `<img src="${imgSrc}" alt="${p.name}" loading="lazy">`
-      : `<div class="card-img-placeholder">${p.icon || '📦'}</div>`;
-
-    return `
-<div class="card${isOpen ? ' open' : ''}" data-pid="${p.id}">
-  <div class="card-accent" style="background:${color}"></div>
-  <div class="card-img-wrap">
-    ${imgHtml}
-    <button class="card-img-upload" onclick="event.stopPropagation();startUpload('${p.id}')">📷 Upload</button>
-  </div>
-  <div class="card-top" onclick="toggleCard(this)">
-    <div class="card-icon">${p.icon || '📦'}</div>
-    <div class="card-main">
-      <div class="card-sub">${(p.brand || '').toUpperCase()} · ${p.cat || ''}</div>
-      <div class="card-name">${hl(p.name, q)}</div>
-      <div class="badges">${badgeHtml}</div>
-      <div class="card-kw">${kwHtml}</div>
-    </div>
-    <div class="card-chevron">▼</div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-sp">${p.sp || ''}</div>
-    <div class="detail-grid">
-      <div class="detail-item"><div class="detail-label">Target Market</div><div class="detail-val">${p.target || '-'}</div></div>
-      <div class="detail-item"><div class="detail-label">Channel</div><div class="detail-val">${p.channel || '-'}</div></div>
-    </div>
-    ${p.tip ? `<div class="detail-tip" style="border-color:${color}"><strong>💡 Tips Lapangan:</strong> ${p.tip}</div>` : ''}
-    ${p.warn ? `<div class="detail-warn">⚠️ ${p.warn}</div>` : ''}
-  </div>
-  <div class="card-admin-bar">
-    <button class="btn-card-action" onclick="editProduct('${p.id}')">✏️ Edit</button>
-    <button class="btn-card-action del" onclick="deleteProduct('${p.id}')">🗑 Hapus</button>
-  </div>
-</div>`;
-  }).join('');
-}
-
-function toggleCard(el) { el.closest('.card')?.classList.toggle('open'); }
-
-// ═══════════════════════════════════════════════════════════════
-// UI CONTROLS
-// ═══════════════════════════════════════════════════════════════
-function setMode(m) {
-  currentMode = m;
-  document.getElementById('btnRingkas').classList.toggle('active', m === 'ringkas');
-  document.getElementById('btnDetail').classList.toggle('active', m === 'detail');
-  document.querySelectorAll('.card').forEach(c => c.classList.toggle('open', m === 'detail'));
-}
-function toggleDesktop() {
-  desktopMode = !desktopMode;
-  const btn = document.getElementById('btnDesktop');
-  const grid = document.getElementById('grid');
-  btn.classList.toggle('accent', desktopMode);
-  grid.classList.toggle('desktop-wide', desktopMode);
-  btn.textContent = desktopMode ? '📱' : '🖥';
-}
-function toggleSidebar() { document.body.classList.toggle('sidebar-open'); }
-
-function updateTopbarH() {
-  const h = document.getElementById('topbar').offsetHeight;
-  const sb = document.getElementById('sidebar');
-  sb.style.top = h + 'px';
-  sb.style.height = (window.innerHeight - h) + 'px';
-}
-
-// ═══════════════════════════════════════════════════════════════
-// ADMIN / PIN
-// ═══════════════════════════════════════════════════════════════
-function handleAdminBtn() {
-  if (isAdmin) {
-    isAdmin = false;
-    document.body.classList.remove('admin-mode');
-    document.getElementById('btnAdmin').classList.remove('accent');
-    document.getElementById('btnAdmin').textContent = '🔐';
-    showToast('Mode admin dinonaktifkan');
-  } else {
-    openModal('pinModal');
-    setTimeout(() => document.getElementById('pinInput').focus(), 100);
-  }
-}
-
-async function verifyPin() {
-  const pin = document.getElementById('pinInput').value.trim();
-  if (!pin) { document.getElementById('pinError').textContent = 'Masukkan PIN'; return; }
-  try {
-    const { data, error } = await sb.rpc('verify_pin', { input_pin: pin });
-    if (error) throw error;
-    if (data === true) {
-      isAdmin = true;
-      document.body.classList.add('admin-mode');
-      document.getElementById('btnAdmin').classList.add('accent');
-      document.getElementById('btnAdmin').textContent = '🔓';
-      closeModal('pinModal');
-      document.getElementById('pinInput').value = '';
-      document.getElementById('pinError').textContent = '';
-      showToast('Mode admin aktif ✅');
-    } else {
-      document.getElementById('pinError').textContent = 'PIN salah!';
-    }
-  } catch (e) {
-    document.getElementById('pinError').textContent = 'Error: ' + e.message;
-  }
-}
-
-// ═══════════════════════════════════════════════════════════════
-// MODALS
-// ═══════════════════════════════════════════════════════════════
-function openModal(id) { document.getElementById(id).classList.add('show'); }
-function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-
-// ═══════════════════════════════════════════════════════════════
-// PRODUCT FORM (ADD/EDIT)
-// ═══════════════════════════════════════════════════════════════
-function populateBrandSelect() {
-  const sel = document.getElementById('fBrand');
-  sel.innerHTML = BRANDS.map(b => `<option value="${b.id}">${b.label}</option>`).join('');
-}
-
-function openProductForm(product) {
-  if (!isAdmin) return;
-  populateBrandSelect();
-  const isEdit = !!product;
-  document.getElementById('formTitle').textContent = isEdit ? 'Edit Produk' : 'Tambah Produk';
-  document.getElementById('editId').value = isEdit ? product.id : '';
-  document.getElementById('fBrand').value = product?.brand || (BRANDS[0]?.id || '');
-  document.getElementById('fCat').value = product?.cat || '';
-  document.getElementById('fIcon').value = product?.icon || '📦';
-  document.getElementById('fName').value = product?.name || '';
-  document.getElementById('fKw').value = product?.kw || '';
-  document.getElementById('fSp').value = product?.sp || '';
-  document.getElementById('fTarget').value = product?.target || '';
-  document.getElementById('fChannel').value = product?.channel || '';
-  document.getElementById('fTip').value = product?.tip || '';
-  document.getElementById('fWarn').value = product?.warn || '';
-  document.getElementById('fBadgeBs').checked = (product?.badges || []).includes('bs');
-  document.getElementById('fBadgeBun').checked = (product?.badges || []).includes('bun');
-  openModal('productModal');
-}
-
-function editProduct(id) {
-  const p = PRODUCTS.find(x => x.id === id);
-  if (p) openProductForm(p);
-}
-
-async function saveProduct() {
-  const btn = document.getElementById('btnSaveProduct');
-  btn.disabled = true;
-  btn.textContent = 'Menyimpan...';
-
-  const badges = [];
-  if (document.getElementById('fBadgeBs').checked) badges.push('bs');
-  if (document.getElementById('fBadgeBun').checked) badges.push('bun');
-
-  const data = {
-    brand: document.getElementById('fBrand').value,
-    cat: document.getElementById('fCat').value.trim(),
-    icon: document.getElementById('fIcon').value.trim() || '📦',
-    name: document.getElementById('fName').value.trim(),
-    kw: document.getElementById('fKw').value.trim(),
-    sp: document.getElementById('fSp').value.trim(),
-    target: document.getElementById('fTarget').value.trim(),
-    channel: document.getElementById('fChannel').value.trim(),
-    tip: document.getElementById('fTip').value.trim(),
-    warn: document.getElementById('fWarn').value.trim(),
-    badges,
-    updated_at: new Date().toISOString()
-  };
-
-  if (!data.name) { showToast('Nama produk wajib diisi', true); btn.disabled = false; btn.textContent = 'Simpan Produk'; return; }
-
-  const editId = document.getElementById('editId').value;
-  try {
-    if (editId) {
-      const { error } = await sb.from('products').update(data).eq('id', editId);
-      if (error) throw error;
-      showToast('Produk berhasil diupdate ✅');
-    } else {
-      const { error } = await sb.from('products').insert(data);
-      if (error) throw error;
-      showToast('Produk baru ditambahkan ✅');
-    }
-    closeModal('productModal');
-    await loadData();
-    renderAll();
-  } catch (e) {
-    showToast('Error: ' + e.message, true);
-  }
-  btn.disabled = false;
-  btn.textContent = 'Simpan Produk';
-}
-
-async function deleteProduct(id) {
-  if (!confirm('Yakin hapus produk ini?')) return;
-  try {
-    const { error } = await sb.from('products').delete().eq('id', id);
-    if (error) throw error;
-    showToast('Produk dihapus');
-    await loadData();
-    renderAll();
-  } catch (e) {
-    showToast('Error: ' + e.message, true);
-  }
-}
-
-// ═══════════════════════════════════════════════════════════════
-// IMAGE UPLOAD
-// ═══════════════════════════════════════════════════════════════
-function startUpload(productId) {
-  if (!isAdmin) return;
-  uploadTargetProductId = productId;
-  document.getElementById('imgUpload').click();
-}
-
-document.getElementById('imgUpload').addEventListener('change', async function () {
-  const file = this.files[0];
-  if (!file || !uploadTargetProductId) return;
-
-  const ext = file.name.split('.').pop().toLowerCase();
-  const fileName = `${uploadTargetProductId}.${ext}`;
-  const filePath = `products/${fileName}`;
-
-  showToast('Mengupload gambar...');
-
-  try {
-    // Upload to storage (upsert)
-    const { error: upErr } = await sb.storage.from('product-images').upload(filePath, file, { upsert: true, contentType: file.type });
-    if (upErr) throw upErr;
-
-    // Get public URL
-    const { data: urlData } = sb.storage.from('product-images').getPublicUrl(filePath);
-    const publicUrl = urlData.publicUrl + '?t=' + Date.now();
-
-    // Update product record
-    const { error: dbErr } = await sb.from('products').update({ image_url: publicUrl, updated_at: new Date().toISOString() }).eq('id', uploadTargetProductId);
-    if (dbErr) throw dbErr;
-
-    showToast('Gambar berhasil diupload ✅');
-    await loadData();
-    renderAll();
-  } catch (e) {
-    showToast('Upload gagal: ' + e.message, true);
-  }
-
-  this.value = '';
-  uploadTargetProductId = null;
-});
-
-// ═══════════════════════════════════════════════════════════════
-// RENDER ALL
-// ═══════════════════════════════════════════════════════════════
-function renderAll() {
-  renderBrandTabs();
-  renderTree();
-  renderCatPills();
-  render();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════════════
-async function init() {
-  await loadData();
-  renderAll();
-
-  document.getElementById('searchInput').addEventListener('input', e => {
-    searchTerm = e.target.value.toLowerCase().trim();
-    renderCatPills();
-    render();
-  });
-
-  // Enter key on PIN input
-  document.getElementById('pinInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') verifyPin();
-  });
-
-  // Click outside modal closes it
-  document.querySelectorAll('.modal-overlay').forEach(ov => {
-    ov.addEventListener('click', e => {
-      if (e.target === ov) ov.classList.remove('show');
-    });
-  });
-
-  updateTopbarH();
-  window.addEventListener('resize', updateTopbarH);
-
-  // Scroll to top button
-  window.addEventListener('scroll', () => {
-    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 320);
-  });
-
-  // Keyboard shortcuts
-  document.addEventListener('keydown', e => {
-    if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
-      e.preventDefault();
-      document.getElementById('searchInput').focus();
-    }
-    if (e.key === 'Escape') {
-      document.getElementById('searchInput').blur();
-      document.body.classList.remove('sidebar-open');
-      document.querySelectorAll('.modal-overlay.show').forEach(m => m.classList.remove('show'));
-    }
-  });
-}
-
+const SUPABASE_URL='https://viwyrdoqqrrvvkdwdhkq.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpd3lyZG9xcXJydnZrZHdkaGtxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNjY2MzQsImV4cCI6MjA5MTc0MjYzNH0.fqg9n8srg2Rv-iWXaf2ZuVgBL9cjTxaubHZqqQzcPO0';
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let BRANDS=[],PRODUCTS=[],currentBrand='all',currentMode='ringkas',desktopMode=false,searchTerm='',currentTreeId='all',currentCat='',_catList=[],isAdmin=false,uploadTargetProductId=null;
+const PRODUCT_TREE=[{id:'all',type:'root',label:'📦 Semua Produk'},{id:'grp-cat',type:'group',label:'🎨 Cat & Coating',expanded:true,children:[{id:'leaf-cat-int',type:'leaf',label:'Cat Interior',cats:['Cat Interior']},{id:'leaf-cat-ext',type:'leaf',label:'Cat Eksterior',cats:['Cat Eksterior']},{id:'leaf-cat-kayu',type:'leaf',label:'Cat Kayu',cats:['Woodstain']},{id:'leaf-cat-besi',type:'leaf',label:'Cat Besi',cats:['Cat Fungsional','Cat Premium']},{id:'leaf-cat-wp',type:'leaf',label:'Waterproofing',cats:['Waterproofing']},{id:'leaf-cat-gen',type:'leaf',label:'Cat Genteng',cats:['Cat Khusus']}]},{id:'grp-mat',type:'group',label:'🧱 Material Bangunan',expanded:false,children:[{id:'leaf-mat-mortar',type:'leaf',label:'Semen & Mortar',cats:['Mortar Instan']},{id:'leaf-mat-tile',type:'leaf',label:'Perekat Keramik',cats:['Tile Adhesive']},{id:'leaf-mat-plester',type:'leaf',label:'Plester & Acian',cats:['Pekerjaan Dinding']},{id:'leaf-mat-beton',type:'leaf',label:'Beton Instan',cats:['Beton Instan']},{id:'leaf-mat-bata',type:'leaf',label:'Bata Ringan',cats:['Material Struktur']},{id:'leaf-mat-bc',type:'leaf',label:'Building Chemistry',cats:['Building Chemistry']}]},{id:'grp-str',type:'group',label:'🔩 Struktur & Rangka',expanded:false,children:[{id:'leaf-str-baja',type:'leaf',label:'Rangka Baja Ringan',cats:['Rangka Atap']},{id:'leaf-str-hollow',type:'leaf',label:'Truss & Hollow',cats:['Rangka Plafon']},{id:'leaf-str-partisi',type:'leaf',label:'Partisi & Plafon',cats:['Partisi & Plafon']},{id:'leaf-str-panel',type:'leaf',label:'Panel Precast',cats:['Panel Precast']}]},{id:'grp-san',type:'group',label:'🚿 Sanitasi & Pipa',expanded:false,children:[{id:'leaf-san-kloset',type:'leaf',label:'Kloset',cats:['Kloset (Hal. 07)','Kloset','Floor Drain']},{id:'leaf-san-wastafel',type:'leaf',label:'Wastafel & Shower',cats:['Cabinet & Lavatory (Hal. 19)','Shower (Hal. 27)','Jet Shower (Hal. 17)','Shower Room (Hal. 47)','Faucet (Hal. 31)','Kitchen Sink (Hal. 41)','Bathroom Accessories (Hal. 45)','Water Tub (Hal. 48)'],brands:['volk']},{id:'leaf-san-pipa',type:'leaf',label:'Pipa & Fitting',cats:['Pipa PVC','Lem Pipa','Fitting'],brands:['rucika']},{id:'leaf-san-grease',type:'leaf',label:'Grease Trap',cats:['Grease Trap']},{id:'leaf-san-septic',type:'leaf',label:'Septic & Tangki',cats:['Septic Tank','Tangki Air']}]},{id:'grp-fin',type:'group',label:'🪟 Finishing',expanded:false,children:[{id:'leaf-fin-pintu',type:'leaf',label:'Pintu',cats:['Pintu KNOX']},{id:'leaf-fin-atap',type:'leaf',label:'Atap & Kanopi',cats:['Atap & Kanopi']},{id:'leaf-fin-glass',type:'leaf',label:'Glass Block',cats:['Glass Block']},{id:'leaf-fin-keramik',type:'leaf',label:'Keramik & Granit',cats:['Keramik & Granit','Fitting'],brands:['cotto','aplus']},{id:'leaf-fin-aks',type:'leaf',label:'Aksesori',cats:['Building Chemistry','Aksesoris Instalasi','Teknologi Sterlyn','Anti-Rayap','Racun Tikus','Water Heater']}]},{id:'grp-alat',type:'group',label:'🛒 Alat',expanded:false,children:[{id:'leaf-alat-gerobak',type:'leaf',label:'Gerobak Sorong',cats:['Gerobak Sorong']}]}];
+const BRAND_COLORS={franco:'#FF4444',mowilex:'#00E09E',volk:'#5B8DEF',sterlyn:'#FF8C42',bayer:'#4CAF50',cotto:'#5B9BD5',dos:'#26BFA8',rucika:'#FF6B35',kansai:'#E84040',drymix:'#C4976A',arsi:'#A855F7',mu:'#F5A623',duratruss:'#607D8B',knauf:'#FF6F00',aplus:'#00BCD4',blesscon:'#795548'};
+function setLoading(p){const b=document.getElementById('loadingBar');b.style.width=p+'%';if(p>=100)setTimeout(()=>{b.style.opacity='0';setTimeout(()=>{b.style.width='0%';b.style.opacity='1'},300)},400)}
+function showToast(m,e){const t=document.getElementById('toast');t.textContent=m;t.className='toast show'+(e?' error':'');setTimeout(()=>t.className='toast',3000)}
+async function loadData(){setLoading(20);try{const[br,pr]=await Promise.all([sb.from('brands').select('*').order('sort_order'),sb.from('products').select('*').order('created_at')]);if(br.error)throw br.error;if(pr.error)throw pr.error;BRANDS=br.data||[];PRODUCTS=(pr.data||[]).map(p=>({...p,badges:Array.isArray(p.badges)?p.badges:[]}));setLoading(80)}catch(e){console.error(e);showToast('Gagal memuat: '+e.message,true)}setLoading(100)}
+function matchesLeaf(p,l){if(!l.cats)return true;return l.cats.includes(p.cat)&&(!l.brands||l.brands.includes(p.brand))}
+function findNode(id,ns){for(const n of ns){if(n.id===id)return n;if(n.children){const f=findNode(id,n.children);if(f)return f}}return null}
+function matchesTree(p){if(currentTreeId==='all')return true;const n=findNode(currentTreeId,PRODUCT_TREE);if(!n)return true;if(n.type==='leaf')return matchesLeaf(p,n);if(n.type==='group')return n.children.some(c=>c.type==='leaf'&&matchesLeaf(p,c));return true}
+function countNode(n){if(n.type==='root')return PRODUCTS.length;if(n.type==='leaf')return PRODUCTS.filter(p=>matchesLeaf(p,n)).length;if(n.type==='group'){const s=new Set();n.children.forEach(c=>{if(c.type==='leaf')PRODUCTS.forEach((p,i)=>{if(matchesLeaf(p,c))s.add(i)})});return s.size}return 0}
+function renderTree(){const el=document.getElementById('productTree');let h='';h+='<div class="tree-all'+(currentTreeId==='all'?' active':'')+'" data-tid="all">📦 Semua Produk<span class="tree-badge">'+PRODUCTS.length+'</span></div>';for(const g of PRODUCT_TREE){if(g.type!=='group')continue;const c=countNode(g);h+='<div class="tree-group'+(g.expanded?' open':'')+'" id="tg-'+g.id+'"><div class="tree-gh'+(currentTreeId===g.id?' group-active':'')+'" data-tid="'+g.id+'">'+g.label+'<span class="tree-badge">'+c+'</span><span class="tree-gh-chevron" data-toggle="'+g.id+'">▼</span></div><div class="tree-children">';for(const l of g.children){if(l.type!=='leaf')continue;h+='<div class="tree-leaf'+(currentTreeId===l.id?' active':'')+'" data-tid="'+l.id+'"><span>'+l.label+'</span><span class="tree-badge">'+countNode(l)+'</span></div>'}h+='</div></div>'}el.innerHTML=h;el.querySelectorAll('[data-tid]').forEach(e=>e.addEventListener('click',function(){selectTree(this.dataset.tid)}));el.querySelectorAll('[data-toggle]').forEach(b=>b.addEventListener('click',function(e){e.stopPropagation();toggleGroup(this.dataset.toggle)}))}
+function toggleGroup(g){const grp=PRODUCT_TREE.find(x=>x.id===g);if(grp)grp.expanded=!grp.expanded;const el=document.getElementById('tg-'+g);if(el)el.classList.toggle('open',grp&&grp.expanded)}
+function selectTree(id){currentTreeId=id;currentBrand='all';currentCat='';PRODUCT_TREE.forEach(g=>{if(g.type==='group'&&g.children&&g.children.some(c=>c.id===id))g.expanded=true});document.querySelectorAll('.brand-tab').forEach(t=>t.classList.toggle('active',t.dataset.brand==='all'));renderTree();renderCatPills();render();if(window.innerWidth<=900)document.body.classList.remove('sidebar-open')}
+function renderBrandTabs(){const el=document.getElementById('brandTabs');let h='<div class="brand-tab all active" data-brand="all">Semua ('+PRODUCTS.length+')</div>';BRANDS.forEach(b=>{const c=PRODUCTS.filter(p=>p.brand===b.id).length;if(!c)return;h+='<div class="brand-tab" data-brand="'+b.id+'" style="border-color:'+b.color+'30;color:'+b.color+'">'+b.label+' ('+c+')</div>'});el.innerHTML=h;el.querySelectorAll('.brand-tab').forEach(t=>t.addEventListener('click',()=>filterBrand(t.dataset.brand)))}
+function filterBrand(id){currentBrand=id;currentTreeId='all';currentCat='';document.querySelectorAll('.brand-tab').forEach(t=>t.classList.toggle('active',t.dataset.brand===id));renderTree();renderCatPills();render()}
+function renderCatPills(){const el=document.getElementById('catPills');const base=PRODUCTS.filter(p=>{const tm=matchesTree(p);const bm=currentTreeId!=='all'?true:(currentBrand==='all'||p.brand===currentBrand);return tm&&bm});const cats=[...new Set(base.map(p=>p.cat))].sort();if(cats.length<=1){el.innerHTML='';return}_catList=['', ...cats];let h='<div class="cat-pill'+(!currentCat?' active':'')+'" data-ci="0">Semua ('+base.length+')</div>';cats.forEach((c,i)=>{h+='<div class="cat-pill'+(currentCat===c?' active':'')+'" data-ci="'+(i+1)+'">'+c+' ('+base.filter(p=>p.cat===c).length+')</div>'});el.innerHTML=h;el.querySelectorAll('.cat-pill').forEach(p=>p.addEventListener('click',()=>{currentCat=_catList[parseInt(p.dataset.ci)]||'';renderCatPills();render()}));updateTopbarH()}
+function hl(t,q){if(!q||!t)return t||'';return t.replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),m=>'<mark class="hl">'+m+'</mark>')}
+function getBrandColor(b){return BRAND_COLORS[b]||BRANDS.find(x=>x.id===b)?.color||'#888'}
+function render(){const f=PRODUCTS.filter(p=>{const tm=matchesTree(p),bm=currentTreeId!=='all'?true:(currentBrand==='all'||p.brand===currentBrand),cm=!currentCat||p.cat===currentCat,q=searchTerm,sm=!q||[p.name,p.kw,p.brand,p.cat,p.sp,p.tip||''].some(s=>(s||'').toLowerCase().includes(q));return tm&&bm&&cm&&sm});document.getElementById('resultsInfo').innerHTML='<span>'+f.length+' dari '+PRODUCTS.length+' produk'+(searchTerm?' — "'+searchTerm+'"':'')+'</span>';const grid=document.getElementById('grid');if(!f.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><div class="empty-text">Produk tidak ditemukan.</div></div>';return}const q=searchTerm;grid.innerHTML=f.map((p,i)=>{const color=getBrandColor(p.brand),isOpen=currentMode==='detail';const bdg=(p.badges||[]).map(b=>b==='bs'?'<span class="badge badge-bs">🔥 BEST SELLER</span>':b==='bun'?'<span class="badge badge-bun">🔗 BUNDLING</span>':'').join('');const kw=(p.kw||'').split('·').map(k=>'<span style="color:'+color+';opacity:.7">◆</span> '+hl(k.trim(),q)).join(' ');const img=p.image_url?'<img src="'+p.image_url+'" alt="'+p.name+'" loading="lazy">':'<div class="card-img-placeholder">'+(p.icon||'📦')+'</div>';return '<div class="card'+(isOpen?' open':'')+'" style="animation-delay:'+Math.min(i*30,300)+'ms" data-pid="'+p.id+'"><div class="card-accent" style="background:linear-gradient(90deg,'+color+','+color+'00)"></div><div class="card-img-wrap">'+img+'<button class="card-img-upload" onclick="event.stopPropagation();startUpload(\''+p.id+'\')">📷 Upload</button></div><div class="card-top" onclick="toggleCard(this)"><div class="card-icon">'+(p.icon||'📦')+'</div><div class="card-main"><div class="card-sub">'+(p.brand||'').toUpperCase()+' · '+(p.cat||'')+'</div><div class="card-name">'+hl(p.name,q)+'</div><div class="badges">'+bdg+'</div><div class="card-kw">'+kw+'</div></div><div class="card-chevron">▼</div></div><div class="card-detail"><div class="detail-sp">'+(p.sp||'')+'</div><div class="detail-grid"><div class="detail-item"><div class="detail-label">Target</div><div class="detail-val">'+(p.target||'-')+'</div></div><div class="detail-item"><div class="detail-label">Channel</div><div class="detail-val">'+(p.channel||'-')+'</div></div></div>'+(p.tip?'<div class="detail-tip" style="border-color:'+color+'"><strong>💡 Tips:</strong> '+p.tip+'</div>':'')+(p.warn?'<div class="detail-warn">⚠️ '+p.warn+'</div>':'')+'</div><div class="card-admin-bar"><button class="btn-card-action" onclick="editProduct(\''+p.id+'\')">✏️ Edit</button><button class="btn-card-action del" onclick="deleteProduct(\''+p.id+'\')">🗑 Hapus</button></div></div>'}).join('')}
+function toggleCard(el){el.closest('.card')?.classList.toggle('open')}
+function setMode(m){currentMode=m;document.getElementById('btnRingkas').classList.toggle('active',m==='ringkas');document.getElementById('btnDetail').classList.toggle('active',m==='detail');document.querySelectorAll('.card').forEach(c=>c.classList.toggle('open',m==='detail'))}
+function toggleDesktop(){desktopMode=!desktopMode;document.getElementById('btnDesktop').classList.toggle('accent',desktopMode);document.getElementById('grid').classList.toggle('desktop-wide',desktopMode);document.getElementById('btnDesktop').textContent=desktopMode?'📱':'🖥'}
+function toggleSidebar(){document.body.classList.toggle('sidebar-open')}
+function updateTopbarH(){const h=document.getElementById('topbar').offsetHeight;const s=document.getElementById('sidebar');s.style.top=h+'px';s.style.height=(window.innerHeight-h)+'px'}
+function handleAdminBtn(){if(isAdmin){isAdmin=false;document.body.classList.remove('admin-mode');document.getElementById('btnAdmin').classList.remove('accent');document.getElementById('btnAdmin').textContent='🔐';showToast('Admin mode off')}else{openModal('pinModal');setTimeout(()=>document.getElementById('pinInput').focus(),100)}}
+async function verifyPin(){const pin=document.getElementById('pinInput').value.trim();if(!pin){document.getElementById('pinError').textContent='Masukkan PIN';return}try{const{data,error}=await sb.rpc('verify_pin',{input_pin:pin});if(error)throw error;if(data===true){isAdmin=true;document.body.classList.add('admin-mode');document.getElementById('btnAdmin').classList.add('accent');document.getElementById('btnAdmin').textContent='🔓';closeModal('pinModal');document.getElementById('pinInput').value='';document.getElementById('pinError').textContent='';showToast('Admin mode aktif ✅')}else{document.getElementById('pinError').textContent='PIN salah!'}}catch(e){document.getElementById('pinError').textContent='Error: '+e.message}}
+function openModal(id){document.getElementById(id).classList.add('show')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function populateBrandSelect(){document.getElementById('fBrand').innerHTML=BRANDS.map(b=>'<option value="'+b.id+'">'+b.label+'</option>').join('')}
+function openProductForm(p){if(!isAdmin)return;populateBrandSelect();const e=!!p;document.getElementById('formTitle').textContent=e?'Edit Produk':'Tambah Produk';document.getElementById('editId').value=e?p.id:'';document.getElementById('fBrand').value=p?.brand||(BRANDS[0]?.id||'');document.getElementById('fCat').value=p?.cat||'';document.getElementById('fIcon').value=p?.icon||'📦';document.getElementById('fName').value=p?.name||'';document.getElementById('fKw').value=p?.kw||'';document.getElementById('fSp').value=p?.sp||'';document.getElementById('fTarget').value=p?.target||'';document.getElementById('fChannel').value=p?.channel||'';document.getElementById('fTip').value=p?.tip||'';document.getElementById('fWarn').value=p?.warn||'';document.getElementById('fBadgeBs').checked=(p?.badges||[]).includes('bs');document.getElementById('fBadgeBun').checked=(p?.badges||[]).includes('bun');openModal('productModal')}
+function editProduct(id){const p=PRODUCTS.find(x=>x.id===id);if(p)openProductForm(p)}
+async function saveProduct(){const btn=document.getElementById('btnSaveProduct');btn.disabled=true;btn.textContent='Menyimpan...';const badges=[];if(document.getElementById('fBadgeBs').checked)badges.push('bs');if(document.getElementById('fBadgeBun').checked)badges.push('bun');const d={brand:document.getElementById('fBrand').value,cat:document.getElementById('fCat').value.trim(),icon:document.getElementById('fIcon').value.trim()||'📦',name:document.getElementById('fName').value.trim(),kw:document.getElementById('fKw').value.trim(),sp:document.getElementById('fSp').value.trim(),target:document.getElementById('fTarget').value.trim(),channel:document.getElementById('fChannel').value.trim(),tip:document.getElementById('fTip').value.trim(),warn:document.getElementById('fWarn').value.trim(),badges,updated_at:new Date().toISOString()};if(!d.name){showToast('Nama wajib diisi',true);btn.disabled=false;btn.textContent='Simpan Produk';return}const eid=document.getElementById('editId').value;try{if(eid){const{error}=await sb.from('products').update(d).eq('id',eid);if(error)throw error;showToast('Produk diupdate ✅')}else{const{error}=await sb.from('products').insert(d);if(error)throw error;showToast('Produk ditambahkan ✅')}closeModal('productModal');await loadData();renderAll()}catch(e){showToast('Error: '+e.message,true)}btn.disabled=false;btn.textContent='Simpan Produk'}
+async function deleteProduct(id){if(!confirm('Yakin hapus?'))return;try{const{error}=await sb.from('products').delete().eq('id',id);if(error)throw error;showToast('Produk dihapus');await loadData();renderAll()}catch(e){showToast('Error: '+e.message,true)}}
+function startUpload(pid){if(!isAdmin)return;uploadTargetProductId=pid;document.getElementById('imgUpload').click()}
+document.getElementById('imgUpload').addEventListener('change',async function(){const file=this.files[0];if(!file||!uploadTargetProductId)return;const ext=file.name.split('.').pop().toLowerCase();const path='products/'+uploadTargetProductId+'.'+ext;showToast('Uploading...');try{const{error:ue}=await sb.storage.from('product-images').upload(path,file,{upsert:true,contentType:file.type});if(ue)throw ue;const{data:ud}=sb.storage.from('product-images').getPublicUrl(path);const url=ud.publicUrl+'?t='+Date.now();const{error:de}=await sb.from('products').update({image_url:url,updated_at:new Date().toISOString()}).eq('id',uploadTargetProductId);if(de)throw de;showToast('Upload berhasil ✅');await loadData();renderAll()}catch(e){showToast('Upload gagal: '+e.message,true)}this.value='';uploadTargetProductId=null});
+function renderAll(){renderBrandTabs();renderTree();renderCatPills();render()}
+async function init(){await loadData();renderAll();document.getElementById('searchInput').addEventListener('input',e=>{searchTerm=e.target.value.toLowerCase().trim();renderCatPills();render()});document.getElementById('pinInput').addEventListener('keydown',e=>{if(e.key==='Enter')verifyPin()});document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('show')}));updateTopbarH();window.addEventListener('resize',updateTopbarH);window.addEventListener('scroll',()=>document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>320));document.addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();document.getElementById('searchInput').focus()}if(e.key==='Escape'){document.getElementById('searchInput').blur();document.body.classList.remove('sidebar-open');document.querySelectorAll('.modal-overlay.show').forEach(m=>m.classList.remove('show'))}})}
 init();
 </script>
 </body>
