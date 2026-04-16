@@ -1498,7 +1498,7 @@ function toast(msg,type='info'){
 }
 
 /* ── SPEK KERAMIK ────────────────────────────────────── */
-const BUCKET_C=BUCKET_P; // pakai bucket products (sudah pasti ada)
+const BUCKET_C='product-images'; // bucket dengan policies lengkap
 
 async function openSpek(){
   openMod('mod-spek');
@@ -1643,6 +1643,8 @@ async function saveCatalog(){
 
   let fileUrl=document.getElementById('nc-fileurl').value||null;
   if(catFile){
+    // Auto-create bucket kalau belum ada
+    await sb.storage.createBucket(BUCKET_C,{public:true});
     const fn='catalogs/'+Date.now()+'_'+catFile.name.replace(/\s+/g,'_');
     const {error:ue}=await sb.storage.from(BUCKET_C).upload(fn,catFile,{upsert:true,contentType:'application/pdf'});
     if(ue){toast('Gagal upload PDF: '+ue.message,'err');btn.disabled=false;lbl.textContent=eid?'Update Katalog':'Simpan Katalog';return;}
