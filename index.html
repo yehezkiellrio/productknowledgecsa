@@ -220,6 +220,23 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
 .sok{background:rgba(82,201,124,.15);color:var(--grn);border:1px solid rgba(82,201,124,.3)}
 .sno{background:rgba(224,82,82,.15);color:var(--red);border:1px solid rgba(224,82,82,.3)}
 
+/* SPEK KERAMIK */
+.spek-tabs{display:flex;gap:6px;margin-bottom:0;border-bottom:1px solid var(--bd);padding-bottom:12px;flex-wrap:wrap}
+.stb{padding:5px 14px;border-radius:var(--r8);border:1px solid transparent;
+  background:none;color:var(--txs);font-family:inherit;font-size:12px;cursor:pointer;transition:var(--t);font-weight:500}
+.stb:hover{background:var(--s3)}
+.stb.on{background:var(--pua);border-color:var(--pu);color:var(--pu);font-weight:600}
+.spek-panel{display:none}
+.spek-panel.on{display:flex;flex-direction:column;gap:0}
+.pdf-toolbar{display:flex;align-items:center;gap:8px;padding:10px 0;flex-wrap:wrap}
+.pdf-info{font-size:11px;color:var(--txs);flex:1}
+.pdf-info strong{color:var(--tx);font-size:12px}
+.pdf-frame{width:100%;height:70vh;border:1px solid var(--bd);border-radius:var(--r8);background:var(--s3);display:block}
+.pdf-fallback{display:none;flex-direction:column;align-items:center;justify-content:center;
+  height:60vh;gap:16px;color:var(--txs);text-align:center;background:var(--s3);border-radius:var(--r8);padding:24px}
+.spek-brand-badge{display:inline-flex;align-items:center;gap:6px;background:var(--pua);
+  border:1px solid var(--pu);color:var(--pu2);border-radius:99px;padding:3px 12px;font-size:11px;font-weight:600;margin-bottom:10px}
+
 /* PLAYBOOK */
 #mod-play .mo{max-width:900px}
 .play-panel{display:none}
@@ -279,6 +296,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
     <input id="si" type="text" placeholder="Cari produk, kode, series…">
   </div>
   <div class="hdr-r">
+    <button onclick="openSpek()" style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r8);color:var(--txs);font-family:inherit;font-size:12px;font-weight:600;padding:5px 12px;cursor:pointer;transition:var(--t);display:flex;align-items:center;gap:5px;white-space:nowrap" onmouseover="this.style.borderColor='var(--gd)';this.style.color='var(--gd)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--txs)'">
+      📐 Spek Keramik
+    </button>
     <button onclick="openPlaybook()" style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r8);color:var(--txs);font-family:inherit;font-size:12px;font-weight:600;padding:5px 12px;cursor:pointer;transition:var(--t);display:flex;align-items:center;gap:5px;white-space:nowrap" onmouseover="this.style.borderColor='var(--pu)';this.style.color='var(--pu)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--txs)'">
       📋 Sales Playbook
     </button>
@@ -495,6 +515,139 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
         <button class="btn bgd" onclick="saveProd()">💾 <span id="np-savelbl">Simpan Produk</span></button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- MODAL: SPEK KERAMIK -->
+<div class="ov h" id="mod-spek">
+  <div class="mo" style="max-width:1000px;width:100%;max-height:92vh">
+    <button class="mc" onclick="closeMod('mod-spek')">✕</button>
+    <h3>📐 Spek Keramik CSAP</h3>
+    <p class="sub">E-Catalog produk keramik &amp; granit — UNO · ARNA · Ceranosa</p>
+
+    <div class="spek-tabs">
+      <button class="stb on" onclick="spekTab('uno6060',this)">
+        🟦 UNO 30×60 &amp; ARNA 60×60
+      </button>
+      <button class="stb" onclick="spekTab('arna60120',this)">
+        🟧 ARNA 60×120
+      </button>
+      <button class="stb" onclick="spekTab('ceranosa',this)">
+        🟫 Granit Ceranosa
+      </button>
+    </div>
+
+    <!-- UNO 3060 + ARNA 6060 -->
+    <div class="spek-panel on" id="sp-uno6060">
+      <div class="pdf-toolbar">
+        <div class="pdf-info">
+          <span class="spek-brand-badge">🟦 UNO 30×60 cm &amp; ARNA 60×60 cm</span><br>
+          <strong>E-Catalog UNO 3060 mix ARNA 6060</strong>
+          <span style="color:var(--txm)"> · Update Oktober 2024 · 70 halaman</span>
+        </div>
+        <a href="../E-Catalog UNO 3060 mix ARNA 6060 - Update 10 Oktober 2024_2_compressed.pdf" target="_blank" class="btn bpu bsm">↗ Buka Full</a>
+        <a href="../E-Catalog UNO 3060 mix ARNA 6060 - Update 10 Oktober 2024_2_compressed.pdf" download class="btn bgh bsm">⬇ Download</a>
+      </div>
+      <iframe class="pdf-frame" id="frame-uno6060"
+        src="../E-Catalog UNO 3060 mix ARNA 6060 - Update 10 Oktober 2024_2_compressed.pdf"
+        onload="checkFrame(this)" onerror="showFallback('uno6060')">
+      </iframe>
+      <div class="pdf-fallback" id="fall-uno6060">
+        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <p style="font-size:14px;color:var(--tx)">Preview tidak bisa ditampilkan</p>
+        <p style="font-size:12px">Browser membatasi tampilan PDF lokal.<br>Klik tombol di bawah untuk membuka katalog.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+          <a href="../E-Catalog UNO 3060 mix ARNA 6060 - Update 10 Oktober 2024_2_compressed.pdf" target="_blank" class="btn bpu">↗ Buka Katalog</a>
+          <a href="../E-Catalog UNO 3060 mix ARNA 6060 - Update 10 Oktober 2024_2_compressed.pdf" download class="btn bgh">⬇ Download PDF</a>
+        </div>
+        <div style="margin-top:16px;background:var(--s3);border-radius:var(--r8);padding:12px 16px;text-align:left;max-width:440px">
+          <p style="font-size:11px;font-weight:600;color:var(--gd);margin-bottom:8px">📋 Info Produk:</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;color:var(--txs)">
+            <div>🟦 <strong style="color:var(--tx)">UNO</strong> — Keramik Dekoratif</div>
+            <div>📐 Ukuran: 30×60 cm</div>
+            <div>🟧 <strong style="color:var(--tx)">ARNA</strong> — Granit/Porselen</div>
+            <div>📐 Ukuran: 60×60 cm</div>
+            <div>✨ Finish: Polished, Matte, Carving</div>
+            <div>🏭 Distributor: CSAP Divisi 1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARNA 60120 -->
+    <div class="spek-panel" id="sp-arna60120">
+      <div class="pdf-toolbar">
+        <div class="pdf-info">
+          <span class="spek-brand-badge">🟧 ARNA 60×120 cm</span><br>
+          <strong>E-Catalog ARNA 60120</strong>
+          <span style="color:var(--txm)"> · 2026 · 6 halaman</span>
+        </div>
+        <a href="../E-CATALOG ARNA60120 2026_compressed.pdf" target="_blank" class="btn bpu bsm">↗ Buka Full</a>
+        <a href="../E-CATALOG ARNA60120 2026_compressed.pdf" download class="btn bgh bsm">⬇ Download</a>
+      </div>
+      <iframe class="pdf-frame" id="frame-arna60120"
+        src="../E-CATALOG ARNA60120 2026_compressed.pdf"
+        onload="checkFrame(this)" onerror="showFallback('arna60120')">
+      </iframe>
+      <div class="pdf-fallback" id="fall-arna60120">
+        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <p style="font-size:14px;color:var(--tx)">Preview tidak bisa ditampilkan</p>
+        <p style="font-size:12px">Browser membatasi tampilan PDF lokal.<br>Klik tombol di bawah untuk membuka katalog.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+          <a href="../E-CATALOG ARNA60120 2026_compressed.pdf" target="_blank" class="btn bpu">↗ Buka Katalog</a>
+          <a href="../E-CATALOG ARNA60120 2026_compressed.pdf" download class="btn bgh">⬇ Download PDF</a>
+        </div>
+        <div style="margin-top:16px;background:var(--s3);border-radius:var(--r8);padding:12px 16px;text-align:left;max-width:440px">
+          <p style="font-size:11px;font-weight:600;color:var(--gd);margin-bottom:8px">📋 Info Produk:</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;color:var(--txs)">
+            <div>🟧 <strong style="color:var(--tx)">ARNA</strong> — Granit Large Format</div>
+            <div>📐 Ukuran: 60×120 cm</div>
+            <div>✨ Finish: Polished, Matte</div>
+            <div>🗓 Update: 2026</div>
+            <div>🏭 Distributor: CSAP Divisi 1</div>
+            <div>🎯 Segment: Mid–Premium</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CERANOSA -->
+    <div class="spek-panel" id="sp-ceranosa">
+      <div class="pdf-toolbar">
+        <div class="pdf-info">
+          <span class="spek-brand-badge">🟫 Granit Ceranosa</span><br>
+          <strong>Katalog Ceranosa</strong>
+          <span style="color:var(--txm)"> · Oktober 2024 · 110 halaman</span>
+        </div>
+        <a href="../Katalog Ceranosa 30102024_compressed_compressed.pdf" target="_blank" class="btn bpu bsm">↗ Buka Full</a>
+        <a href="../Katalog Ceranosa 30102024_compressed_compressed.pdf" download class="btn bgh bsm">⬇ Download</a>
+      </div>
+      <iframe class="pdf-frame" id="frame-ceranosa"
+        src="../Katalog Ceranosa 30102024_compressed_compressed.pdf"
+        onload="checkFrame(this)" onerror="showFallback('ceranosa')">
+      </iframe>
+      <div class="pdf-fallback" id="fall-ceranosa">
+        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <p style="font-size:14px;color:var(--tx)">Preview tidak bisa ditampilkan</p>
+        <p style="font-size:12px">Browser membatasi tampilan PDF lokal.<br>Klik tombol di bawah untuk membuka katalog.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+          <a href="../Katalog Ceranosa 30102024_compressed_compressed.pdf" target="_blank" class="btn bpu">↗ Buka Katalog</a>
+          <a href="../Katalog Ceranosa 30102024_compressed_compressed.pdf" download class="btn bgh">⬇ Download PDF</a>
+        </div>
+        <div style="margin-top:16px;background:var(--s3);border-radius:var(--s3);padding:12px 16px;text-align:left;max-width:440px">
+          <p style="font-size:11px;font-weight:600;color:var(--gd);margin-bottom:8px">📋 Info Produk:</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;color:var(--txs)">
+            <div>🟫 <strong style="color:var(--tx)">Ceranosa</strong> — Granit Mid-Segment</div>
+            <div>📐 Ukuran: Variatif</div>
+            <div>✨ Finish: Polished, Matte</div>
+            <div>🗓 Update: Oktober 2024</div>
+            <div>🏭 Distributor: CSAP Divisi 3</div>
+            <div>🎯 Segment: Mid-Range</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1416,6 +1569,46 @@ function toast(msg,type='info'){
   document.getElementById('tos').appendChild(el);
   setTimeout(()=>el.remove(),3000);
 }
+
+/* ── SPEK KERAMIK ────────────────────────────────────── */
+function openSpek(){openMod('mod-spek');}
+function spekTab(t,el){
+  document.querySelectorAll('#mod-spek .stb').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  document.querySelectorAll('.spek-panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('sp-'+t).classList.add('on');
+}
+function checkFrame(iframe){
+  try{
+    const b=iframe.contentDocument||iframe.contentWindow&&iframe.contentWindow.document;
+    if(!b||b.body&&b.body.innerHTML===''){
+      const id=iframe.id.replace('frame-','');
+      showFallback(id);
+    }
+  }catch(e){
+    const id=iframe.id.replace('frame-','');
+    showFallback(id);
+  }
+}
+function showFallback(id){
+  const frame=document.getElementById('frame-'+id);
+  const fall=document.getElementById('fall-'+id);
+  if(frame)frame.style.display='none';
+  if(fall)fall.style.display='flex';
+}
+// Auto-detect iframe block after short delay
+setTimeout(()=>{
+  ['uno6060','arna60120','ceranosa'].forEach(id=>{
+    const f=document.getElementById('frame-'+id);
+    if(!f)return;
+    try{
+      const doc=f.contentDocument||f.contentWindow&&f.contentWindow.document;
+      if(!doc||doc.readyState==='complete'&&(!doc.body||doc.body.innerHTML==='')){
+        showFallback(id);
+      }
+    }catch(e){showFallback(id);}
+  });
+},2500);
 
 /* ── PLAYBOOK ────────────────────────────────────────── */
 function openPlaybook(){openMod('mod-play');}
