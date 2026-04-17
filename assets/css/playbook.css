@@ -1,0 +1,153 @@
+/* ── PLAYBOOK MODAL ──────────────────────────────────────── */
+#mod-play .mo { max-width: 920px; }
+
+.play-panel         { display: none; }
+.play-panel.on      { display: block; }
+
+.play-section       { margin-bottom: 30px; }
+.play-section h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pu);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--gda);
+  letter-spacing: .2px;
+}
+.play-section h5 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--tx);
+  margin: 18px 0 10px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* Argument cards */
+.arg-card {
+  background: var(--s2);
+  border: 1px solid var(--bd);
+  border-left: 3px solid var(--gd);
+  border-radius: 0 var(--r8) var(--r8) 0;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  transition: var(--t);
+}
+.arg-card:hover {
+  background: var(--gda);
+  border-color: var(--gd);
+  border-left-color: var(--pu);
+}
+.arg-vs {
+  font-size: 10px;
+  color: var(--txm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  margin-bottom: 5px;
+}
+.arg-text {
+  font-size: 12px;
+  color: var(--txs);
+  line-height: 1.7;
+  font-style: italic;
+}
+.arg-text::before { content: '\201C'; color: var(--pu2); font-size: 16px; line-height: 0; vertical-align: -3px; }
+.arg-text::after  { content: '\201D'; color: var(--pu2); font-size: 16px; line-height: 0; vertical-align: -3px; }
+
+/* Package cards */
+.pkg-card {
+  background: var(--s1);
+  border: 1px solid var(--bd);
+  border-radius: var(--r12);
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 4px rgba(26,24,20,.04);
+  transition: var(--t);
+}
+.pkg-card:hover {
+  border-color: var(--gd);
+  box-shadow: var(--sh);
+}
+.pkg-card h5 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pu);
+  margin: 0 0 5px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.pkg-target {
+  font-size: 11px;
+  color: var(--txs);
+  margin-bottom: 12px;
+}
+.pkg-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.pkg-item {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  background: var(--pua);
+  color: var(--pu2);
+  border: 1px solid rgba(155,116,40,.2);
+  font-weight: 500;
+}
+.pkg-sp {
+  font-size: 12px;
+  color: var(--grn);
+  background: rgba(30,120,64,.06);
+  border: 1px solid rgba(30,120,64,.15);
+  border-radius: var(--r8);
+  padding: 10px 12px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* Executive key points */
+.exec-key {
+  background: var(--s2);
+  border-left: 3px solid var(--pu);
+  border-radius: 0 var(--r8) var(--r8) 0;
+  padding: 11px 14px;
+  margin-bottom: 9px;
+  font-size: 12px;
+  color: var(--txs);
+  line-height: 1.7;
+  transition: var(--t);
+}
+.exec-key:hover { background: var(--pua); }
+
+/* Play badges */
+.play-badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-weight: 600;
+  margin-left: 6px;
+}
+.pbmed  {
+  background: rgba(184,144,48,.12);
+  color: var(--pu);
+  border: 1px solid rgba(184,144,48,.25);
+}
+.pbhigh {
+  background: rgba(192,48,48,.10);
+  color: var(--red);
+  border: 1px solid rgba(192,48,48,.25);
+}
+.pblow  {
+  background: rgba(30,120,64,.10);
+  color: var(--grn);
+  border: 1px solid rgba(30,120,64,.20);
+}
+.pbvhi  {
+  background: rgba(155,116,40,.20);
+  color: var(--pu2);
+  border: 1px solid rgba(155,116,40,.35);
+}

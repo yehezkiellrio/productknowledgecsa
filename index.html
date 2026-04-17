@@ -3,324 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Katalog Produk</title>
+<title>CSAP Product Knowledge</title>
+<meta name="description" content="Katalog produk dan Sales Playbook internal CSAP — 4 divisi, 30+ brand bahan bangunan.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/playbook.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<style>
-:root{
-  --bg:#09090f;--s1:#111118;--s2:#18181f;--s3:#202029;
-  --bd:#28283a;--bd2:#32324a;
-  --tx:#e2e2f0;--txs:#9898b8;--txm:#505068;
-  --pu:#7c5cdb;--pu2:#9b7ef5;--pua:rgba(124,92,219,.15);
-  --gd:#e4a84a;--gd2:#f0c070;--gda:rgba(228,168,74,.12);
-  --red:#e05252;--grn:#52c97c;
-  --r4:4px;--r8:8px;--r12:12px;--r16:16px;
-  --sh:0 4px 24px rgba(0,0,0,.5);--t:.18s ease;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-size:14px;display:flex;flex-direction:column}
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:var(--s1)}
-::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:99px}
-::-webkit-scrollbar-thumb:hover{background:var(--pu)}
-
-/* HEADER */
-#hdr{height:54px;min-height:54px;background:var(--s1);border-bottom:1px solid var(--bd);
-  display:flex;align-items:center;gap:12px;padding:0 16px;z-index:100}
-.logo{font-size:17px;font-weight:700;color:var(--gd);letter-spacing:.5px;white-space:nowrap}
-.logo span{color:var(--txs);font-weight:400;font-size:12px}
-#sw{flex:1;max-width:380px;position:relative}
-#si{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r8);
-  padding:7px 12px 7px 34px;color:var(--tx);font-family:inherit;font-size:13px;outline:none;transition:var(--t)}
-#si::placeholder{color:var(--txm)}
-#si:focus{border-color:var(--pu);background:var(--s3)}
-#sw svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);opacity:.4;pointer-events:none}
-.hdr-r{display:flex;align-items:center;gap:8px;margin-left:auto}
-#tbadge{font-size:11px;color:var(--txs);padding:3px 10px;background:var(--s2);
-  border:1px solid var(--bd);border-radius:99px;white-space:nowrap}
-
-/* LAYOUT */
-#app{display:flex;flex:1;overflow:hidden}
-
-/* SIDEBAR */
-#sb{width:220px;min-width:220px;background:var(--s1);border-right:1px solid var(--bd);
-  display:flex;flex-direction:column;overflow:hidden;transition:var(--t)}
-#dvt{display:flex;flex-wrap:wrap;gap:4px;padding:10px;border-bottom:1px solid var(--bd)}
-.dvb{flex:1;text-align:center;padding:5px 4px;border-radius:var(--r8);cursor:pointer;
-  font-size:11px;font-weight:600;color:var(--txs);border:1px solid transparent;
-  background:var(--s2);transition:var(--t);white-space:nowrap}
-.dvb:hover{color:var(--tx);border-color:var(--bd2)}
-.dvb.on{background:var(--pua);border-color:var(--pu);color:var(--pu)}
-#bl{flex:1;overflow-y:auto;padding:8px}
-.bi{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r8);
-  cursor:pointer;border:1px solid transparent;transition:var(--t);margin-bottom:2px}
-.bi:hover{background:var(--s2);border-color:var(--bd)}
-.bi.on{background:var(--pua);border-color:var(--pu)}
-.bi.on .bin{color:var(--tx);font-weight:600}
-.bid{width:8px;height:8px;border-radius:50%;background:var(--bd2);flex-shrink:0}
-.bi.on .bid{background:var(--pu)}
-.bin{font-size:13px;color:var(--txs);flex:1;line-height:1.3}
-.bic{font-size:10px;color:var(--txm);background:var(--s3);border-radius:99px;padding:1px 7px;font-weight:600}
-.bi.on .bic{background:var(--pu);color:#fff}
-.sbf{padding:10px;border-top:1px solid var(--bd)}
-#bta{width:100%;padding:8px;border-radius:var(--r8);background:var(--s2);
-  border:1px solid var(--bd);color:var(--txs);font-family:inherit;font-size:12px;
-  cursor:pointer;transition:var(--t);display:flex;align-items:center;justify-content:center;gap:6px}
-#bta:hover{background:var(--gda);border-color:var(--gd);color:var(--gd)}
-#bta.on{background:var(--gda);border-color:var(--gd);color:var(--gd)}
-
-/* MAIN */
-#main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-#bh{padding:16px 20px;border-bottom:1px solid var(--bd);background:var(--s1);
-  display:flex;align-items:flex-start;gap:12px}
-.bhi h2{font-size:18px;font-weight:700;margin-bottom:2px}
-.bhi p{font-size:12px;color:var(--txs);margin-bottom:4px;max-width:500px}
-.bhi a{font-size:11px;color:var(--pu);text-decoration:none}
-.bhi a:hover{color:var(--pu2)}
-.bhs{margin-left:auto;text-align:right;flex-shrink:0}
-.bhs .num{font-size:28px;font-weight:800;color:var(--gd);line-height:1}
-.bhs .lbl{font-size:10px;color:var(--txm);text-transform:uppercase;letter-spacing:.5px}
-
-/* FILTER */
-#fb{padding:10px 20px;border-bottom:1px solid var(--bd);background:var(--s1);
-  display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-height:44px}
-.fc{padding:4px 12px;border-radius:99px;border:1px solid var(--bd);background:var(--s2);
-  cursor:pointer;font-size:12px;color:var(--txs);font-family:inherit;transition:var(--t);white-space:nowrap}
-.fc:hover{border-color:var(--pu);color:var(--pu)}
-.fc.on{background:var(--pu);border-color:var(--pu);color:#fff;font-weight:600}
-
-/* GRID */
-#gw{flex:1;overflow-y:auto;padding:20px}
-#gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:12px}
-
-/* EMPTY */
-#emp{display:flex;flex-direction:column;align-items:center;justify-content:center;
-  height:100%;gap:12px;color:var(--txm);text-align:center;padding:40px}
-#emp svg{opacity:.3}
-#emp p{font-size:15px;opacity:.7}
-#emp small{font-size:12px;opacity:.5}
-
-/* CARD */
-.card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r12);
-  overflow:hidden;cursor:pointer;transition:var(--t);position:relative}
-.card:hover{border-color:var(--pu);transform:translateY(-2px);box-shadow:var(--sh)}
-.card.am:hover .cac{opacity:1}
-.ci{width:100%;aspect-ratio:1;background:var(--s2);overflow:hidden;position:relative}
-.ci img{width:100%;height:100%;object-fit:cover;transition:.3s}
-.card:hover .ci img{transform:scale(1.04)}
-.cph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:30px;opacity:.35}
-.cb{padding:10px}
-.cc{font-size:10px;color:var(--pu);font-weight:600;margin-bottom:2px;font-family:monospace;letter-spacing:.3px}
-.cn{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:6px;line-height:1.3;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.ct{display:flex;flex-wrap:wrap;gap:3px}
-.tag{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:500}
-.tcat{background:var(--s3);color:var(--txs);border:1px solid var(--bd)}
-.tfin{background:var(--pua);color:var(--pu2);border:1px solid rgba(124,92,219,.3)}
-.tgd{background:var(--gda);color:var(--gd2);border:1px solid rgba(228,168,74,.3)}
-.tsz{background:var(--s3);color:var(--txm);font-size:9px}
-.cac{position:absolute;top:6px;right:6px;display:flex;gap:4px;opacity:0;transition:var(--t)}
-.cab{width:26px;height:26px;border-radius:var(--r4);border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;font-size:12px}
-.ced{background:rgba(0,0,0,.75);color:var(--gd)}
-.ced:hover{background:var(--gd);color:#000}
-.cdl{background:rgba(0,0,0,.75);color:var(--red)}
-.cdl:hover{background:var(--red);color:#fff}
-.cnew{position:absolute;top:6px;left:6px;background:var(--grn);color:#000;
-  font-size:9px;font-weight:700;padding:2px 6px;border-radius:99px;text-transform:uppercase}
-
-/* OVERLAYS */
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;
-  display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
-.ov.h{display:none}
-.mo{background:var(--s2);border:1px solid var(--bd2);border-radius:var(--r16);
-  padding:24px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--sh)}
-.mo.w{max-width:700px}
-.mo h3{font-size:17px;font-weight:700;margin-bottom:6px}
-.mo .sub{font-size:12px;color:var(--txs);margin-bottom:20px}
-.mc{float:right;background:none;border:none;color:var(--txs);cursor:pointer;font-size:18px;padding:0 0 0 12px;transition:var(--t)}
-.mc:hover{color:var(--red)}
-
-/* FORM */
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.fr.f1{grid-template-columns:1fr}
-.fg{margin-bottom:14px}
-.fg label{display:block;font-size:12px;color:var(--txs);margin-bottom:5px;font-weight:500}
-.fg input,.fg select,.fg textarea{
-  width:100%;background:var(--s3);border:1px solid var(--bd);border-radius:var(--r8);
-  padding:9px 12px;color:var(--tx);font-family:inherit;font-size:13px;outline:none;transition:var(--t)}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--pu);background:var(--s1)}
-.fg textarea{resize:vertical;min-height:70px}
-.fg select option{background:var(--s2)}
-
-/* PIN */
-.prow{display:flex;gap:8px;justify-content:center;margin:12px 0}
-.pd{width:14px;height:14px;border-radius:50%;border:2px solid var(--bd);transition:var(--t)}
-.pd.on{background:var(--pu);border-color:var(--pu)}
-.np{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:220px;margin:12px auto 0}
-.npb{padding:12px;border-radius:var(--r8);border:1px solid var(--bd);background:var(--s3);
-  color:var(--tx);font-family:inherit;font-size:16px;font-weight:600;cursor:pointer;transition:var(--t)}
-.npb:hover{background:var(--pua);border-color:var(--pu);color:var(--pu)}
-.npb.del{color:var(--red)}
-.npb.clr{color:var(--txs);font-size:12px}
-
-/* BUTTONS */
-.btn{padding:9px 18px;border-radius:var(--r8);border:none;font-family:inherit;font-size:13px;
-  font-weight:600;cursor:pointer;transition:var(--t);display:inline-flex;align-items:center;gap:6px}
-.bpu{background:var(--pu);color:#fff}
-.bpu:hover{background:var(--pu2)}
-.bgd{background:var(--gd);color:#000}
-.bgd:hover{background:var(--gd2)}
-.brd{background:var(--red);color:#fff}
-.brd:hover{filter:brightness(1.15)}
-.bgh{background:var(--s3);color:var(--txs);border:1px solid var(--bd)}
-.bgh:hover{background:var(--s2);color:var(--tx)}
-.bsm{padding:6px 12px;font-size:12px}
-.br{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}
-
-/* ADMIN TABS */
-.atabs{display:flex;gap:6px;margin-bottom:16px;border-bottom:1px solid var(--bd);padding-bottom:12px;flex-wrap:wrap}
-.atb{padding:6px 14px;border-radius:var(--r8);border:1px solid transparent;
-  background:none;color:var(--txs);font-family:inherit;font-size:13px;cursor:pointer;transition:var(--t)}
-.atb:hover{background:var(--s3)}
-.atb.on{background:var(--pua);border-color:var(--pu);color:var(--pu);font-weight:600}
-.apan{display:none}
-.apan.on{display:block}
-
-/* DETAIL */
-.dimg{width:100%;max-height:260px;object-fit:cover;border-radius:var(--r8);margin-bottom:14px}
-.diph{width:100%;height:180px;border-radius:var(--r8);background:var(--s3);
-  display:flex;align-items:center;justify-content:center;font-size:48px;margin-bottom:14px}
-.dgr{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-.di label{font-size:10px;color:var(--txs);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:2px}
-.di span{font-size:13px;color:var(--tx);font-weight:500}
-.ddesc{font-size:12px;color:var(--txs);line-height:1.6;padding:10px;background:var(--s3);
-  border-radius:var(--r8);margin-bottom:12px}
-
-/* UPLOAD */
-.uz{border:2px dashed var(--bd);border-radius:var(--r8);padding:24px;text-align:center;
-  cursor:pointer;transition:var(--t);background:var(--s3)}
-.uz:hover,.uz.drag{border-color:var(--pu);background:var(--pua)}
-.uz p{font-size:12px;color:var(--txs);margin-top:6px}
-.ip{width:100%;max-height:160px;object-fit:cover;border-radius:var(--r8);display:block}
-.irw{position:relative;display:inline-block;width:100%}
-.irm{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;
-  background:rgba(0,0,0,.7);border:none;cursor:pointer;color:#fff;font-size:12px;
-  display:flex;align-items:center;justify-content:center}
-.irm:hover{background:var(--red)}
-
-/* ADMIN TABLE */
-.atbl{width:100%;border-collapse:collapse;font-size:12px}
-.atbl th{text-align:left;padding:6px 8px;color:var(--txs);border-bottom:1px solid var(--bd);white-space:nowrap}
-.atbl td{padding:8px;border-bottom:1px solid var(--bd);vertical-align:middle}
-.atbl tr:hover td{background:var(--s3)}
-.sbadge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600}
-.sok{background:rgba(82,201,124,.15);color:var(--grn);border:1px solid rgba(82,201,124,.3)}
-.sno{background:rgba(224,82,82,.15);color:var(--red);border:1px solid rgba(224,82,82,.3)}
-
-/* SPEK KERAMIK */
-.spek-tabs{display:flex;gap:6px;margin-bottom:0;border-bottom:1px solid var(--bd);padding-bottom:12px;flex-wrap:wrap}
-.stb{padding:5px 14px;border-radius:var(--r8);border:1px solid transparent;
-  background:none;color:var(--txs);font-family:inherit;font-size:12px;cursor:pointer;transition:var(--t);font-weight:500}
-.stb:hover{background:var(--s3)}
-.stb.on{background:var(--pua);border-color:var(--pu);color:var(--pu);font-weight:600}
-.spek-panel{display:none}
-.spek-panel.on{display:flex;flex-direction:column;gap:0}
-.pdf-toolbar{display:flex;align-items:center;gap:8px;padding:10px 0;flex-wrap:wrap}
-.pdf-info{font-size:11px;color:var(--txs);flex:1}
-.pdf-info strong{color:var(--tx);font-size:12px}
-.pdf-frame{width:100%;height:70vh;border:1px solid var(--bd);border-radius:var(--r8);background:var(--s3);display:block}
-.pdf-fallback{display:none;flex-direction:column;align-items:center;justify-content:center;
-  height:60vh;gap:16px;color:var(--txs);text-align:center;background:var(--s3);border-radius:var(--r8);padding:24px}
-.spek-brand-badge{display:inline-flex;align-items:center;gap:6px;background:var(--pua);
-  border:1px solid var(--pu);color:var(--pu2);border-radius:99px;padding:3px 12px;font-size:11px;font-weight:600;margin-bottom:10px}
-
-/* PLAYBOOK */
-#mod-play .mo{max-width:900px}
-.play-panel{display:none}
-.play-panel.on{display:block}
-.play-section{margin-bottom:28px}
-.play-section h4{font-size:14px;font-weight:700;color:var(--gd);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
-.play-section h5{font-size:12px;font-weight:600;color:var(--pu2);margin:16px 0 8px}
-.arg-card{background:var(--s3);border:1px solid var(--bd);border-radius:var(--r8);padding:12px 14px;margin-bottom:8px}
-.arg-vs{font-size:10px;color:var(--txm);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.arg-text{font-size:12px;color:var(--tx);line-height:1.6;font-style:italic}
-.arg-text::before{content:'"';color:var(--pu2)}
-.arg-text::after{content:'"';color:var(--pu2)}
-.pkg-card{background:var(--s3);border:1px solid var(--bd);border-radius:var(--r12);padding:16px;margin-bottom:12px}
-.pkg-card h5{font-size:13px;font-weight:700;color:var(--gd);margin-bottom:4px}
-.pkg-target{font-size:11px;color:var(--txs);margin-bottom:10px}
-.pkg-items{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
-.pkg-item{font-size:11px;padding:3px 9px;border-radius:99px;background:var(--pua);color:var(--pu2);border:1px solid rgba(124,92,219,.3)}
-.pkg-sp{font-size:11px;color:var(--grn);background:rgba(82,201,124,.1);border:1px solid rgba(82,201,124,.2);border-radius:var(--r8);padding:8px 10px}
-.exec-key{background:var(--s3);border-left:3px solid var(--pu);border-radius:0 var(--r8) var(--r8) 0;padding:10px 12px;margin-bottom:8px;font-size:12px;color:var(--tx);line-height:1.6}
-.play-badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600;margin-left:6px}
-.pbmed{background:rgba(228,168,74,.15);color:var(--gd2);border:1px solid rgba(228,168,74,.3)}
-.pbhigh{background:rgba(224,82,82,.15);color:var(--red);border:1px solid rgba(224,82,82,.3)}
-.pblow{background:rgba(82,201,124,.15);color:var(--grn);border:1px solid rgba(82,201,124,.3)}
-.pbvhi{background:rgba(155,126,245,.25);color:var(--pu2);border:1px solid rgba(124,92,219,.4)}
-
-/* TOAST */
-#tos{position:fixed;bottom:20px;right:20px;z-index:999;display:flex;flex-direction:column;gap:6px}
-.ti{padding:10px 16px;border-radius:var(--r8);font-size:13px;font-weight:500;
-  animation:su .2s ease;box-shadow:var(--sh)}
-.tok{background:var(--grn);color:#000}
-.ter{background:var(--red);color:#fff}
-.tin{background:var(--pu);color:#fff}
-@keyframes su{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-
-/* LOADER */
-.spin{width:32px;height:32px;border:3px solid var(--bd);border-top-color:var(--pu);
-  border-radius:50%;animation:sp .7s linear infinite;margin:auto}
-@keyframes sp{to{transform:rotate(360deg)}}
-.ldg{display:flex;align-items:center;justify-content:center;height:180px}
-
-@media(max-width:640px){
-  #sb{width:170px;min-width:170px}
-  #gr{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
-  #gw{padding:12px}
-  .bhi p{display:none}
-}
-</style>
 </head>
 <body>
 
-<div id="hdr">
-  <div class="logo">KATALOG<span> Produk</span></div>
+<!-- ── HEADER ───────────────────────────────────────────── -->
+<header id="hdr">
+  <div class="logo">CSAP<span>Product Knowledge</span></div>
+
   <div id="sw">
     <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
       <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
     </svg>
     <input id="si" type="text" placeholder="Cari produk, kode, series…">
   </div>
+
   <div class="hdr-r">
-    <button onclick="openSpek()" style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r8);color:var(--txs);font-family:inherit;font-size:12px;font-weight:600;padding:5px 12px;cursor:pointer;transition:var(--t);display:flex;align-items:center;gap:5px;white-space:nowrap" onmouseover="this.style.borderColor='var(--gd)';this.style.color='var(--gd)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--txs)'">
-      📐 Spek Keramik
+    <button class="hdr-btn" onclick="openSpek()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+      </svg>
+      Spek Keramik
     </button>
-    <button onclick="openPlaybook()" style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r8);color:var(--txs);font-family:inherit;font-size:12px;font-weight:600;padding:5px 12px;cursor:pointer;transition:var(--t);display:flex;align-items:center;gap:5px;white-space:nowrap" onmouseover="this.style.borderColor='var(--pu)';this.style.color='var(--pu)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--txs)'">
-      📋 Sales Playbook
+    <button class="hdr-btn" onclick="openPlaybook()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+      Sales Playbook
     </button>
     <span id="tbadge">— produk</span>
   </div>
-</div>
+</header>
 
+<!-- ── APP ──────────────────────────────────────────────── -->
 <div id="app">
-  <div id="sb">
+
+  <!-- SIDEBAR -->
+  <aside id="sb">
     <div id="dvt"></div>
     <div id="bl"><div class="ldg"><div class="spin"></div></div></div>
     <div class="sbf">
       <button id="bta" onclick="openAdmin()">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4l3 3"/>
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
         </svg>
         <span id="alab">Admin</span>
       </button>
     </div>
-  </div>
+  </aside>
 
-  <div id="main">
+  <!-- MAIN -->
+  <main id="main">
     <div id="bh">
       <div class="bhi">
         <h2 id="bhname">Pilih Brand</h2>
@@ -343,12 +89,12 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
       </div>
       <div id="gr" style="display:none"></div>
     </div>
-  </div>
+  </main>
 </div>
 
 <div id="tos"></div>
 
-<!-- MODAL: DETAIL -->
+<!-- ── MODAL: DETAIL PRODUK ─────────────────────────────── -->
 <div class="ov h" id="mod-det">
   <div class="mo">
     <button class="mc" onclick="closeMod('mod-det')">✕</button>
@@ -356,18 +102,27 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
   </div>
 </div>
 
-<!-- MODAL: PIN -->
+<!-- ── MODAL: PIN LOGIN ──────────────────────────────────── -->
 <div class="ov h" id="mod-pin">
   <div class="mo" style="max-width:300px;text-align:center">
-    <h3>🔐 Admin Login</h3>
-    <p class="sub">Masukkan PIN 8 digit</p>
+    <button class="mc" onclick="closeMod('mod-pin')">✕</button>
+    <div style="width:40px;height:40px;border-radius:50%;background:var(--gda);border:1px solid var(--bd);
+         display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+           style="color:var(--pu)">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </div>
+    <h3 style="font-size:16px">Admin Login</h3>
+    <p class="sub" style="margin-bottom:14px">Masukkan PIN 8 digit</p>
     <div class="prow" id="pdots">
       <div class="pd" id="p0"></div><div class="pd" id="p1"></div>
       <div class="pd" id="p2"></div><div class="pd" id="p3"></div>
       <div class="pd" id="p4"></div><div class="pd" id="p5"></div>
       <div class="pd" id="p6"></div><div class="pd" id="p7"></div>
     </div>
-    <div id="perr" style="color:var(--red);font-size:12px;height:16px;margin-bottom:4px"></div>
+    <div id="perr" style="color:var(--red);font-size:12px;height:18px;margin-bottom:2px"></div>
     <div class="np">
       <button class="npb" onclick="pk('1')">1</button>
       <button class="npb" onclick="pk('2')">2</button>
@@ -382,30 +137,32 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
       <button class="npb" onclick="pk('0')">0</button>
       <button class="npb del" onclick="pk('D')">⌫</button>
     </div>
-    <div class="br" style="justify-content:center;margin-top:14px">
+    <div class="br" style="justify-content:center;margin-top:16px">
       <button class="btn bgh bsm" onclick="closeMod('mod-pin')">Batal</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL: ADMIN PANEL -->
+<!-- ── MODAL: ADMIN PANEL ────────────────────────────────── -->
 <div class="ov h" id="mod-adm">
   <div class="mo w">
     <button class="mc" onclick="closeMod('mod-adm')">✕</button>
-    <h3>⚙️ Admin Panel</h3>
+    <h3>Admin Panel</h3>
     <p class="sub">Kelola brand dan produk katalog</p>
     <div class="atabs">
       <button class="atb on" onclick="aTab('brands',this)">📋 Brand</button>
-      <button class="atb" onclick="aTab('prods',this)">📦 Produk</button>
-      <button class="atb" onclick="aTab('abrand',this)">+ Brand</button>
-      <button class="atb" onclick="aTab('aprod',this)">+ Produk</button>
-      <button class="atb" onclick="aTab('acat',this)">📂 Katalog</button>
+      <button class="atb"    onclick="aTab('prods',this)">📦 Produk</button>
+      <button class="atb"    onclick="aTab('abrand',this)">+ Brand</button>
+      <button class="atb"    onclick="aTab('aprod',this)">+ Produk</button>
+      <button class="atb"    onclick="aTab('acat',this)">📂 Katalog</button>
     </div>
 
+    <!-- Brand list -->
     <div class="apan on" id="ap-brands">
       <div id="abl"></div>
     </div>
 
+    <!-- Product list -->
     <div class="apan" id="ap-prods">
       <div class="fg" style="margin-bottom:12px">
         <label>Filter Brand</label>
@@ -414,6 +171,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
       <div id="apl"></div>
     </div>
 
+    <!-- Add/Edit Brand -->
     <div class="apan" id="ap-abrand">
       <div class="fr">
         <div class="fg"><label>Nama Brand *</label><input id="nb-name" placeholder="Nama brand"></div>
@@ -431,7 +189,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
         </div>
       </div>
       <div class="fr f1">
-        <div class="fg"><label>Deskripsi</label><textarea id="nb-desc" placeholder="Deskripsi singkat…"></textarea></div>
+        <div class="fg"><label>Deskripsi</label>
+          <textarea id="nb-desc" placeholder="Deskripsi singkat…"></textarea>
+        </div>
       </div>
       <div class="fr">
         <div class="fg"><label>Tipe Brand</label>
@@ -442,15 +202,19 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
           </select>
         </div>
         <div class="fg"><label>Flipbook / External URL</label>
-          <input id="nb-flip" placeholder="https://online.fliphtml5.com/…"></div>
+          <input id="nb-flip" placeholder="https://online.fliphtml5.com/…">
+        </div>
       </div>
       <div class="fr f1">
         <div class="fg">
           <label>Logo Brand</label>
           <div class="uz" id="blz" onclick="document.getElementById('bli').click()">
             <div id="blpw">
-              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"
+                   viewBox="0 0 24 24" style="opacity:.4">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
               </svg>
               <p>Klik untuk upload logo</p>
             </div>
@@ -465,6 +229,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
       </div>
     </div>
 
+    <!-- Add/Edit Product -->
     <div class="apan" id="ap-aprod">
       <input type="hidden" id="np-editid">
       <div class="fr">
@@ -499,8 +264,10 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
           <label>Foto Produk</label>
           <div class="uz" id="piz" onclick="document.getElementById('pii').click()">
             <div id="pipw">
-              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4">
-                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"
+                   viewBox="0 0 24 24" style="opacity:.4">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
                 <polyline points="21 15 16 10 5 21"/>
               </svg>
               <p>Klik untuk upload foto produk</p>
@@ -517,30 +284,38 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
       </div>
     </div>
 
-    <!-- KATALOG TAB -->
+    <!-- Catalog tab -->
     <div class="apan" id="ap-acat">
-      <!-- List katalog -->
       <div id="acl" style="margin-bottom:16px"></div>
-      <!-- Form tambah/edit -->
-      <div style="border-top:1px solid var(--bd);padding-top:14px">
+      <div style="border-top:1px solid var(--bd);padding-top:16px">
         <p style="font-size:12px;font-weight:600;color:var(--txs);margin-bottom:12px">
           <span id="nc-formlbl">+ Tambah Katalog</span>
         </p>
         <div class="fr">
-          <div class="fg"><label>Nama / Brand *</label><input id="nc-brand" placeholder="UNO 30×60 &amp; ARNA 60×60"></div>
-          <div class="fg"><label>Judul Katalog *</label><input id="nc-title" placeholder="E-Catalog UNO 3060 mix ARNA 6060"></div>
+          <div class="fg"><label>Nama / Brand *</label>
+            <input id="nc-brand" placeholder="UNO 30×60 &amp; ARNA 60×60">
+          </div>
+          <div class="fg"><label>Judul Katalog *</label>
+            <input id="nc-title" placeholder="E-Catalog UNO 3060 mix ARNA 6060">
+          </div>
         </div>
         <div class="fr">
-          <div class="fg"><label>Deskripsi</label><input id="nc-desc" placeholder="Update Oktober 2024"></div>
-          <div class="fg"><label>Jumlah Halaman</label><input id="nc-pages" type="number" placeholder="70"></div>
+          <div class="fg"><label>Deskripsi</label>
+            <input id="nc-desc" placeholder="Update Oktober 2024">
+          </div>
+          <div class="fg"><label>Jumlah Halaman</label>
+            <input id="nc-pages" type="number" placeholder="70">
+          </div>
         </div>
         <div class="fr f1">
           <div class="fg">
             <label>Upload PDF Katalog *</label>
             <div class="uz" id="cpz" onclick="document.getElementById('cpi').click()">
               <div id="cppw">
-                <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+                <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"
+                     viewBox="0 0 24 24" style="opacity:.4">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
                 </svg>
                 <p>Klik untuk upload PDF katalog</p>
               </div>
@@ -556,60 +331,62 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
           <button class="btn bgd" onclick="saveCatalog()" id="nc-savebtn">💾 <span id="nc-savelbl">Simpan Katalog</span></button>
         </div>
       </div>
-      <div style="margin-top:12px;background:var(--s3);border:1px solid var(--bd);border-radius:var(--r8);padding:10px 12px;font-size:11px;color:var(--txs);line-height:1.7">
-        ⚠️ <strong style="color:var(--gd)">Setup Supabase:</strong> Buat tabel <code style="color:var(--pu)">catalogs</code> dulu di SQL Editor Supabase:<br>
-        <code style="color:var(--pu2);font-size:10px">create table catalogs (id uuid default gen_random_uuid() primary key, brand text, title text, description text, file_url text, pages int, sort_order int default 0, is_active bool default true, created_at timestamptz default now());</code>
+      <div style="margin-top:12px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r8);
+           padding:10px 12px;font-size:11px;color:var(--txs);line-height:1.7">
+        ⚠️ <strong style="color:var(--pu)">Setup Supabase:</strong>
+        Buat tabel <code style="color:var(--pu)">catalogs</code> dulu di SQL Editor:<br>
+        <code style="color:var(--txm);font-size:10px">create table catalogs (id uuid default gen_random_uuid() primary key, brand text, title text, description text, file_url text, pages int, sort_order int default 0, is_active bool default true, created_at timestamptz default now());</code>
       </div>
     </div>
 
   </div>
 </div>
 
-<!-- MODAL: SPEK KERAMIK -->
+<!-- ── MODAL: SPEK KERAMIK ───────────────────────────────── -->
 <div class="ov h" id="mod-spek">
-  <div class="mo" style="max-width:1000px;width:100%;max-height:92vh">
+  <div class="mo" style="max-width:1020px;width:100%;max-height:92vh">
     <button class="mc" onclick="closeMod('mod-spek')">✕</button>
-    <h3>📐 Spek Keramik CSAP</h3>
+    <h3>Spek Keramik CSAP</h3>
     <p class="sub">E-Catalog produk keramik &amp; granit</p>
     <div id="spek-body"><div class="ldg"><div class="spin"></div></div></div>
   </div>
 </div>
 
-<!-- MODAL: SALES PLAYBOOK -->
+<!-- ── MODAL: SALES PLAYBOOK ─────────────────────────────── -->
 <div class="ov h" id="mod-play">
-  <div class="mo" style="max-width:900px;width:100%">
+  <div class="mo" style="max-width:940px;width:100%">
     <button class="mc" onclick="closeMod('mod-play')">✕</button>
-    <h3>📋 CSAP Sales Playbook</h3>
+    <h3>CSAP Sales Playbook</h3>
     <p class="sub">Peta Persaingan, Killer Arguments &amp; Cross-Selling Strategy · MT Sales Supervisor</p>
     <div class="atabs">
       <button class="atb on" onclick="playTab('exec',this)">🎯 Executive</button>
-      <button class="atb" onclick="playTab('div1',this)">Divisi 1</button>
-      <button class="atb" onclick="playTab('div2',this)">Divisi 2</button>
-      <button class="atb" onclick="playTab('div3',this)">Divisi 3</button>
-      <button class="atb" onclick="playTab('div4',this)">Divisi 4</button>
-      <button class="atb" onclick="playTab('bundle',this)">🎁 Cross-Selling</button>
-      <button class="atb" onclick="playTab('cheat',this)">⚡ Cheatsheet</button>
+      <button class="atb"    onclick="playTab('div1',this)">Divisi 1</button>
+      <button class="atb"    onclick="playTab('div2',this)">Divisi 2</button>
+      <button class="atb"    onclick="playTab('div3',this)">Divisi 3</button>
+      <button class="atb"    onclick="playTab('div4',this)">Divisi 4</button>
+      <button class="atb"    onclick="playTab('bundle',this)">🎁 Cross-Selling</button>
+      <button class="atb"    onclick="playTab('cheat',this)">⚡ Cheatsheet</button>
     </div>
 
     <!-- EXECUTIVE SUMMARY -->
     <div class="play-panel on" id="pp-exec">
       <div class="play-section">
         <h4>Executive Summary</h4>
-        <p style="font-size:12px;color:var(--txs);line-height:1.7;margin-bottom:14px">
+        <p style="font-size:12px;color:var(--txs);line-height:1.8;margin-bottom:16px">
           CSAP adalah one-stop-shop untuk bahan bangunan — dari pondasi sampai finishing. Dokumen ini adalah amunisi lapangan: tau mana yang perlu di-defend, mana yang bisa di-push, dan gimana cara ngomong ke toko biar mereka mau switch atau nambahin brand kita.
         </p>
-        <h5 style="font-size:12px;font-weight:600;color:var(--pu2);margin-bottom:8px">Key Takeaways per Divisi</h5>
-        <div class="exec-key"><strong style="color:var(--gd)">Divisi 1 (Finishing)</strong> — Arwana &amp; Cotto dua ujung spektrum: mass market vs luxury. Brand paling under-exploited: <strong>Sterlyn</strong> (water heater) yang bisa nge-gap Ariston di harga.</div>
-        <div class="exec-key"><strong style="color:var(--gd)">Divisi 2 (Hardware)</strong> — Ace Oldfields &amp; Propan duo maut yang harus selalu dipasangkan. SI Anti Rayap punya niche yang sangat defensible. Timmerman punya potensi gede di tren interior modern.</div>
-        <div class="exec-key"><strong style="color:var(--gd)">Divisi 3 (Flooring)</strong> — Paling head-to-head sama kompetitor sejenis. Kanmuri genteng keramik premium bisa di-push keras ke developer. Casania Floor vinyl/SPC riding the wave interior trend.</div>
-        <div class="exec-key"><strong style="color:var(--gd)">Divisi 4 (Structural)</strong> — Mowilex &amp; Mortar Utama anchor brand. Knauf vs APlus multi-tier smart: good cop-bad cop pricing. Franco gerobak jangan di-underestimate, margin-nya thicc.</div>
+        <h5>Key Takeaways per Divisi</h5>
+        <div class="exec-key"><strong style="color:var(--pu)">Divisi 1 (Finishing)</strong> — Arwana &amp; Cotto dua ujung spektrum: mass market vs luxury. Brand paling under-exploited: <strong>Sterlyn</strong> (water heater) yang bisa nge-gap Ariston di harga.</div>
+        <div class="exec-key"><strong style="color:var(--pu)">Divisi 2 (Hardware)</strong> — Ace Oldfields &amp; Propan duo maut yang harus selalu dipasangkan. SI Anti Rayap punya niche yang sangat defensible. Timmerman punya potensi gede di tren interior modern.</div>
+        <div class="exec-key"><strong style="color:var(--pu)">Divisi 3 (Flooring)</strong> — Paling head-to-head sama kompetitor sejenis. Kanmuri genteng keramik premium bisa di-push keras ke developer. Casania Floor vinyl/SPC riding the wave interior trend.</div>
+        <div class="exec-key"><strong style="color:var(--pu)">Divisi 4 (Structural)</strong> — Mowilex &amp; Mortar Utama anchor brand. Knauf vs APlus multi-tier smart: good cop-bad cop pricing. Franco gerobak jangan di-underestimate, margin-nya thicc.</div>
       </div>
-      <div style="background:var(--s3);border:1px solid var(--bd2);border-radius:var(--r8);padding:12px 14px">
-        <p style="font-size:11px;color:var(--txm);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Portfolio CSAP</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <div style="text-align:center"><div style="font-size:24px;font-weight:800;color:var(--gd)">4</div><div style="font-size:10px;color:var(--txs)">Divisi</div></div>
-          <div style="text-align:center"><div style="font-size:24px;font-weight:800;color:var(--gd)">30+</div><div style="font-size:10px;color:var(--txs)">Brand</div></div>
-          <div style="text-align:center"><div style="font-size:24px;font-weight:800;color:var(--gd)">Full</div><div style="font-size:10px;color:var(--txs)">Building Material</div></div>
+      <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r12);padding:16px 18px">
+        <p style="font-size:11px;color:var(--txm);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Portfolio CSAP</p>
+        <div style="display:flex;gap:24px;flex-wrap:wrap">
+          <div style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--gd)">4</div><div style="font-size:10px;color:var(--txs);margin-top:2px">Divisi</div></div>
+          <div style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--gd)">30+</div><div style="font-size:10px;color:var(--txs);margin-top:2px">Brand</div></div>
+          <div style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--gd)">Full</div><div style="font-size:10px;color:var(--txs);margin-top:2px">Building Material</div></div>
         </div>
       </div>
     </div>
@@ -645,7 +422,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
     <div class="play-panel" id="pp-div2">
       <div class="play-section">
         <h4>Divisi 2: General Hardware &amp; Chemicals</h4>
-        <p style="font-size:12px;color:var(--txs);margin-bottom:12px">Kuncinya di sini adalah <strong>basket size</strong> — gimana caranya toko beli nggak cuma 1-2 item tapi sekalian borong banyak SKU dari kita.</p>
+        <p style="font-size:12px;color:var(--txs);margin-bottom:14px">Kuncinya di sini adalah <strong>basket size</strong> — gimana caranya toko beli nggak cuma 1-2 item tapi sekalian borong banyak SKU dari kita.</p>
         <h5>Market Gap Analysis</h5>
         <table class="atbl">
           <thead><tr><th>Brand</th><th>Threat</th><th>Opportunity</th><th>Catatan</th></tr></thead>
@@ -674,7 +451,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
     <div class="play-panel" id="pp-div3">
       <div class="play-section">
         <h4>Divisi 3: Flooring &amp; Ceramic Specialist</h4>
-        <p style="font-size:12px;color:var(--txs);margin-bottom:12px">Yang bikin beda: kekuatan <strong>channel project</strong>. Volk didesain buat lawan American Standard di jalur project.</p>
+        <p style="font-size:12px;color:var(--txs);margin-bottom:14px">Yang bikin beda: kekuatan <strong>channel project</strong>. Volk didesain buat lawan American Standard di jalur project.</p>
         <h5>Market Gap Analysis</h5>
         <table class="atbl">
           <thead><tr><th>Brand</th><th>Threat</th><th>Opportunity</th><th>Catatan</th></tr></thead>
@@ -699,7 +476,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
     <div class="play-panel" id="pp-div4">
       <div class="play-section">
         <h4>Divisi 4: Structural &amp; Heavy Tools</h4>
-        <p style="font-size:12px;color:var(--txs);margin-bottom:12px">Tulang punggung CSAP di project channel. Multi-tier strategy (Knauf premium + APlus mid) nutup dua segmen sekaligus.</p>
+        <p style="font-size:12px;color:var(--txs);margin-bottom:14px">Tulang punggung CSAP di project channel. Multi-tier strategy (Knauf premium + APlus mid) nutup dua segmen sekaligus.</p>
         <h5>Market Gap Analysis</h5>
         <table class="atbl">
           <thead><tr><th>Brand</th><th>Threat</th><th>Opportunity</th><th>Catatan</th></tr></thead>
@@ -724,23 +501,19 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
       </div>
     </div>
 
-    <!-- CROSS-SELLING & BUNDLING -->
+    <!-- CROSS-SELLING -->
     <div class="play-panel" id="pp-bundle">
       <div class="play-section">
         <h4>Cross-Selling &amp; Bundling Strategy</h4>
-        <p style="font-size:12px;color:var(--txs);margin-bottom:16px">CSAP punya advantage yang kompetitor single-brand nggak punya: <strong>ecosystem</strong>. Satu kontraktor bisa beli hampir semua kebutuhan dari kita.</p>
+        <p style="font-size:12px;color:var(--txs);margin-bottom:18px">CSAP punya advantage yang kompetitor single-brand nggak punya: <strong>ecosystem</strong>. Satu kontraktor bisa beli hampir semua kebutuhan dari kita.</p>
         <div class="pkg-card">
           <h5>PAKET 1 — Rumah Subsidi / Budget Housing</h5>
           <div class="pkg-target">Target: Developer rumah subsidi &amp; kontraktor kecil</div>
           <div class="pkg-items">
-            <span class="pkg-item">Arwana (keramik)</span>
-            <span class="pkg-item">Global (closet)</span>
-            <span class="pkg-item">Blesscon (bata ringan)</span>
-            <span class="pkg-item">Mortar Utama</span>
-            <span class="pkg-item">APlus (gypsum)</span>
-            <span class="pkg-item">Dura Roof (atap)</span>
-            <span class="pkg-item">Franco (gerobak)</span>
-            <span class="pkg-item">Paku</span>
+            <span class="pkg-item">Arwana (keramik)</span><span class="pkg-item">Global (closet)</span>
+            <span class="pkg-item">Blesscon (bata ringan)</span><span class="pkg-item">Mortar Utama</span>
+            <span class="pkg-item">APlus (gypsum)</span><span class="pkg-item">Dura Roof (atap)</span>
+            <span class="pkg-item">Franco (gerobak)</span><span class="pkg-item">Paku</span>
           </div>
           <div class="pkg-sp">💬 "Satu PO, semua kebutuhan rumah subsidi covered. Nggak perlu koordinasi 10 supplier, cukup CSAP."</div>
         </div>
@@ -748,16 +521,11 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
           <h5>PAKET 2 — Rumah Menengah / Mid-Range Housing</h5>
           <div class="pkg-target">Target: Developer perumahan cluster menengah</div>
           <div class="pkg-items">
-            <span class="pkg-item">UNO + Arna (keramik)</span>
-            <span class="pkg-item">Volk (sanitary)</span>
-            <span class="pkg-item">Eden (pintu)</span>
-            <span class="pkg-item">Propan (cat)</span>
-            <span class="pkg-item">Knauf (gypsum)</span>
-            <span class="pkg-item">Mortar Utama</span>
-            <span class="pkg-item">Duratruss (baja ringan)</span>
-            <span class="pkg-item">Kanmuri (genteng)</span>
-            <span class="pkg-item">Casania Floor (vinyl)</span>
-            <span class="pkg-item">Ace Oldfields (alat cat)</span>
+            <span class="pkg-item">UNO + Arna (keramik)</span><span class="pkg-item">Volk (sanitary)</span>
+            <span class="pkg-item">Eden (pintu)</span><span class="pkg-item">Propan (cat)</span>
+            <span class="pkg-item">Knauf (gypsum)</span><span class="pkg-item">Mortar Utama</span>
+            <span class="pkg-item">Duratruss (baja ringan)</span><span class="pkg-item">Kanmuri (genteng)</span>
+            <span class="pkg-item">Casania Floor (vinyl)</span><span class="pkg-item">Ace Oldfields (alat cat)</span>
           </div>
           <div class="pkg-sp">💬 "Paket komplit dari struktur sampe finishing. Developer hemat waktu procurement, kita kasih harga paket kompetitif."</div>
         </div>
@@ -765,14 +533,10 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
           <h5>PAKET 3 — Rumah Premium / High-End Residence</h5>
           <div class="pkg-target">Target: Developer premium, arsitek, interior designer</div>
           <div class="pkg-items">
-            <span class="pkg-item">Arna (porcelain/granite)</span>
-            <span class="pkg-item">Cotto (sanitary luxury)</span>
-            <span class="pkg-item">Sterlyn (water heater)</span>
-            <span class="pkg-item">Mowilex (cat premium)</span>
-            <span class="pkg-item">Knauf acoustic/fire-rated</span>
-            <span class="pkg-item">Timmerman (woodpanel)</span>
-            <span class="pkg-item">Kanmuri (genteng)</span>
-            <span class="pkg-item">Eden (pintu premium)</span>
+            <span class="pkg-item">Arna (porcelain/granite)</span><span class="pkg-item">Cotto (sanitary luxury)</span>
+            <span class="pkg-item">Sterlyn (water heater)</span><span class="pkg-item">Mowilex (cat premium)</span>
+            <span class="pkg-item">Knauf acoustic/fire-rated</span><span class="pkg-item">Timmerman (woodpanel)</span>
+            <span class="pkg-item">Kanmuri (genteng)</span><span class="pkg-item">Eden (pintu premium)</span>
             <span class="pkg-item">SI Anti Rayap</span>
           </div>
           <div class="pkg-sp">💬 "Full premium ecosystem, semua brand international-grade. Satu koordinator CSAP handle semua."</div>
@@ -781,12 +545,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
           <h5>PAKET 4 — Renovasi / Renovation Package</h5>
           <div class="pkg-target">Target: Toko bangunan retail &amp; end-user renovasi rumah</div>
           <div class="pkg-items">
-            <span class="pkg-item">Propan / Mowilex (cat)</span>
-            <span class="pkg-item">Ace Oldfields (alat)</span>
-            <span class="pkg-item">Casania Floor (vinyl SPC)</span>
-            <span class="pkg-item">Sterlyn (water heater)</span>
-            <span class="pkg-item">Cosmos (exhaust fan)</span>
-            <span class="pkg-item">Timmerman (accent wall)</span>
+            <span class="pkg-item">Propan / Mowilex (cat)</span><span class="pkg-item">Ace Oldfields (alat)</span>
+            <span class="pkg-item">Casania Floor (vinyl SPC)</span><span class="pkg-item">Sterlyn (water heater)</span>
+            <span class="pkg-item">Cosmos (exhaust fan)</span><span class="pkg-item">Timmerman (accent wall)</span>
           </div>
           <div class="pkg-sp">💬 "Paket renovasi yang nggak perlu bongkar total. Install cepet, hasil premium."</div>
         </div>
@@ -797,7 +558,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
     <div class="play-panel" id="pp-cheat">
       <div class="play-section">
         <h4>⚡ Killer Arguments Cheatsheet</h4>
-        <p style="font-size:12px;color:var(--txs);margin-bottom:12px">Quick reference lapangan — 1 kalimat per brand.</p>
+        <p style="font-size:12px;color:var(--txs);margin-bottom:14px">Quick reference lapangan — 1 kalimat per brand.</p>
         <div style="overflow-x:auto">
         <table class="atbl">
           <thead><tr><th>Brand CSAP</th><th>vs Kompetitor</th><th>Killer Argument</th></tr></thead>
@@ -833,8 +594,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
           </tbody>
         </table>
         </div>
-        <div style="margin-top:14px;background:var(--s3);border:1px solid var(--bd2);border-radius:var(--r8);padding:12px 14px;font-size:12px;color:var(--txs);line-height:1.7">
-          💡 <strong style="color:var(--tx)">Pro Tip:</strong> Jangan pernah jelek-jelekin kompetitor di depan toko. Fokus ke value yang kita bawa: margin lebih sehat, distribusi CSAP yang reliable, dan ecosystem brand yang bikin toko jadi one-stop-shop. <strong style="color:var(--gd)">Let the numbers do the talking.</strong>
+        <div style="margin-top:16px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r8);
+             padding:12px 16px;font-size:12px;color:var(--txs);line-height:1.8">
+          💡 <strong style="color:var(--tx)">Pro Tip:</strong> Jangan pernah jelek-jelekin kompetitor di depan toko. Fokus ke value yang kita bawa: margin lebih sehat, distribusi CSAP yang reliable, dan ecosystem brand yang bikin toko jadi one-stop-shop. <strong style="color:var(--pu)">Let the numbers do the talking.</strong>
         </div>
       </div>
     </div>
@@ -842,875 +604,17 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);font-s
   </div>
 </div>
 
-<script>
-/* ── CONFIG ─────────────────────────────────────────── */
-const SB_URL    = 'https://viwyrdoqqrrvvkdwdhkq.supabase.co';
-const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpd3lyZG9xcXJydnZrZHdkaGtxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNjY2MzQsImV4cCI6MjA5MTc0MjYzNH0.fqg9n8srg2Rv-iWXaf2ZuVgBL9cjTxaubHZqqQzcPO0';
-const PIN       = '10102001';
-const BUCKET_P  = 'products';
-const BUCKET_B  = 'brands';
+<!-- ── SCRIPTS ───────────────────────────────────────────── -->
+<script src="assets/js/config.js"></script>
+<script src="assets/js/state.js"></script>
+<script src="assets/js/supabase.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/catalog.js"></script>
+<script src="assets/js/search.js"></script>
+<script src="assets/js/admin.js"></script>
+<script src="assets/js/playbook.js"></script>
+<script src="assets/js/spek.js"></script>
+<script src="assets/js/main.js"></script>
 
-const sb = window.supabase.createClient(SB_URL, SB_KEY);
-
-/* ── STATE ──────────────────────────────────────────── */
-const S = {
-  brands:[], products:[], filtered:[],
-  curBrand:null, curDiv:'Divisi 1',
-  curFilt:'Semua', admin:false,
-  pin:'', pFile:null, lFile:null, editPid:null
-};
-
-/* ── INIT ───────────────────────────────────────────── */
-async function init(){
-  // Cek config dulu
-  if(SB_URL==='YOUR_SUPABASE_URL'||SB_KEY==='YOUR_SUPABASE_ANON_KEY'){
-    document.getElementById('bl').innerHTML=`
-      <div style="padding:14px">
-        <p style="color:var(--red);font-size:12px;font-weight:600;margin-bottom:8px">⚠️ Config Belum Diset</p>
-        <p style="color:var(--txs);font-size:11px;line-height:1.6">
-          Buka file HTML, cari baris:<br>
-          <code style="color:var(--pu)">SB_URL = 'YOUR_SUPABASE_URL'</code><br>
-          <code style="color:var(--pu)">SB_KEY = 'YOUR_SUPABASE_ANON_KEY'</code><br><br>
-          Ganti dengan URL dan anon key dari Supabase project kamu.
-        </p>
-      </div>`;
-    return;
-  }
-  await loadBrands();
-  renderDivs();
-  renderBrands();
-  // Auto-pilih div pertama yang ada brandnya
-  const firstDiv=divList()[0];
-  if(firstDiv){
-    S.curDiv=firstDiv;
-    renderDivs();
-    renderBrands();
-  }
-}
-
-/* ── BRANDS DATA ─────────────────────────────────────── */
-async function loadBrands(){
-  document.getElementById('bl').innerHTML='<div class="ldg"><div class="spin"></div></div>';
-  // Tidak filter is_active di sini — kolom mungkin belum ada sebelum ALTER TABLE dirun
-  const {data,error}=await sb.from('brands').select('*')
-    .order('sort_order',{nullsFirst:false}).order('label');
-  if(error){
-    document.getElementById('bl').innerHTML=`
-      <div style="padding:14px">
-        <p style="color:var(--red);font-size:12px;font-weight:600;margin-bottom:6px">❌ Gagal load brand</p>
-        <p style="color:var(--txm);font-size:11px;line-height:1.6">${esc(error.message)}</p>
-        <p style="color:var(--txs);font-size:11px;margin-top:8px">
-          Pastikan Supabase URL & Key sudah benar, dan tabel <code>brands</code> sudah ada.
-        </p>
-        <button class="btn bgh bsm" style="margin-top:10px;font-size:11px" onclick="loadBrands().then(()=>{renderDivs();renderBrands()})">
-          🔄 Retry
-        </button>
-      </div>`;
-    return;
-  }
-  // Filter is_active client-side (aman kalau kolom belum ada)
-  S.brands=(data||[]).filter(b=>b.is_active!==false);
-}
-
-function divList(){
-  if(!S.brands.length) return[];
-  const all=[...new Set(S.brands.map(b=>b.division||'Umum'))];
-  return all.sort((a,b)=>{
-    const ai=a.startsWith('Divisi')?parseInt(a.split(' ')[1]||99):99;
-    const bi=b.startsWith('Divisi')?parseInt(b.split(' ')[1]||99):99;
-    return ai-bi||a.localeCompare(b);
-  });
-}
-function brandsInDiv(d){
-  return S.brands.filter(b=>(b.division||'Umum')===d);
-}
-
-/* ── PRODUCTS DATA ───────────────────────────────────── */
-async function loadProds(bid){
-  S.curBrand=bid;
-  const gr=document.getElementById('gr');
-  const emp=document.getElementById('emp');
-  gr.style.display='none';
-  emp.style.display='flex';
-  emp.innerHTML='<div class="ldg"><div class="spin"></div></div>';
-
-  const {data,error}=await sb.from('products')
-    .select('*').eq('brand',bid).order('cat').order('name');
-  if(error){
-    emp.style.display='flex';
-    emp.innerHTML=`
-      <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4;color:var(--red)">
-        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-      </svg>
-      <p style="color:var(--red)">Gagal memuat produk</p>
-      <small style="color:var(--txm)">${esc(error.message)}</small>
-      <button class="btn bgh bsm" style="margin-top:8px" onclick="loadProds('${bid}')">🔄 Retry</button>`;
-    return;
-  }
-  S.products=data||[];
-  renderBH();
-  renderFilters();
-  applyFilt('Semua');
-}
-
-/* ── RENDER: DIV TABS ────────────────────────────────── */
-function renderDivs(){
-  const divs=divList();
-  document.getElementById('dvt').innerHTML=divs.map(d=>
-    `<button class="dvb ${d===S.curDiv?'on':''}" onclick="selDiv('${d}')">${d}</button>`
-  ).join('');
-}
-function selDiv(d){
-  S.curDiv=d;S.curFilt='Semua';
-  renderDivs();renderBrands();
-}
-
-/* ── RENDER: BRAND LIST ──────────────────────────────── */
-function renderBrands(){
-  const list=brandsInDiv(S.curDiv);
-  const el=document.getElementById('bl');
-  if(!S.brands.length){
-    el.innerHTML='<p style="padding:12px;font-size:12px;color:var(--txm)">Belum ada data brand</p>';
-    return;
-  }
-  if(!list.length){
-    el.innerHTML=`<p style="padding:12px;font-size:12px;color:var(--txm)">Tidak ada brand di ${S.curDiv}</p>`;
-    return;
-  }
-  el.innerHTML=list.map(b=>{
-    const icon=b.brand_type==='flipbook'?'📖':b.brand_type==='external'?'🔗':'';
-    const dot=b.color?`background:${b.color}`:'background:var(--bd2)';
-    return `<div class="bi ${b.id===S.curBrand?'on':''}" onclick="selBrand('${b.id}')">
-      <div class="bid" style="${dot}"></div>
-      <div class="bin">${esc(b.label)}${icon?` <span style="font-size:10px;opacity:.7">${icon}</span>`:''}</div>
-    </div>`;
-  }).join('');
-}
-function selBrand(id){
-  S.curFilt='Semua';
-  const b=S.brands.find(x=>x.id===id);
-  if(b&&b.brand_type==='flipbook'){
-    S.curBrand=id;
-    renderBrands();
-    showFlipbook(b);
-  } else {
-    loadProds(id).then(()=>renderBrands());
-  }
-}
-
-function showFlipbook(b){
-  // Update brand header
-  document.getElementById('bhname').textContent=b.label;
-  document.getElementById('bhdesc').textContent=b.description||'';
-  const wa=document.getElementById('bhweb');
-  if(b.website){wa.textContent=b.website;wa.href='https://'+b.website.replace(/^https?:\/\//,'');wa.style.display='';}
-  else wa.style.display='none';
-  document.getElementById('bhcnt').textContent='—';
-  document.getElementById('tbadge').textContent='Flipbook';
-  // Clear filters
-  document.getElementById('fb').innerHTML='';
-  // Show flipbook in grid area
-  const gr=document.getElementById('gr');
-  const emp=document.getElementById('emp');
-  gr.style.display='none';
-  emp.style.display='flex';
-  if(b.flipbook_url){
-    emp.innerHTML=`
-      <div style="width:100%;height:100%;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center">
-        <p style="color:var(--txs);font-size:13px">📖 Katalog ${esc(b.label)}</p>
-        <a href="${esc(b.flipbook_url)}" target="_blank" class="btn bpu" style="font-size:13px">
-          Buka Flipbook ↗
-        </a>
-        <div style="width:100%;max-width:900px;height:60vh;border-radius:var(--r12);overflow:hidden;border:1px solid var(--bd)">
-          <iframe src="${esc(b.flipbook_url)}" width="100%" height="100%" frameborder="0" allowfullscreen style="display:block"></iframe>
-        </div>
-      </div>`;
-  } else {
-    emp.innerHTML=`
-      <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.3">
-        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-      </svg>
-      <p>Flipbook URL belum diset</p>
-      <small>Update di Admin Panel → Edit Brand</small>`;
-  }
-}
-
-/* ── RENDER: BRAND HEADER ────────────────────────────── */
-function renderBH(){
-  const b=S.brands.find(x=>x.id===S.curBrand);
-  if(!b)return;
-  document.getElementById('bhname').textContent=b.label;
-  document.getElementById('bhdesc').textContent=b.description||'';
-  const wa=document.getElementById('bhweb');
-  if(b.website){wa.textContent=b.website;wa.href='https://'+b.website.replace(/^https?:\/\//,'');wa.style.display='';}
-  else wa.style.display='none';
-  document.getElementById('bhcnt').textContent=S.products.length;
-  document.getElementById('tbadge').textContent=S.products.length+' produk';
-}
-
-/* ── RENDER: FILTERS ─────────────────────────────────── */
-function renderFilters(){
-  const cats=['Semua',...new Set(S.products.map(p=>p.cat||'Lainnya'))].filter(Boolean);
-  document.getElementById('fb').innerHTML=cats.map(c=>
-    `<button class="fc ${c===S.curFilt?'on':''}" onclick="applyFilt('${c}')">${c}</button>`
-  ).join('');
-}
-function applyFilt(cat){
-  S.curFilt=cat;
-  document.querySelectorAll('.fc').forEach(e=>e.classList.toggle('on',e.textContent===cat));
-  S.filtered=cat==='Semua'?[...S.products]:S.products.filter(p=>(p.cat||'Lainnya')===cat);
-  const q=document.getElementById('si').value.trim().toLowerCase();
-  if(q)doSearch(q); else renderGrid();
-}
-
-/* ── SEARCH ──────────────────────────────────────────── */
-document.getElementById('si').addEventListener('input',function(){doSearch(this.value.trim().toLowerCase());});
-function doSearch(q){
-  if(!S.curBrand)return;
-  let base=S.curFilt==='Semua'?S.products:S.products.filter(p=>p.cat===S.curFilt);
-  S.filtered=q?base.filter(p=>
-    (p.name||'').toLowerCase().includes(q)||
-    (p.product_code||'').toLowerCase().includes(q)||
-    (p.series||'').toLowerCase().includes(q)||
-    (p.subcategory||p.cat||'').toLowerCase().includes(q)||
-    (p.sp||'').toLowerCase().includes(q)
-  ):base;
-  renderGrid();
-}
-
-/* ── RENDER: GRID ────────────────────────────────────── */
-function renderGrid(){
-  const emp=document.getElementById('emp');
-  const gr=document.getElementById('gr');
-  if(!S.filtered.length){
-    emp.style.display='flex';
-    emp.innerHTML=`<svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.3">
-      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-    </svg><p>Tidak ada produk ditemukan</p><small>Coba kata kunci lain</small>`;
-    gr.style.display='none';return;
-  }
-  emp.style.display='none';
-  gr.style.display='grid';
-  gr.innerHTML=S.filtered.map(cardHTML).join('');
-}
-
-function cardHTML(p){
-  const img=p.image_url
-    ?`<img src="${p.image_url}" alt="${esc(p.name)}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=cph>${emoji(p)}</div>'">`
-    :`<div class="cph">${emoji(p)}</div>`;
-  const tags=[];
-  if(p.series) tags.push(`<span class="tag tgd">${esc(p.series)}</span>`);
-  if(p.finish) tags.push(`<span class="tag tfin">${esc(p.finish.split(',')[0])}</span>`);
-  if(!p.series&&!p.finish&&p.subcategory) tags.push(`<span class="tag tcat">${esc(p.subcategory)}</span>`);
-  if(!p.series&&!p.finish&&!p.subcategory&&p.cat) tags.push(`<span class="tag tcat">${esc(p.cat)}</span>`);
-  if(p.size) tags.push(`<span class="tag tsz">${esc(p.size)}</span>`);
-  const adm=S.admin?`<div class="cac">
-    <button class="cab ced" onclick="editProd(event,'${p.id}')">✏</button>
-    <button class="cab cdl" onclick="delProd(event,'${p.id}','${esc(p.name)}')">✕</button>
-  </div>`:'';
-  const nb=(p.sp||'').toLowerCase().includes('new arrival')?'<div class="cnew">New</div>':'';
-  return `<div class="card ${S.admin?'am':''}" onclick="showDet('${p.id}')">
-    <div class="ci">${img}${adm}${nb}</div>
-    <div class="cb">
-      ${p.product_code?`<div class="cc">${esc(p.product_code)}</div>`:''}
-      <div class="cn">${esc(p.name)}</div>
-      <div class="ct">${tags.join('')}</div>
-    </div>
-  </div>`;
-}
-
-function emoji(p){
-  const c=(p.cat||'').toLowerCase(),s=(p.subcategory||p.cat||'').toLowerCase();
-  if(c==='tile')return s.includes('dark')?'🖤':s.includes('wood')?'🪵':'🔲';
-  if(c==='toilet')return '🚽';
-  if(c==='toilet seat')return '🪑';
-  if(c==='basin')return '🫧';
-  if(c==='faucet')return '🚰';
-  if(c==='shower')return '🚿';
-  if(c==='accessories')return '🔩';
-  if(c==='drain')return '⬇️';
-  if(c==='cabinet')return '🗄️';
-  return '📦';
-}
-
-function esc(s){return(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-
-/* ── DETAIL MODAL ────────────────────────────────────── */
-function showDet(id){
-  if(S.admin)return;
-  const p=S.products.find(x=>x.id===id);if(!p)return;
-  const imgEl=p.image_url?`<img class="dimg" src="${p.image_url}">`:`<div class="diph">${emoji(p)}</div>`;
-  const fields=[
-    p.product_code&&['Kode',p.product_code],
-    p.cat&&['Kategori',p.cat],
-    p.subcategory&&['Sub-Kategori',p.subcategory],
-    p.series&&['Series',p.series],
-    p.finish&&['Finish',p.finish],
-    p.size&&['Ukuran',p.size],
-    p.face_type&&['Face Type',p.face_type],
-    p.kw&&['Keywords',p.kw],
-  ].filter(Boolean);
-  document.getElementById('detcont').innerHTML=`
-    ${imgEl}
-    <h3 style="margin-bottom:6px">${esc(p.name)}</h3>
-    ${p.product_code?`<p style="color:var(--pu);font-size:12px;font-family:monospace;margin-bottom:12px">${esc(p.product_code)}</p>`:''}
-    ${fields.length?`<div class="dgr">${fields.map(([l,v])=>`<div class="di"><label>${l}</label><span>${esc(v)}</span></div>`).join('')}</div>`:''}
-    ${p.sp?`<div class="ddesc">${esc(p.sp)}</div>`:''}
-  `;
-  openMod('mod-det');
-}
-
-/* ── MODALS ──────────────────────────────────────────── */
-function openMod(id){document.getElementById(id).classList.remove('h');}
-function closeMod(id){document.getElementById(id).classList.add('h');}
-document.querySelectorAll('.ov').forEach(el=>{
-  el.addEventListener('click',e=>{if(e.target===el)el.classList.add('h');});
-});
-
-/* ── ADMIN PIN ───────────────────────────────────────── */
-function openAdmin(){
-  if(S.admin){openMod('mod-adm');populateAdm();return;}
-  S.pin='';updPinDots();
-  document.getElementById('perr').textContent='';
-  openMod('mod-pin');
-}
-function pk(k){
-  if(k==='C')S.pin='';
-  else if(k==='D')S.pin=S.pin.slice(0,-1);
-  else if(S.pin.length<8)S.pin+=k;
-  updPinDots();
-  if(S.pin.length===8){
-    if(S.pin===PIN){
-      S.admin=true;closeMod('mod-pin');
-      document.getElementById('bta').classList.add('on');
-      document.getElementById('alab').textContent='✓ Admin';
-      toast('Admin mode aktif','ok');
-      openMod('mod-adm');populateAdm();
-    }else{
-      document.getElementById('perr').textContent='PIN salah, coba lagi';
-      S.pin='';setTimeout(()=>document.getElementById('perr').textContent='',2000);
-      updPinDots();
-    }
-  }
-}
-function updPinDots(){
-  for(let i=0;i<8;i++)document.getElementById('p'+i).classList.toggle('on',i<S.pin.length);
-}
-
-/* ── ADMIN PANEL ─────────────────────────────────────── */
-function populateAdm(){
-  const opts=S.brands.map(b=>`<option value="${b.id}">${esc(b.label)} (${b.division||'?'})</option>`).join('');
-  document.getElementById('np-brand').innerHTML=opts;
-  document.getElementById('apbf').innerHTML='<option value="">— Semua —</option>'+opts;
-  loadAdmBrands();loadAdmProds();loadAdmCatalogs();
-}
-
-function aTab(t,el){
-  document.querySelectorAll('.atb').forEach(b=>b.classList.remove('on'));
-  el.classList.add('on');
-  document.querySelectorAll('.apan').forEach(p=>p.classList.remove('on'));
-  document.getElementById('ap-'+t).classList.add('on');
-}
-
-async function loadAdmBrands(){
-  const {data}=await sb.from('brands').select('*').order('division',{nullsFirst:false}).order('sort_order').order('label');
-  const el=document.getElementById('abl');
-  if(!data||!data.length){el.innerHTML='<p style="color:var(--txm);font-size:12px">Belum ada brand</p>';return;}
-  el.innerHTML=`<table class="atbl">
-    <thead><tr><th>Brand</th><th>Divisi</th><th>Website</th><th>Status</th><th>Aksi</th></tr></thead>
-    <tbody>${data.map(b=>`
-      <tr>
-        <td><strong>${esc(b.label)}</strong></td>
-        <td style="color:var(--txs)">${esc(b.division||'—')}</td>
-        <td style="color:var(--txs);font-size:11px">${esc(b.website||'—')}</td>
-        <td><span class="sbadge ${b.is_active?'sok':'sno'}">${b.is_active?'Aktif':'Nonaktif'}</span></td>
-        <td>
-          <button class="btn bgh bsm" style="font-size:11px" onclick="editBrand('${b.id}')">Edit</button>
-          <button class="btn brd bsm" style="font-size:11px;margin-left:4px" onclick="delBrand('${b.id}','${esc(b.label)}')">Hapus</button>
-        </td>
-      </tr>`).join('')}
-    </tbody>
-  </table>`;
-}
-
-async function loadAdmProds(){
-  const bid=document.getElementById('apbf').value;
-  let q=sb.from('products').select('id,name,product_code,cat,brand').order('name');
-  if(bid)q=q.eq('brand',bid);
-  const {data}=await q.limit(200);
-  const el=document.getElementById('apl');
-  if(!data||!data.length){el.innerHTML='<p style="color:var(--txm);font-size:12px">Belum ada produk</p>';return;}
-  el.innerHTML=`<div style="max-height:340px;overflow-y:auto">
-    <table class="atbl">
-      <thead><tr><th>Kode</th><th>Nama</th><th>Kategori</th><th>Aksi</th></tr></thead>
-      <tbody>${data.map(p=>`
-        <tr>
-          <td style="font-family:monospace;color:var(--pu);font-size:11px">${esc(p.product_code||'—')}</td>
-          <td>${esc(p.name)}</td>
-          <td style="color:var(--txs);font-size:11px">${esc(p.cat||'—')}</td>
-          <td>
-            <button class="btn bgh bsm" style="font-size:11px" onclick="editProdAdm('${p.id}')">Edit</button>
-            <button class="btn brd bsm" style="font-size:11px;margin-left:4px" onclick="delProd2('${p.id}','${esc(p.name)}')">Hapus</button>
-          </td>
-        </tr>`).join('')}
-      </tbody>
-    </table>
-  </div>`;
-}
-
-/* ── BRAND CRUD ──────────────────────────────────────── */
-async function saveBrand(){
-  const name=document.getElementById('nb-name').value.trim();
-  const div=document.getElementById('nb-div').value;
-  const web=document.getElementById('nb-web').value.trim();
-  const desc=document.getElementById('nb-desc').value.trim();
-  const act=document.getElementById('nb-act').value==='true';
-  const eid=document.getElementById('nb-editid').value;
-  if(!name){toast('Nama brand wajib diisi','err');return;}
-
-  let logoUrl=null;
-  if(S.lFile){
-    const fn='logos/'+Date.now()+'_'+S.lFile.name.replace(/\s/g,'_');
-    const {error:ue}=await sb.storage.from(BUCKET_B).upload(fn,S.lFile,{upsert:true});
-    if(!ue){const {data:ud}=sb.storage.from(BUCKET_B).getPublicUrl(fn);logoUrl=ud.publicUrl;}
-  }
-
-  const payload={
-    label:name,
-    division:div,
-    website:web||null,
-    description:desc||null,
-    is_active:act,
-    brand_type:document.getElementById('nb-type').value||'products',
-    flipbook_url:document.getElementById('nb-flip').value.trim()||null
-  };
-  if(logoUrl)payload.logo_url=logoUrl;
-
-  let err;
-  if(eid){
-    ({error:err}=await sb.from('brands').update(payload).eq('id',eid));
-  }else{
-    ({error:err}=await sb.from('brands').insert(payload));
-  }
-  if(err){toast('Gagal simpan brand: '+err.message,'err');return;}
-  toast(eid?'Brand diupdate!':'Brand ditambahkan!','ok');
-  clearBrandForm();
-  await loadBrands();renderDivs();renderBrands();loadAdmBrands();
-  populateAdm();
-}
-
-async function editBrand(id){
-  const {data}=await sb.from('brands').select('*').eq('id',id).single();
-  if(!data)return;
-  document.getElementById('nb-name').value=data.label||'';
-  document.getElementById('nb-div').value=data.division||'Divisi 1';
-  document.getElementById('nb-web').value=data.website||'';
-  document.getElementById('nb-desc').value=data.description||'';
-  document.getElementById('nb-act').value=String(data.is_active);
-  document.getElementById('nb-type').value=data.brand_type||'products';
-  document.getElementById('nb-flip').value=data.flipbook_url||'';
-  document.getElementById('nb-editid').value=id;
-  document.getElementById('nb-savelbl').textContent='Update Brand';
-  if(data.logo_url){
-    document.getElementById('blpw').innerHTML=`<div class="irw"><img class="ip" src="${data.logo_url}"><button class="irm" onclick="rmLogo(event)">✕</button></div>`;
-  }
-  aTab('abrand',document.querySelectorAll('.atb')[2]);
-  toast('Edit brand: '+data.label,'info');
-}
-
-async function delBrand(id,name){
-  if(!confirm(`Hapus brand "${name}"? Semua produk terkait juga akan terhapus!`))return;
-  const {error}=await sb.from('brands').delete().eq('id',id);
-  if(error){toast('Gagal hapus brand','err');return;}
-  toast('Brand dihapus','ok');
-  if(S.curBrand===id){S.curBrand=null;S.products=[];S.filtered=[];renderGrid();}
-  await loadBrands();renderDivs();renderBrands();loadAdmBrands();populateAdm();
-}
-
-function clearBrandForm(){
-  ['nb-name','nb-web','nb-desc','nb-flip'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('nb-div').value='Divisi 1';
-  document.getElementById('nb-act').value='true';
-  document.getElementById('nb-type').value='products';
-  document.getElementById('nb-editid').value='';
-  document.getElementById('nb-savelbl').textContent='Simpan Brand';
-  document.getElementById('blpw').innerHTML=`<svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><p>Klik untuk upload logo</p>`;
-  S.lFile=null;
-}
-
-/* ── PRODUCT CRUD ────────────────────────────────────── */
-async function saveProd(){
-  const brand=document.getElementById('np-brand').value;
-  const cat=document.getElementById('np-cat').value.trim();
-  const name=document.getElementById('np-name').value.trim();
-  const eid=document.getElementById('np-editid').value;
-  if(!brand||!cat||!name){toast('Brand, kategori, dan nama wajib diisi','err');return;}
-
-  let imgUrl=document.getElementById('np-imgurl').value||null;
-  if(S.pFile){
-    const fn='products/'+Date.now()+'_'+S.pFile.name.replace(/\s/g,'_');
-    const {error:ue}=await sb.storage.from(BUCKET_P).upload(fn,S.pFile,{upsert:true});
-    if(!ue){const {data:ud}=sb.storage.from(BUCKET_P).getPublicUrl(fn);imgUrl=ud.publicUrl;}
-  }
-
-  const payload={
-    brand:brand, cat:cat, name,
-    product_code:document.getElementById('np-code').value.trim()||null,
-    subcategory:document.getElementById('np-sub').value.trim()||null,
-    series:document.getElementById('np-series').value.trim()||null,
-    finish:document.getElementById('np-finish').value.trim()||null,
-    size:document.getElementById('np-size').value.trim()||null,
-    face_type:document.getElementById('np-face').value.trim()||null,
-    sp:document.getElementById('np-desc').value.trim()||null,
-    image_url:imgUrl
-  };
-
-  let err;
-  if(eid){({error:err}=await sb.from('products').update(payload).eq('id',eid));}
-  else{({error:err}=await sb.from('products').insert(payload));}
-
-  if(err){toast('Gagal simpan produk: '+err.message,'err');return;}
-  toast(eid?'Produk diupdate!':'Produk ditambahkan!','ok');
-  clearProdForm();
-  if(S.curBrand===brand)await loadProds(brand);
-  loadAdmProds();
-}
-
-async function editProdAdm(id){
-  const {data}=await sb.from('products').select('*').eq('id',id).single();
-  if(!data)return;
-  fillProdForm(data);
-  aTab('aprod',document.querySelectorAll('.atb')[3]);
-  toast('Edit: '+data.name,'info');
-}
-
-function editProd(e,id){
-  e.stopPropagation();
-  const p=S.products.find(x=>x.id===id);if(!p)return;
-  fillProdForm(p);
-  openMod('mod-adm');
-  aTab('aprod',document.querySelectorAll('.atb')[3]);
-}
-
-function fillProdForm(p){
-  document.getElementById('np-editid').value=p.id;
-  document.getElementById('np-brand').value=p.brand;
-  document.getElementById('np-cat').value=p.cat||'';
-  document.getElementById('np-code').value=p.product_code||'';
-  document.getElementById('np-name').value=p.name||'';
-  document.getElementById('np-sub').value=p.subcategory||'';
-  document.getElementById('np-series').value=p.series||'';
-  document.getElementById('np-finish').value=p.finish||'';
-  document.getElementById('np-size').value=p.size||'';
-  document.getElementById('np-face').value=p.face_type||'';
-  document.getElementById('np-desc').value=p.sp||'';
-  document.getElementById('np-imgurl').value=p.image_url||'';
-  document.getElementById('np-savelbl').textContent='Update Produk';
-  document.getElementById('cancedit').style.display='';
-  if(p.image_url){
-    document.getElementById('pipw').innerHTML=`<div class="irw"><img class="ip" src="${p.image_url}"><button class="irm" onclick="rmProdImg(event)">✕</button></div>`;
-  }
-}
-
-async function delProd(e,id,name){
-  e.stopPropagation();
-  if(!confirm('Hapus produk "'+name+'"?'))return;
-  await doDelProd(id,name);
-}
-async function delProd2(id,name){
-  if(!confirm('Hapus produk "'+name+'"?'))return;
-  await doDelProd(id,name);
-}
-async function doDelProd(id,name){
-  const {error}=await sb.from('products').delete().eq('id',id);
-  if(error){toast('Gagal hapus produk','err');return;}
-  toast('Produk "'+name+'" dihapus','ok');
-  S.products=S.products.filter(p=>p.id!==id);
-  applyFilt(S.curFilt);
-  renderBH();
-  loadAdmProds();
-}
-
-function cancelEdit(){
-  clearProdForm();
-}
-function clearProdForm(){
-  ['np-editid','np-brand','np-cat','np-code','np-name','np-sub','np-series',
-   'np-finish','np-size','np-face','np-desc','np-imgurl'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el&&el.tagName!=='SELECT')el.value='';
-  });
-  document.getElementById('np-act').value='true';
-  document.getElementById('np-savelbl').textContent='Simpan Produk';
-  document.getElementById('cancedit').style.display='none';
-  document.getElementById('pipw').innerHTML=`<svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Klik untuk upload foto produk</p>`;
-  S.pFile=null;
-}
-
-/* ── IMAGE UPLOAD ────────────────────────────────────── */
-function prevLogo(input){
-  const f=input.files[0];if(!f)return;
-  S.lFile=f;
-  const url=URL.createObjectURL(f);
-  document.getElementById('blpw').innerHTML=`<div class="irw"><img class="ip" src="${url}"><button class="irm" onclick="rmLogo(event)">✕</button></div>`;
-}
-function rmLogo(e){
-  e.stopPropagation();S.lFile=null;
-  document.getElementById('blpw').innerHTML=`<svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><p>Klik untuk upload logo</p>`;
-  document.getElementById('bli').value='';
-}
-
-function prevProd(input){
-  const f=input.files[0];if(!f)return;
-  S.pFile=f;
-  const url=URL.createObjectURL(f);
-  document.getElementById('pipw').innerHTML=`<div class="irw"><img class="ip" src="${url}"><button class="irm" onclick="rmProdImg(event)">✕</button></div>`;
-}
-function rmProdImg(e){
-  e.stopPropagation();S.pFile=null;
-  document.getElementById('np-imgurl').value='';
-  document.getElementById('pipw').innerHTML=`<svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Klik untuk upload foto produk</p>`;
-  document.getElementById('pii').value='';
-}
-
-/* ── DRAG & DROP ─────────────────────────────────────── */
-['blz','piz','cpz'].forEach(id=>{
-  const el=document.getElementById(id);
-  if(!el)return;
-  el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('drag');});
-  el.addEventListener('dragleave',()=>el.classList.remove('drag'));
-  el.addEventListener('drop',e=>{
-    e.preventDefault();el.classList.remove('drag');
-    const f=e.dataTransfer.files[0];if(!f)return;
-    const fakeInput={files:[f]};
-    if(id==='blz')prevLogo(fakeInput);
-    else if(id==='piz')prevProd(fakeInput);
-    else prevCatalog(fakeInput);
-  });
-});
-
-/* ── TOAST ───────────────────────────────────────────── */
-function toast(msg,type='info'){
-  const el=document.createElement('div');
-  el.className=`ti t${type}`;el.textContent=msg;
-  document.getElementById('tos').appendChild(el);
-  setTimeout(()=>el.remove(),3000);
-}
-
-/* ── SPEK KERAMIK ────────────────────────────────────── */
-const BUCKET_C='product-images'; // bucket dengan policies lengkap
-
-async function openSpek(){
-  openMod('mod-spek');
-  const body=document.getElementById('spek-body');
-  body.innerHTML='<div class="ldg"><div class="spin"></div></div>';
-  let cats=[];
-  try{
-    const {data,error}=await sb.from('catalogs').select('*').eq('is_active',true).order('sort_order').order('created_at');
-    if(!error)cats=data||[];
-  }catch(e){}
-  renderSpekBody(cats);
-}
-
-function renderSpekBody(cats){
-  const body=document.getElementById('spek-body');
-  if(!cats.length){
-    body.innerHTML=`
-      <div style="text-align:center;padding:48px 24px;color:var(--txs)">
-        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.3;margin-bottom:12px">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
-        </svg>
-        <p style="font-size:14px;color:var(--tx);margin-bottom:6px">Belum ada katalog</p>
-        <p style="font-size:12px">Login sebagai Admin → tab <strong>📂 Katalog</strong> untuk upload PDF.</p>
-        <p style="font-size:11px;color:var(--txm);margin-top:8px">Pastikan tabel <code style="color:var(--pu)">catalogs</code> sudah dibuat di Supabase.</p>
-      </div>`;
-    return;
-  }
-  // Build tabs
-  const tabsHtml=cats.map((c,i)=>
-    `<button class="stb ${i===0?'on':''}" onclick="spekTabDyn(${i},this)">${esc(c.brand)}</button>`
-  ).join('');
-  // Build panels
-  const panelsHtml=cats.map((c,i)=>{
-    const fid='spf'+i;
-    return `<div class="spek-panel ${i===0?'on':''}" id="spp${i}">
-      <div class="pdf-toolbar">
-        <div class="pdf-info">
-          <span class="spek-brand-badge">📄 ${esc(c.brand)}</span><br>
-          <strong>${esc(c.title)}</strong>
-          ${c.description?`<span style="color:var(--txm)"> · ${esc(c.description)}</span>`:''}
-          ${c.pages?`<span style="color:var(--txm)"> · ${c.pages} hal</span>`:''}
-        </div>
-        ${c.file_url?`<a href="${esc(c.file_url)}" target="_blank" class="btn bpu bsm">↗ Buka Full</a>
-        <a href="${esc(c.file_url)}" download class="btn bgh bsm">⬇ Download</a>`:''}
-      </div>
-      ${c.file_url?`
-        <iframe id="${fid}" class="pdf-frame" src="${esc(c.file_url)}"
-          onload="spekFrameLoad('${fid}')" onerror="spekFrameErr('${fid}')"></iframe>
-        <div id="${fid}fb" class="pdf-fallback">
-          <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          <p>Embed tidak tersedia di browser ini</p>
-          <a href="${esc(c.file_url)}" target="_blank" class="btn bpu bsm">↗ Buka PDF</a>
-        </div>`
-      :`<div class="pdf-fallback" style="display:flex">
-          <p style="color:var(--txm)">File belum di-upload</p>
-        </div>`}
-    </div>`;
-  }).join('');
-
-  body.innerHTML=`<div class="spek-tabs">${tabsHtml}</div>${panelsHtml}`;
-
-  // Check iframes after 2s
-  cats.forEach((_,i)=>{
-    const fid='spf'+i;
-    setTimeout(()=>spekFrameLoad(fid),2000);
-  });
-}
-
-function spekTabDyn(idx,el){
-  document.querySelectorAll('#mod-spek .stb').forEach(b=>b.classList.remove('on'));
-  el.classList.add('on');
-  document.querySelectorAll('#spek-body .spek-panel').forEach((p,i)=>p.classList.toggle('on',i===idx));
-}
-
-function spekFrameLoad(fid){
-  const f=document.getElementById(fid);
-  if(!f)return;
-  try{
-    const d=f.contentDocument||f.contentWindow&&f.contentWindow.document;
-    if(!d||d.readyState==='complete'&&(!d.body||d.body.innerHTML.trim()==='')){
-      spekFrameErr(fid);
-    }
-  }catch(e){spekFrameErr(fid);}
-}
-function spekFrameErr(fid){
-  const f=document.getElementById(fid);
-  const fb=document.getElementById(fid+'fb');
-  if(f){f.style.display='none';}
-  if(fb){fb.style.display='flex';}
-}
-
-/* ── KATALOG ADMIN ───────────────────────────────────── */
-async function loadAdmCatalogs(){
-  const el=document.getElementById('acl');
-  el.innerHTML='<div class="ldg"><div class="spin"></div></div>';
-  const {data,error}=await sb.from('catalogs').select('*').order('sort_order').order('created_at');
-  if(error){
-    el.innerHTML=`<p style="color:var(--red);font-size:12px">Gagal load. Pastikan tabel <code>catalogs</code> sudah dibuat.</p>`;
-    return;
-  }
-  if(!data||!data.length){
-    el.innerHTML='<p style="font-size:12px;color:var(--txm)">Belum ada katalog. Tambahkan di form bawah.</p>';
-    return;
-  }
-  el.innerHTML=`<table class="atbl">
-    <thead><tr><th>Brand</th><th>Judul</th><th>Hal</th><th>File</th><th>Aksi</th></tr></thead>
-    <tbody>${data.map(c=>`
-      <tr>
-        <td><strong>${esc(c.brand||'—')}</strong></td>
-        <td style="font-size:11px">${esc(c.title||'—')}</td>
-        <td style="color:var(--txs)">${c.pages||'—'}</td>
-        <td>${c.file_url?`<a href="${esc(c.file_url)}" target="_blank" style="color:var(--pu);font-size:11px">↗ Lihat</a>`:'<span style="color:var(--txm);font-size:11px">—</span>'}</td>
-        <td style="white-space:nowrap">
-          <button class="btn bgh bsm" style="font-size:11px" onclick="editCatalog('${c.id}')">Edit</button>
-          <button class="btn brd bsm" style="font-size:11px;margin-left:4px" onclick="delCatalog('${c.id}','${esc(c.brand)}')">Hapus</button>
-        </td>
-      </tr>`).join('')}
-    </tbody>
-  </table>`;
-}
-
-let catFile=null;
-function prevCatalog(input){
-  const f=input.files[0];if(!f)return;
-  catFile=f;
-  document.getElementById('cppw').innerHTML=`<svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-    <p style="color:var(--grn)">${esc(f.name)}</p>`;
-}
-
-async function saveCatalog(){
-  const brand=document.getElementById('nc-brand').value.trim();
-  const title=document.getElementById('nc-title').value.trim();
-  const desc=document.getElementById('nc-desc').value.trim();
-  const pages=parseInt(document.getElementById('nc-pages').value)||null;
-  const eid=document.getElementById('nc-editid').value;
-  if(!brand||!title){toast('Nama brand & judul wajib diisi','err');return;}
-
-  const btn=document.getElementById('nc-savebtn');
-  btn.disabled=true;
-  const lbl=document.getElementById('nc-savelbl');
-  lbl.textContent='Mengupload…';
-
-  let fileUrl=document.getElementById('nc-fileurl').value||null;
-  if(catFile){
-    // Auto-create bucket kalau belum ada
-    await sb.storage.createBucket(BUCKET_C,{public:true});
-    const fn='catalogs/'+Date.now()+'_'+catFile.name.replace(/\s+/g,'_');
-    const {error:ue}=await sb.storage.from(BUCKET_C).upload(fn,catFile,{upsert:true,contentType:'application/pdf'});
-    if(ue){toast('Gagal upload PDF: '+ue.message,'err');btn.disabled=false;lbl.textContent=eid?'Update Katalog':'Simpan Katalog';return;}
-    const {data:ud}=sb.storage.from(BUCKET_C).getPublicUrl(fn);
-    fileUrl=ud.publicUrl;
-  }
-
-  const payload={brand,title,description:desc||null,pages,file_url:fileUrl,is_active:true};
-  let err;
-  if(eid){({error:err}=await sb.from('catalogs').update(payload).eq('id',eid));}
-  else{({error:err}=await sb.from('catalogs').insert(payload));}
-
-  btn.disabled=false;
-  if(err){toast('Gagal simpan: '+err.message,'err');lbl.textContent=eid?'Update Katalog':'Simpan Katalog';return;}
-  toast(eid?'Katalog diupdate!':'Katalog ditambahkan!','ok');
-  clearCatForm();
-  loadAdmCatalogs();
-}
-
-async function editCatalog(id){
-  const {data}=await sb.from('catalogs').select('*').eq('id',id).single();
-  if(!data)return;
-  document.getElementById('nc-brand').value=data.brand||'';
-  document.getElementById('nc-title').value=data.title||'';
-  document.getElementById('nc-desc').value=data.description||'';
-  document.getElementById('nc-pages').value=data.pages||'';
-  document.getElementById('nc-fileurl').value=data.file_url||'';
-  document.getElementById('nc-editid').value=id;
-  document.getElementById('nc-savelbl').textContent='Update Katalog';
-  document.getElementById('nc-formlbl').textContent='✏ Edit Katalog';
-  document.getElementById('nc-canceledit').style.display='';
-  if(data.file_url){
-    document.getElementById('cppw').innerHTML=`<p style="color:var(--grn);font-size:12px">✓ File sudah ada — upload baru untuk ganti</p>`;
-  }
-  toast('Edit: '+data.brand,'info');
-}
-
-async function delCatalog(id,name){
-  if(!confirm('Hapus katalog "'+name+'"?'))return;
-  const{error}=await sb.from('catalogs').delete().eq('id',id);
-  if(error){toast('Gagal hapus','err');return;}
-  toast('Katalog dihapus','ok');
-  loadAdmCatalogs();
-}
-
-function clearCatForm(){
-  ['nc-brand','nc-title','nc-desc','nc-pages','nc-fileurl','nc-editid'].forEach(i=>{const e=document.getElementById(i);if(e)e.value='';});
-  catFile=null;
-  document.getElementById('nc-savelbl').textContent='Simpan Katalog';
-  document.getElementById('nc-formlbl').textContent='+ Tambah Katalog';
-  document.getElementById('nc-canceledit').style.display='none';
-  document.getElementById('nc-savebtn').disabled=false;
-  document.getElementById('cppw').innerHTML=`<svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><p>Klik untuk upload PDF katalog</p>`;
-}
-
-/* ── PLAYBOOK ────────────────────────────────────────── */
-function openPlaybook(){openMod('mod-play');}
-function playTab(t,el){
-  document.querySelectorAll('#mod-play .atb').forEach(b=>b.classList.remove('on'));
-  el.classList.add('on');
-  document.querySelectorAll('.play-panel').forEach(p=>p.classList.remove('on'));
-  document.getElementById('pp-'+t).classList.add('on');
-}
-
-/* ── START ───────────────────────────────────────────── */
-init();
-</script>
 </body>
 </html>
