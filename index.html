@@ -155,6 +155,7 @@
       <button class="atb"    onclick="aTab('abrand',this)">+ Brand</button>
       <button class="atb"    onclick="aTab('aprod',this)">+ Produk</button>
       <button class="atb"    onclick="aTab('acat',this)">📂 Katalog</button>
+      <button class="atb"    onclick="aTab('aplay',this)">🎯 Playbook</button>
     </div>
 
     <!-- Brand list -->
@@ -284,6 +285,20 @@
       </div>
     </div>
 
+    <!-- Playbook admin -->
+    <div class="apan" id="ap-aplay">
+      <div class="atabs pltabs">
+        <button class="atb pltb on" onclick="playAdmSubTab('div',this)">📋 Divisi</button>
+        <button class="atb pltb"    onclick="playAdmSubTab('gap',this)">📊 Gap Analysis</button>
+        <button class="atb pltb"    onclick="playAdmSubTab('args',this)">💬 Killer Args</button>
+        <button class="atb pltb"    onclick="playAdmSubTab('pkg',this)">🎁 Paket</button>
+      </div>
+      <div class="plpan on" id="pp-adm-div"></div>
+      <div class="plpan"    id="pp-adm-gap"></div>
+      <div class="plpan"    id="pp-adm-args"></div>
+      <div class="plpan"    id="pp-adm-pkg"></div>
+    </div>
+
     <!-- Catalog tab -->
     <div class="apan" id="ap-acat">
       <div id="acl" style="margin-bottom:16px"></div>
@@ -368,238 +383,14 @@
       <button class="atb"    onclick="playTab('cheat',this)">⚡ Cheatsheet</button>
     </div>
 
-    <!-- EXECUTIVE SUMMARY -->
-    <div class="play-panel on" id="pp-exec">
-      <div class="play-section">
-        <h4>Executive Summary</h4>
-        <p style="font-size:12px;color:var(--txs);line-height:1.8;margin-bottom:16px">
-          CSAP adalah one-stop-shop untuk bahan bangunan — dari pondasi sampai finishing. Dokumen ini adalah amunisi lapangan: tau mana yang perlu di-defend, mana yang bisa di-push, dan gimana cara ngomong ke toko biar mereka mau switch atau nambahin brand kita.
-        </p>
-        <h5>Key Takeaways per Divisi</h5>
-        <div class="exec-key"><strong style="color:var(--pu)">Divisi 1 (Finishing)</strong> — Arwana &amp; Cotto dua ujung spektrum: mass market vs luxury. Brand paling under-exploited: <strong>Sterlyn</strong> (water heater) yang bisa nge-gap Ariston di harga.</div>
-        <div class="exec-key"><strong style="color:var(--pu)">Divisi 2 (Hardware)</strong> — Ace Oldfields &amp; Propan duo maut yang harus selalu dipasangkan. SI Anti Rayap punya niche yang sangat defensible. Timmerman punya potensi gede di tren interior modern.</div>
-        <div class="exec-key"><strong style="color:var(--pu)">Divisi 3 (Flooring)</strong> — Paling head-to-head sama kompetitor sejenis. Kanmuri genteng keramik premium bisa di-push keras ke developer. Casania Floor vinyl/SPC riding the wave interior trend.</div>
-        <div class="exec-key"><strong style="color:var(--pu)">Divisi 4 (Structural)</strong> — Mowilex &amp; Mortar Utama anchor brand. Knauf vs APlus multi-tier smart: good cop-bad cop pricing. Franco gerobak jangan di-underestimate, margin-nya thicc.</div>
-      </div>
-      <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r12);padding:16px 18px">
-        <p style="font-size:11px;color:var(--txm);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Portfolio CSAP</p>
-        <div style="display:flex;gap:24px;flex-wrap:wrap">
-          <div style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--gd)">4</div><div style="font-size:10px;color:var(--txs);margin-top:2px">Divisi</div></div>
-          <div style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--gd)">30+</div><div style="font-size:10px;color:var(--txs);margin-top:2px">Brand</div></div>
-          <div style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--gd)">Full</div><div style="font-size:10px;color:var(--txs);margin-top:2px">Building Material</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DIVISI 1 -->
-    <div class="play-panel" id="pp-div1">
-      <div class="play-section">
-        <h4>Divisi 1: Finishing &amp; Luxury Living</h4>
-        <h5>Market Gap Analysis</h5>
-        <table class="atbl">
-          <thead><tr><th>Brand</th><th>Threat</th><th>Opportunity</th><th>Catatan</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Arwana</strong></td><td><span class="play-badge pbmed">MEDIUM-HIGH</span></td><td><span class="play-badge pbmed">MEDIUM</span></td><td style="font-size:11px;color:var(--txs)">Perang harga ketat sama Mulia &amp; Platinum. Brand awareness tertinggi di mass market.</td></tr>
-            <tr><td><strong>UNO</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbhigh">HIGH</span></td><td style="font-size:11px;color:var(--txs)">Segmen dekoratif masih fragmented. Bisa own niche decorative tile.</td></tr>
-            <tr><td><strong>Arna</strong></td><td><span class="play-badge pbhigh">HIGH</span></td><td><span class="play-badge pbmed">MEDIUM</span></td><td style="font-size:11px;color:var(--txs)">Roman dGress monster di premium porcelain. Arna fight di value-for-money.</td></tr>
-            <tr><td><strong>Eden</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbhigh">HIGH</span></td><td style="font-size:11px;color:var(--txs)">Pasar pintu surprisingly fragmented. Eden bisa grab share kalau availability konsisten.</td></tr>
-            <tr><td><strong>Mulia Glassblock</strong></td><td><span class="play-badge pblow">LOW</span></td><td><span class="play-badge pbmed">MEDIUM</span></td><td style="font-size:11px;color:var(--txs)">Market leader, posisi aman. Ancaman cuma impor China yang main harga.</td></tr>
-            <tr><td><strong>Cotto</strong></td><td><span class="play-badge pbhigh">HIGH</span></td><td><span class="play-badge pbhigh">HIGH</span></td><td style="font-size:11px;color:var(--txs)">TOTO dominan. Tapi Cotto punya positioning import Thailand yang beda.</td></tr>
-            <tr><td><strong>Sterlyn</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbvhi">VERY HIGH</span></td><td style="font-size:11px;color:var(--txs)">Hidden gem! Ariston mahal, Rinnai lebih ke gas. Sterlyn bisa own electric water heater mid-premium.</td></tr>
-          </tbody>
-        </table>
-        <h5>Killer Arguments</h5>
-        <div class="arg-card"><div class="arg-vs">Arwana vs Mulia/Platinum</div><div class="arg-text">Pak/Bu, Arwana itu brand keramik nomor 1 dari sisi volume nasional. Konsumen dateng ke toko nanya Arwana, bukan nanya Mulia. Stok Arwana = traffic toko naik.</div></div>
-        <div class="arg-card"><div class="arg-vs">UNO vs Milan/Kaisar</div><div class="arg-text">UNO itu keramik dekoratif yang paling lengkap motifnya dan support distribusi dari CSAP paling reliable. Milan bagus tapi sering indent, UNO ready stock.</div></div>
-        <div class="arg-card"><div class="arg-vs">Arna vs Roman dGress</div><div class="arg-text">Arna kasih kualitas granite tile setara Roman tapi di price point yang bikin end-user nggak perlu mikir dua kali. Margin toko juga lebih gede.</div></div>
-        <div class="arg-card"><div class="arg-vs">Eden vs Crystal</div><div class="arg-text">Eden range-nya paling lengkap: PVC, aluminium, sampe wood panel. Satu brand nutup semua kebutuhan pintu, nggak perlu stok dari 3 supplier berbeda.</div></div>
-        <div class="arg-card"><div class="arg-vs">Cotto vs TOTO</div><div class="arg-text">Cotto itu import langsung dari Thailand, design-nya udah international standard. Harga di bawah TOTO &amp; Kohler tapi tampilan premium-nya setara. Perfect buat konsumen yang mau luxury tanpa overpay.</div></div>
-        <div class="arg-card"><div class="arg-vs">Sterlyn vs Ariston</div><div class="arg-text">Sterlyn water heater harganya 20-30% lebih affordable dari Ariston dengan fitur &amp; garansi yang comparable. Margin toko lebih gendut, dan demand water heater lagi naik terus. Early mover advantage!</div></div>
-      </div>
-    </div>
-
-    <!-- DIVISI 2 -->
-    <div class="play-panel" id="pp-div2">
-      <div class="play-section">
-        <h4>Divisi 2: General Hardware &amp; Chemicals</h4>
-        <p style="font-size:12px;color:var(--txs);margin-bottom:14px">Kuncinya di sini adalah <strong>basket size</strong> — gimana caranya toko beli nggak cuma 1-2 item tapi sekalian borong banyak SKU dari kita.</p>
-        <h5>Market Gap Analysis</h5>
-        <table class="atbl">
-          <thead><tr><th>Brand</th><th>Threat</th><th>Opportunity</th><th>Catatan</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Global</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbmed">MEDIUM</span></td><td style="font-size:11px;color:var(--txs)">Closet economy head-to-head sama Volk. Global = retail, Volk = project channel.</td></tr>
-            <tr><td><strong>Cosmos</strong></td><td><span class="play-badge pbhigh">HIGH</span></td><td><span class="play-badge pblow">LOW</span></td><td style="font-size:11px;color:var(--txs)">Exhaust fan itu Panasonic &amp; KDK territory. Cosmos survive di price-sensitive segment.</td></tr>
-            <tr><td><strong>SI</strong></td><td><span class="play-badge pblow">LOW</span></td><td><span class="play-badge pbhigh">HIGH</span></td><td style="font-size:11px;color:var(--txs)">Anti rayap niche tapi super sticky. Sekali customer puas, nggak ganti. Defensible banget.</td></tr>
-            <tr><td><strong>Ace Oldfields</strong></td><td><span class="play-badge pblow">LOW</span></td><td><span class="play-badge pbmed">MEDIUM</span></td><td style="font-size:11px;color:var(--txs)">Market leader alat cat. Maintain &amp; bundling sama Propan.</td></tr>
-            <tr><td><strong>Propan</strong></td><td><span class="play-badge pbhigh">HIGH</span></td><td><span class="play-badge pbhigh">HIGH</span></td><td style="font-size:11px;color:var(--txs)">Cat red ocean. Tapi Propan bisa menang di toko yang udah jual Mowilex sebagai mid-tier complement.</td></tr>
-            <tr><td><strong>Dura Roof</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbmed">MEDIUM</span></td><td style="font-size:11px;color:var(--txs)">Atap metal cukup commoditized. Jual di ketebalan &amp; garansi.</td></tr>
-            <tr><td><strong>Timmerman</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbvhi">VERY HIGH</span></td><td style="font-size:11px;color:var(--txs)">Woodpanel &amp; vinyl lagi booming. Taco dominan tapi Timmerman bisa nge-gap di design premium.</td></tr>
-            <tr><td><strong>Paku</strong></td><td><span class="play-badge pblow">LOW</span></td><td><span class="play-badge pblow">LOW</span></td><td style="font-size:11px;color:var(--txs)">Pure commodity play. Volume, harga, availability.</td></tr>
-          </tbody>
-        </table>
-        <h5>Killer Arguments</h5>
-        <div class="arg-card"><div class="arg-vs">Global vs Renovo/Duty</div><div class="arg-text">Global closet didukung distribusi CSAP sampe pelosok. After-sales gampang, spare part available. Renovo &amp; Duty? Kalau ada masalah, toko ribet sendiri.</div></div>
-        <div class="arg-card"><div class="arg-vs">Cosmos vs Panasonic</div><div class="arg-text">Budget customer tetep butuh exhaust fan. Nggak semua konsumen mau bayar 2x lipat. Cosmos itu sweet spot harga &amp; kualitas yang ngisi gap itu.</div></div>
-        <div class="arg-card"><div class="arg-vs">SI vs Termikon</div><div class="arg-text">SI anti rayap udah proven di ribuan proyek. Formulanya terdaftar resmi dan punya technical support. Termikon murah, tapi kalau gagal, yang rugi siapa?</div></div>
-        <div class="arg-card"><div class="arg-vs">Ace Oldfields vs Eterna</div><div class="arg-text">Ace Oldfields itu standar industri. Tukang cat profesional udah hafal kualitasnya. Jual Ace Oldfields = zero complain dari end-user.</div></div>
-        <div class="arg-card"><div class="arg-vs">Propan vs Jotun/Nippon</div><div class="arg-text">Propan margin toko-nya lebih sehat dari Jotun. Quality-wise udah setara, cuma Jotun spend lebih banyak di iklan. Yang bikin toko untung bukan iklan, tapi margin per kaleng.</div></div>
-        <div class="arg-card"><div class="arg-vs">Timmerman vs Taco</div><div class="arg-text">Timmerman punya koleksi motif &amp; tekstur yang fresh banget, cocok tren interior kekinian. Taco established, tapi design Timmerman lebih update. Interior designer mulai ngelirik.</div></div>
-      </div>
-    </div>
-
-    <!-- DIVISI 3 -->
-    <div class="play-panel" id="pp-div3">
-      <div class="play-section">
-        <h4>Divisi 3: Flooring &amp; Ceramic Specialist</h4>
-        <p style="font-size:12px;color:var(--txs);margin-bottom:14px">Yang bikin beda: kekuatan <strong>channel project</strong>. Volk didesain buat lawan American Standard di jalur project.</p>
-        <h5>Market Gap Analysis</h5>
-        <table class="atbl">
-          <thead><tr><th>Brand</th><th>Threat</th><th>Opportunity</th><th>Catatan</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Volk</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbhigh">HIGH</span></td><td style="font-size:11px;color:var(--txs)">Sanitary mid-range buat project. Harga bikin developer senyum.</td></tr>
-            <tr><td><strong>Ceranosa</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbmed">MEDIUM</span></td><td style="font-size:11px;color:var(--txs)">Granite tiles mid segment. Diferensiasi lewat design &amp; ukuran variatif.</td></tr>
-            <tr><td><strong>Casania Floor</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbvhi">VERY HIGH</span></td><td style="font-size:11px;color:var(--txs)">Vinyl/SPC lagi trend gila-gilaan. Market masih growing.</td></tr>
-            <tr><td><strong>Salvador</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbmed">MEDIUM</span></td><td style="font-size:11px;color:var(--txs)">Head-to-head sama Valentino Gress &amp; QnQ. Cari niche di motif/ukuran.</td></tr>
-            <tr><td><strong>Kanmuri</strong></td><td><span class="play-badge pblow">LOW-MED</span></td><td><span class="play-badge pbhigh">HIGH</span></td><td style="font-size:11px;color:var(--txs)">Genteng keramik premium. Reputasi durabilitas. Developer menengah-atas = target.</td></tr>
-          </tbody>
-        </table>
-        <h5>Killer Arguments</h5>
-        <div class="arg-card"><div class="arg-vs">Volk vs American Standard (Project)</div><div class="arg-text">Volk itu sanitary didesain khusus buat volume project. Harganya bikin cost-per-unit developer jauh lebih rendah, tapi kualitas &amp; tampilan nggak malu-maluin buat marketing brochure.</div></div>
-        <div class="arg-card"><div class="arg-vs">Ceranosa vs Sandimas</div><div class="arg-text">Ceranosa punya range ukuran &amp; motif lebih lengkap di price point sama. Satu supplier cover lebih banyak kebutuhan project.</div></div>
-        <div class="arg-card"><div class="arg-vs">Casania Floor vs Taco (Vinyl)</div><div class="arg-text">Casania Floor SPC ketebalan &amp; click system-nya international grade. Harga lebih bersahabat dari Taco, lagi nge-trend di project apartemen. First mover di toko = first profit.</div></div>
-        <div class="arg-card"><div class="arg-vs">Salvador vs Valentino Gress</div><div class="arg-text">Salvador granite tiles kualitas ekspor dengan harga lokal. Motifnya up-to-date, dan support CSAP bikin delivery &amp; retur lebih gampang.</div></div>
-        <div class="arg-card"><div class="arg-vs">Kanmuri vs M-Class</div><div class="arg-text">Kanmuri genteng keramik itu investment jangka panjang. Garansi &amp; durabilitas di atas M-Class. Developer rumah premium butuh genteng yang nggak bikin after-sales pusing.</div></div>
-      </div>
-    </div>
-
-    <!-- DIVISI 4 -->
-    <div class="play-panel" id="pp-div4">
-      <div class="play-section">
-        <h4>Divisi 4: Structural &amp; Heavy Tools</h4>
-        <p style="font-size:12px;color:var(--txs);margin-bottom:14px">Tulang punggung CSAP di project channel. Multi-tier strategy (Knauf premium + APlus mid) nutup dua segmen sekaligus.</p>
-        <h5>Market Gap Analysis</h5>
-        <table class="atbl">
-          <thead><tr><th>Brand</th><th>Threat</th><th>Opportunity</th><th>Catatan</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Mowilex</strong></td><td><span class="play-badge pbhigh">HIGH</span></td><td><span class="play-badge pbhigh">HIGH</span></td><td style="font-size:11px;color:var(--txs)">Premium cat, head-to-head Dulux &amp; Jotun. Punya loyalis kuat &amp; eco-friendly positioning.</td></tr>
-            <tr><td><strong>Mortar Utama</strong></td><td><span class="play-badge pblow">LOW</span></td><td><span class="play-badge pbhigh">HIGH</span></td><td style="font-size:11px;color:var(--txs)">Market leader mortar instan. Posisi kuat. Expand product line = lebih dominan.</td></tr>
-            <tr><td><strong>Duratruss</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbmed">MEDIUM</span></td><td style="font-size:11px;color:var(--txs)">Baja ringan commoditized. TASO market leader. Menang di trust &amp; kalkulasi teknis.</td></tr>
-            <tr><td><strong>Knauf</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbhigh">HIGH</span></td><td style="font-size:11px;color:var(--txs)">Gypsum premium global. Own premium segment: peredam suara, tahan air, fire-rated.</td></tr>
-            <tr><td><strong>APlus</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbmed">MEDIUM</span></td><td style="font-size:11px;color:var(--txs)">Gypsum &amp; mortar mid-tier. Good cop dari Knauf.</td></tr>
-            <tr><td><strong>Blesscon</strong></td><td><span class="play-badge pbmed">MEDIUM</span></td><td><span class="play-badge pbmed">MEDIUM</span></td><td style="font-size:11px;color:var(--txs)">Bata ringan mid/economy. Hebel king of mindshare. Fight di harga &amp; availability.</td></tr>
-            <tr><td><strong>Franco</strong></td><td><span class="play-badge pblow">LOW</span></td><td><span class="play-badge pbhigh">HIGH</span></td><td style="font-size:11px;color:var(--txs)">Gerobak sorong margin surprisingly bagus. Nggak ada kompetitor dominant.</td></tr>
-            <tr><td><strong>Supralite</strong></td><td><span class="play-badge pblow">LOW</span></td><td><span class="play-badge pbmed">MEDIUM</span></td><td style="font-size:11px;color:var(--txs)">Fiber tutup pagar niche. Kompetisi minim, expand awareness.</td></tr>
-          </tbody>
-        </table>
-        <h5>Killer Arguments</h5>
-        <div class="arg-card"><div class="arg-vs">Mowilex vs Dulux/Jotun</div><div class="arg-text">Mowilex cat premium buatan Indonesia yang udah go international. Formula eco-friendly, low VOC. Margin toko lebih sehat dari Dulux, dan customer loyalty rate tinggi banget. Sekali pake, jarang balik.</div></div>
-        <div class="arg-card"><div class="arg-vs">Mortar Utama vs Sika/Drymix</div><div class="arg-text">MU market leader mortar instan bukan tanpa alasan. Konsistensi kualitas batch-to-batch bikin tukang percaya. Sika bagus di waterproofing, tapi buat mortar pasang &amp; plester, MU nomor satu.</div></div>
-        <div class="arg-card"><div class="arg-vs">Knauf vs Jayaboard</div><div class="arg-text">Knauf brand gypsum global. Buat project yang butuh fire-rated, moisture-resistant, atau acoustic, Knauf punya sertifikasi yang Jayaboard belum bisa match.</div></div>
-        <div class="arg-card"><div class="arg-vs">APlus vs Star-Brand</div><div class="arg-text">APlus backed by CSAP, supply &amp; support reliable. Star-Brand mungkin mirip harga, tapi bandingin konsistensi pengiriman &amp; after-sales. CSAP nggak ninggalin toko.</div></div>
-        <div class="arg-card"><div class="arg-vs">Blesscon vs Hebel</div><div class="arg-text">Hebel emang market leader, tapi harganya premium. Blesscon kasih kualitas bata ringan solid di harga yang bikin developer hemat 15-20% per unit rumah.</div></div>
-        <div class="arg-card"><div class="arg-vs">Franco vs Artco</div><div class="arg-text">Franco gerobak sorong build quality-nya di atas rata-rata. Ban &amp; rangka lebih tahan lama. Gerobak murah lain? Seminggu ban kempes, rangka bengkok.</div></div>
-      </div>
-    </div>
-
-    <!-- CROSS-SELLING -->
-    <div class="play-panel" id="pp-bundle">
-      <div class="play-section">
-        <h4>Cross-Selling &amp; Bundling Strategy</h4>
-        <p style="font-size:12px;color:var(--txs);margin-bottom:18px">CSAP punya advantage yang kompetitor single-brand nggak punya: <strong>ecosystem</strong>. Satu kontraktor bisa beli hampir semua kebutuhan dari kita.</p>
-        <div class="pkg-card">
-          <h5>PAKET 1 — Rumah Subsidi / Budget Housing</h5>
-          <div class="pkg-target">Target: Developer rumah subsidi &amp; kontraktor kecil</div>
-          <div class="pkg-items">
-            <span class="pkg-item">Arwana (keramik)</span><span class="pkg-item">Global (closet)</span>
-            <span class="pkg-item">Blesscon (bata ringan)</span><span class="pkg-item">Mortar Utama</span>
-            <span class="pkg-item">APlus (gypsum)</span><span class="pkg-item">Dura Roof (atap)</span>
-            <span class="pkg-item">Franco (gerobak)</span><span class="pkg-item">Paku</span>
-          </div>
-          <div class="pkg-sp">💬 "Satu PO, semua kebutuhan rumah subsidi covered. Nggak perlu koordinasi 10 supplier, cukup CSAP."</div>
-        </div>
-        <div class="pkg-card">
-          <h5>PAKET 2 — Rumah Menengah / Mid-Range Housing</h5>
-          <div class="pkg-target">Target: Developer perumahan cluster menengah</div>
-          <div class="pkg-items">
-            <span class="pkg-item">UNO + Arna (keramik)</span><span class="pkg-item">Volk (sanitary)</span>
-            <span class="pkg-item">Eden (pintu)</span><span class="pkg-item">Propan (cat)</span>
-            <span class="pkg-item">Knauf (gypsum)</span><span class="pkg-item">Mortar Utama</span>
-            <span class="pkg-item">Duratruss (baja ringan)</span><span class="pkg-item">Kanmuri (genteng)</span>
-            <span class="pkg-item">Casania Floor (vinyl)</span><span class="pkg-item">Ace Oldfields (alat cat)</span>
-          </div>
-          <div class="pkg-sp">💬 "Paket komplit dari struktur sampe finishing. Developer hemat waktu procurement, kita kasih harga paket kompetitif."</div>
-        </div>
-        <div class="pkg-card">
-          <h5>PAKET 3 — Rumah Premium / High-End Residence</h5>
-          <div class="pkg-target">Target: Developer premium, arsitek, interior designer</div>
-          <div class="pkg-items">
-            <span class="pkg-item">Arna (porcelain/granite)</span><span class="pkg-item">Cotto (sanitary luxury)</span>
-            <span class="pkg-item">Sterlyn (water heater)</span><span class="pkg-item">Mowilex (cat premium)</span>
-            <span class="pkg-item">Knauf acoustic/fire-rated</span><span class="pkg-item">Timmerman (woodpanel)</span>
-            <span class="pkg-item">Kanmuri (genteng)</span><span class="pkg-item">Eden (pintu premium)</span>
-            <span class="pkg-item">SI Anti Rayap</span>
-          </div>
-          <div class="pkg-sp">💬 "Full premium ecosystem, semua brand international-grade. Satu koordinator CSAP handle semua."</div>
-        </div>
-        <div class="pkg-card">
-          <h5>PAKET 4 — Renovasi / Renovation Package</h5>
-          <div class="pkg-target">Target: Toko bangunan retail &amp; end-user renovasi rumah</div>
-          <div class="pkg-items">
-            <span class="pkg-item">Propan / Mowilex (cat)</span><span class="pkg-item">Ace Oldfields (alat)</span>
-            <span class="pkg-item">Casania Floor (vinyl SPC)</span><span class="pkg-item">Sterlyn (water heater)</span>
-            <span class="pkg-item">Cosmos (exhaust fan)</span><span class="pkg-item">Timmerman (accent wall)</span>
-          </div>
-          <div class="pkg-sp">💬 "Paket renovasi yang nggak perlu bongkar total. Install cepet, hasil premium."</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CHEATSHEET -->
-    <div class="play-panel" id="pp-cheat">
-      <div class="play-section">
-        <h4>⚡ Killer Arguments Cheatsheet</h4>
-        <p style="font-size:12px;color:var(--txs);margin-bottom:14px">Quick reference lapangan — 1 kalimat per brand.</p>
-        <div style="overflow-x:auto">
-        <table class="atbl">
-          <thead><tr><th>Brand CSAP</th><th>vs Kompetitor</th><th>Killer Argument</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Arwana</strong></td><td style="color:var(--txs)">Mulia/Platinum</td><td style="font-size:11px">Brand awareness #1 nasional = traffic toko naik</td></tr>
-            <tr><td><strong>UNO</strong></td><td style="color:var(--txs)">Milan/Kaisar</td><td style="font-size:11px">Motif terlengkap + distribusi CSAP paling reliable</td></tr>
-            <tr><td><strong>Arna</strong></td><td style="color:var(--txs)">Roman dGress</td><td style="font-size:11px">Kualitas setara, harga lebih bersahabat, margin toko lebih gede</td></tr>
-            <tr><td><strong>Eden</strong></td><td style="color:var(--txs)">Crystal/Muriko</td><td style="font-size:11px">Range terlengkap (PVC/Alu/Wood), 1 brand = semua kebutuhan pintu</td></tr>
-            <tr><td><strong>Mulia Glassblock</strong></td><td style="color:var(--txs)">Impor China</td><td style="font-size:11px">Market leader, kualitas terjamin vs impor abal-abal</td></tr>
-            <tr><td><strong>Cotto</strong></td><td style="color:var(--txs)">TOTO/Kohler</td><td style="font-size:11px">Import Thailand, design international, harga di bawah TOTO</td></tr>
-            <tr><td><strong style="color:var(--grn)">Sterlyn ⭐</strong></td><td style="color:var(--txs)">Ariston/Modena</td><td style="font-size:11px">Harga 20-30% lebih affordable, fitur comparable, margin gendut</td></tr>
-            <tr><td><strong>Global</strong></td><td style="color:var(--txs)">Renovo/Duty</td><td style="font-size:11px">Distribusi CSAP sampe pelosok + after-sales gampang</td></tr>
-            <tr><td><strong>Cosmos</strong></td><td style="color:var(--txs)">Panasonic/KDK</td><td style="font-size:11px">Sweet spot harga-kualitas buat budget customer</td></tr>
-            <tr><td><strong>SI</strong></td><td style="color:var(--txs)">Termikon</td><td style="font-size:11px">Proven di ribuan proyek, terdaftar resmi, punya technical support</td></tr>
-            <tr><td><strong>Ace Oldfields</strong></td><td style="color:var(--txs)">Eterna/Harris</td><td style="font-size:11px">Standar industri, zero complain dari tukang profesional</td></tr>
-            <tr><td><strong>Propan</strong></td><td style="color:var(--txs)">Jotun/Nippon</td><td style="font-size:11px">Margin per kaleng lebih sehat, kualitas setara</td></tr>
-            <tr><td><strong>Dura Roof</strong></td><td style="color:var(--txs)">Sakura/Multi Roof</td><td style="font-size:11px">Ketebalan &amp; garansi lebih unggul</td></tr>
-            <tr><td><strong style="color:var(--grn)">Timmerman ⭐</strong></td><td style="color:var(--txs)">Taco/Inovar</td><td style="font-size:11px">Design lebih fresh &amp; update, cocok tren interior kekinian</td></tr>
-            <tr><td><strong>Volk</strong></td><td style="color:var(--txs)">AmStd/TOTO Entry</td><td style="font-size:11px">Harga bikin developer senyum, tampilan nggak malu-maluin</td></tr>
-            <tr><td><strong>Ceranosa</strong></td><td style="color:var(--txs)">Sandimas/Sun Power</td><td style="font-size:11px">Range ukuran &amp; motif terlengkap di price point sama</td></tr>
-            <tr><td><strong style="color:var(--grn)">Casania Floor ⭐</strong></td><td style="color:var(--txs)">Taco/Daeji</td><td style="font-size:11px">SPC international grade, harga bersahabat, tren apartemen</td></tr>
-            <tr><td><strong>Salvador</strong></td><td style="color:var(--txs)">Valentino Gress</td><td style="font-size:11px">Kualitas ekspor, harga lokal, delivery CSAP reliable</td></tr>
-            <tr><td><strong>Kanmuri</strong></td><td style="color:var(--txs)">M-Class/KIA</td><td style="font-size:11px">Durabilitas &amp; garansi terbaik, developer premium butuh ini</td></tr>
-            <tr><td><strong>Mowilex</strong></td><td style="color:var(--txs)">Dulux/Jotun</td><td style="font-size:11px">Eco-friendly, low VOC, margin sehat, loyalty tinggi</td></tr>
-            <tr><td><strong>Mortar Utama</strong></td><td style="color:var(--txs)">Sika/Drymix</td><td style="font-size:11px">Market leader, konsistensi batch terbaik, tukang percaya</td></tr>
-            <tr><td><strong>Duratruss</strong></td><td style="color:var(--txs)">TASO/Kencana</td><td style="font-size:11px">Trust + kalkulasi teknis gratis buat kontraktor</td></tr>
-            <tr><td><strong>Knauf</strong></td><td style="color:var(--txs)">Jayaboard</td><td style="font-size:11px">Sertifikasi fire-rated &amp; acoustic yang belum bisa di-match</td></tr>
-            <tr><td><strong>APlus</strong></td><td style="color:var(--txs)">Star-Brand</td><td style="font-size:11px">Backed by CSAP = supply reliable, after-sales konsisten</td></tr>
-            <tr><td><strong>Blesscon</strong></td><td style="color:var(--txs)">Hebel/Citicon</td><td style="font-size:11px">Hemat 15-20% per unit rumah, kualitas solid</td></tr>
-            <tr><td><strong>Franco</strong></td><td style="color:var(--txs)">Artco/Tora</td><td style="font-size:11px">Build quality superior, ban &amp; rangka tahan lama, minim komplain</td></tr>
-            <tr><td><strong>Supralite</strong></td><td style="color:var(--txs)">Masterline/Fiber-X</td><td style="font-size:11px">Finishing rapi, range warna lengkap, beat non-brand easily</td></tr>
-            <tr><td><strong>Paku</strong></td><td style="color:var(--txs)">Moon Lion/Lokal</td><td style="font-size:11px">Volume play, harga bersaing, availability dari CSAP</td></tr>
-          </tbody>
-        </table>
-        </div>
-        <div style="margin-top:16px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r8);
-             padding:12px 16px;font-size:12px;color:var(--txs);line-height:1.8">
-          💡 <strong style="color:var(--tx)">Pro Tip:</strong> Jangan pernah jelek-jelekin kompetitor di depan toko. Fokus ke value yang kita bawa: margin lebih sehat, distribusi CSAP yang reliable, dan ecosystem brand yang bikin toko jadi one-stop-shop. <strong style="color:var(--pu)">Let the numbers do the talking.</strong>
-        </div>
-      </div>
-    </div>
+    <!-- Panels rendered dynamically by playbook.js -->
+    <div class="play-panel on" id="pp-exec"></div>
+    <div class="play-panel"    id="pp-div1"></div>
+    <div class="play-panel"    id="pp-div2"></div>
+    <div class="play-panel"    id="pp-div3"></div>
+    <div class="play-panel"    id="pp-div4"></div>
+    <div class="play-panel"    id="pp-bundle"></div>
+    <div class="play-panel"    id="pp-cheat"></div>
 
   </div>
 </div>

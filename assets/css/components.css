@@ -317,6 +317,21 @@
 .apan  { display: none; }
 .apan.on { display: block; }
 
+/* ── PLAYBOOK ADMIN SUB-TABS ─────────────────────────────── */
+.pltabs {
+  margin-top: 4px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--bd2);
+  padding-bottom: 10px;
+}
+.pltb {
+  padding: 4px 12px;
+  font-size: 12px;
+}
+.plpan  { display: none; }
+.plpan.on { display: block; }
+.h { display: none !important; }
+
 /* ── PRODUCT DETAIL MODAL ───────────────────────────────── */
 .dimg {
   width: 100%;
