@@ -1,0 +1,8 @@
+# Credentials — jangan pernah commit ini!
+assets/js/config.js
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
