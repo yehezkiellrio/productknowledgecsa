@@ -1,344 +1,420 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Product Knowledge CSAP — MT Panel</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CSAP Product Knowledge</title>
+<meta name="description" content="Katalog produk dan Sales Playbook internal CSAP — 4 divisi, 30+ brand bahan bangunan.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="app/styles.css" />
-
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
-<script src="app/data.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/playbook.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-
 <body>
-<div id="root"></div>
 
-<script type="text/babel" src="app/atoms.jsx"></script>
-<script type="text/babel" src="app/views_home.jsx"></script>
-<script type="text/babel" src="app/views_playbook.jsx"></script>
-<script type="text/babel" src="app/views_admin.jsx"></script>
+<!-- ── HEADER ───────────────────────────────────────────── -->
+<header id="hdr">
+  <button class="hamburger" id="hbg" onclick="toggleSidebar()" aria-label="Menu">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
 
-<script type="text/babel">
-const { DIVISIONS: NAV_DIVS, BRANDS: NAV_BRANDS, PRODUCTS: NAV_PRODUCTS } = window.CSAP_DATA;
+  <div class="logo">CSAP<span>Product Knowledge</span></div>
 
-// ─── NAV ──────────────────────────────────────────────
-const NAV = [
-  { id: 'home',     label: 'Home',         icon: 'home' },
-  { id: 'catalog',  label: 'Katalog',      icon: 'catalog' },
-  { id: 'playbook', label: 'Playbook',     icon: 'playbook' },
-  { id: 'spek',     label: 'Spek Keramik', icon: 'spek' },
-  { id: 'admin',    label: 'Admin',        icon: 'admin' }
-];
+  <div id="sw">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input id="si" type="text" placeholder="Cari produk, kode, series…">
+  </div>
 
-// ─── TOPBAR ───────────────────────────────────────────
-const Topbar = ({ route, onRoute, onOpenCmd, onToggleMobile, mobileOpen, onSearch, query }) => (
-  <header className="topbar">
-    <button className="icon-btn topbar-mobile-toggle" onClick={onToggleMobile} style={{ display: mobileOpen ? 'none' : 'grid' }}>
-      <Icon name="menu" size={16} />
+  <div class="hdr-r">
+    <button class="hdr-btn" onclick="openSpek()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+      </svg>
+      <span class="btn-label">Spek Keramik</span>
     </button>
-    <button onClick={() => onRoute({ name: 'home' })} className="brand">
-      <div className="brand-mark">CS</div>
-      <div className="brand-text">
-        <div className="brand-title">Product Knowledge</div>
-        <div className="brand-sub">CSAP · Building Mat.</div>
-      </div>
+    <button class="hdr-btn" onclick="openPlaybook()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+      <span class="btn-label">Sales Playbook</span>
     </button>
+    <span id="tbadge">— produk</span>
+  </div>
+</header>
 
-    <nav className="topbar-nav">
-      {NAV.map(n => (
-        <button key={n.id} onClick={() => onRoute({ name: n.id })}
-          className={'topbar-link' + (route.name === n.id ? ' active' : '')}>
-          <Icon name={n.icon} size={14} />{n.label}
-        </button>
-      ))}
-    </nav>
+<!-- ── APP ──────────────────────────────────────────────── -->
+<div id="app">
+  <div id="sb-ov" onclick="closeSidebar()"></div>
 
-    <div className="topbar-right">
-      <button className="cmdk" onClick={onOpenCmd}>
-        <Icon name="search" size={14} className="muted" />
-        <span style={{ color: 'var(--ink-3)', fontSize: 13, flex: 1, textAlign: 'left' }}>
-          {query || 'Cari brand, produk, playbook…'}
-        </span>
-        <span className="mono" style={{
-          fontSize: 11, color: 'var(--ink-3)', padding: '2px 6px',
-          background: 'var(--paper-2)', border: '1px solid var(--hair)', borderRadius: 4
-        }}>⌘K</span>
+  <!-- SIDEBAR -->
+  <aside id="sb">
+    <div id="dvt"></div>
+    <div id="bl"><div class="ldg"><div class="spin"></div></div></div>
+    <div class="sbf">
+      <button id="bta" onclick="openAdmin()">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span id="alab">Admin</span>
       </button>
-      <button className="icon-btn"><Icon name="bell" size={15} /><span className="dot" /></button>
-      <button className="icon-btn"><Icon name="help" size={15} /></button>
-      <div style={{
-        width: 30, height: 30, borderRadius: 99,
-        background: 'var(--accent)', color: 'var(--paper)',
-        display: 'grid', placeItems: 'center',
-        fontFamily: 'Inter Tight', fontWeight: 700, fontSize: 12,
-        marginLeft: 4
-      }}>YH</div>
     </div>
-  </header>
-);
+  </aside>
 
-// ─── MOBILE DRAWER NAV ────────────────────────────────
-const MobileNav = ({ open, onClose, route, onRoute }) => (
-  <Drawer open={open} onClose={onClose} width={300}>
-    <div style={{ padding: '18px 20px', borderBottom: '1px solid var(--hair)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <div className="brand-mark">CS</div>
-        <div>
-          <div style={{ fontWeight: 600, fontSize: 13.5, fontFamily: 'Inter Tight' }}>Product Knowledge</div>
-          <div style={{ fontSize: 11, color: 'var(--ink-3)' }}>CSAP · MT Panel</div>
+  <!-- MAIN -->
+  <main id="main">
+    <div id="bh">
+      <div class="bhi">
+        <h2 id="bhname">Pilih Brand</h2>
+        <p id="bhdesc">Pilih brand dari sidebar untuk melihat produk.</p>
+        <a id="bhweb" href="#" target="_blank" style="display:none"></a>
+      </div>
+      <div class="bhs">
+        <div class="num" id="bhcnt">—</div>
+        <div class="lbl">Produk</div>
+      </div>
+    </div>
+    <div id="fb"></div>
+    <div id="gw">
+      <div id="emp">
+        <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        </svg>
+        <p>Belum ada brand dipilih</p>
+        <small>Klik brand di sidebar untuk mulai</small>
+      </div>
+      <div id="gr" style="display:none"></div>
+    </div>
+  </main>
+</div>
+
+<div id="tos"></div>
+
+<!-- ── MODAL: DETAIL PRODUK ─────────────────────────────── -->
+<div class="ov h" id="mod-det">
+  <div class="mo">
+    <button class="mc" onclick="closeMod('mod-det')">✕</button>
+    <div id="detcont"></div>
+  </div>
+</div>
+
+<!-- ── MODAL: PIN LOGIN ──────────────────────────────────── -->
+<div class="ov h" id="mod-pin">
+  <div class="mo" style="max-width:300px;text-align:center">
+    <button class="mc" onclick="closeMod('mod-pin')">✕</button>
+    <div style="width:40px;height:40px;border-radius:50%;background:var(--gda);border:1px solid var(--bd);
+         display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+           style="color:var(--pu)">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </div>
+    <h3 style="font-size:16px">Admin Login</h3>
+    <p class="sub" style="margin-bottom:14px">Masukkan PIN 8 digit</p>
+    <div class="prow" id="pdots">
+      <div class="pd" id="p0"></div><div class="pd" id="p1"></div>
+      <div class="pd" id="p2"></div><div class="pd" id="p3"></div>
+      <div class="pd" id="p4"></div><div class="pd" id="p5"></div>
+      <div class="pd" id="p6"></div><div class="pd" id="p7"></div>
+    </div>
+    <div id="perr" style="color:var(--red);font-size:12px;height:18px;margin-bottom:2px"></div>
+    <div class="np">
+      <button class="npb" onclick="pk('1')">1</button>
+      <button class="npb" onclick="pk('2')">2</button>
+      <button class="npb" onclick="pk('3')">3</button>
+      <button class="npb" onclick="pk('4')">4</button>
+      <button class="npb" onclick="pk('5')">5</button>
+      <button class="npb" onclick="pk('6')">6</button>
+      <button class="npb" onclick="pk('7')">7</button>
+      <button class="npb" onclick="pk('8')">8</button>
+      <button class="npb" onclick="pk('9')">9</button>
+      <button class="npb clr" onclick="pk('C')">CLR</button>
+      <button class="npb" onclick="pk('0')">0</button>
+      <button class="npb del" onclick="pk('D')">⌫</button>
+    </div>
+    <div class="br" style="justify-content:center;margin-top:16px">
+      <button class="btn bgh bsm" onclick="closeMod('mod-pin')">Batal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: ADMIN PANEL ────────────────────────────────── -->
+<div class="ov h" id="mod-adm">
+  <div class="mo w">
+    <button class="mc" onclick="closeMod('mod-adm')">✕</button>
+    <h3>Admin Panel</h3>
+    <p class="sub">Kelola brand dan produk katalog</p>
+    <div class="atabs">
+      <button class="atb on" onclick="aTab('brands',this)">📋 Brand</button>
+      <button class="atb"    onclick="aTab('prods',this)">📦 Produk</button>
+      <button class="atb"    onclick="aTab('abrand',this)">+ Brand</button>
+      <button class="atb"    onclick="aTab('aprod',this)">+ Produk</button>
+      <button class="atb"    onclick="aTab('acat',this)">📂 Katalog</button>
+      <button class="atb"    onclick="aTab('aplay',this)">🎯 Playbook</button>
+    </div>
+
+    <!-- Brand list -->
+    <div class="apan on" id="ap-brands">
+      <div id="abl"></div>
+    </div>
+
+    <!-- Product list -->
+    <div class="apan" id="ap-prods">
+      <div class="fg" style="margin-bottom:12px">
+        <label>Filter Brand</label>
+        <select id="apbf" onchange="loadAdmProds()"><option value="">— Semua —</option></select>
+      </div>
+      <div id="apl"></div>
+    </div>
+
+    <!-- Add/Edit Brand -->
+    <div class="apan" id="ap-abrand">
+      <div class="fr">
+        <div class="fg"><label>Nama Brand *</label><input id="nb-name" placeholder="Nama brand"></div>
+        <div class="fg"><label>Divisi *</label>
+          <select id="nb-div">
+            <option>Divisi 1</option><option>Divisi 2</option>
+            <option>Divisi 3</option><option>Divisi 4</option>
+          </select>
         </div>
       </div>
-      <button className="icon-btn" onClick={onClose}><Icon name="x" size={16} /></button>
-    </div>
-    <div style={{ padding: 12, overflowY: 'auto' }}>
-      {NAV.map(n => (
-        <button key={n.id} onClick={() => { onRoute({ name: n.id }); onClose(); }}
-          style={{
-            width: '100%', padding: '12px 14px',
-            display: 'flex', alignItems: 'center', gap: 12,
-            fontSize: 14, fontWeight: route.name === n.id ? 600 : 500,
-            color: route.name === n.id ? 'var(--ink)' : 'var(--ink-2)',
-            background: route.name === n.id ? 'var(--paper-2)' : 'transparent',
-            borderRadius: 'var(--r-m)',
-            textAlign: 'left',
-            transition: 'var(--t-q)'
-          }}>
-          <Icon name={n.icon} size={16} /> {n.label}
-        </button>
-      ))}
-      <div style={{ height: 1, background: 'var(--hair)', margin: '14px 8px' }} />
-      <div style={{ padding: '10px 14px', fontSize: 11, fontWeight: 600, color: 'var(--ink-4)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 4 }}>
-        Divisi
-      </div>
-      {NAV_DIVS.map(d => (
-        <button key={d.no} onClick={() => { onRoute({ name: 'catalog', params: { division: d.no } }); onClose(); }}
-          style={{
-            width: '100%', padding: '10px 14px',
-            display: 'flex', alignItems: 'center', gap: 10,
-            fontSize: 13,
-            color: 'var(--ink-2)',
-            borderRadius: 'var(--r-m)',
-            textAlign: 'left'
-          }}>
-          <span style={{ width: 6, height: 6, borderRadius: 99, background: `var(--div${d.no})` }} />
-          <span style={{ flex: 1 }}>D{d.no} · {d.short}</span>
-          <span className="mono" style={{ fontSize: 11, color: 'var(--ink-4)' }}>{d.title.split(' ').slice(-1)[0]}</span>
-        </button>
-      ))}
-    </div>
-  </Drawer>
-);
-
-// ─── COMMAND PALETTE ──────────────────────────────────
-const CommandPalette = ({ open, onClose, onRoute, onOpenBrand, onOpenProduct, query: externalQuery }) => {
-  const [q, setQ] = useState('');
-  const [cursor, setCursor] = useState(0);
-  const inputRef = useRef(null);
-  useEffect(() => {
-    if (open) {
-      setTimeout(() => inputRef.current?.focus(), 20);
-      setQ(externalQuery || '');
-      setCursor(0);
-    }
-  }, [open]);
-
-  const items = useMemo(() => {
-    const res = [];
-    // Pages
-    NAV.forEach(n => res.push({
-      kind: 'page', id: n.id, title: n.label, sub: 'Pindah ke halaman', icon: n.icon,
-      action: () => onRoute({ name: n.id })
-    }));
-    // Divisions
-    NAV_DIVS.forEach(d => res.push({
-      kind: 'div', id: 'd' + d.no, title: 'Divisi ' + d.no + ' · ' + d.title, sub: d.tagline, icon: 'layers',
-      action: () => onRoute({ name: 'catalog', params: { division: d.no } })
-    }));
-    // Brands
-    NAV_BRANDS.forEach(b => res.push({
-      kind: 'brand', id: 'b-' + b.id, title: b.label, sub: b.category + ' · D' + b.division, icon: 'bookmark',
-      action: () => onOpenBrand(b.id)
-    }));
-    // Products (first ~60)
-    NAV_PRODUCTS.slice(0, 80).forEach(p => res.push({
-      kind: 'prod', id: 'p-' + p.id, title: p.name, sub: p.code + ' · ' + p.series, icon: 'catalog',
-      action: () => onOpenProduct(p)
-    }));
-    if (!q.trim()) return res.slice(0, 8);
-    const qL = q.toLowerCase();
-    return res.filter(x => x.title.toLowerCase().includes(qL) || (x.sub || '').toLowerCase().includes(qL)).slice(0, 40);
-  }, [q]);
-
-  useEffect(() => { setCursor(0); }, [q]);
-  useEffect(() => {
-    if (!open) return;
-    const k = e => {
-      if (e.key === 'ArrowDown') { e.preventDefault(); setCursor(c => Math.min(c + 1, items.length - 1)); }
-      if (e.key === 'ArrowUp')   { e.preventDefault(); setCursor(c => Math.max(c - 1, 0)); }
-      if (e.key === 'Enter' && items[cursor]) { items[cursor].action(); onClose(); }
-    };
-    window.addEventListener('keydown', k);
-    return () => window.removeEventListener('keydown', k);
-  }, [open, items, cursor]);
-
-  if (!open) return null;
-  return (
-    <div onClick={onClose} style={{
-      position: 'fixed', inset: 0, zIndex: 120,
-      background: 'rgba(23,23,15,.45)', backdropFilter: 'blur(4px)',
-      display: 'flex', justifyContent: 'center', alignItems: 'flex-start',
-      padding: '12vh 20px 20px'
-    }}>
-      <div onClick={e => e.stopPropagation()} className="fade-up" style={{
-        width: '100%', maxWidth: 620,
-        background: 'var(--surface)',
-        border: '1px solid var(--hair)',
-        borderRadius: 'var(--r-xl)',
-        boxShadow: 'var(--sh-3)',
-        overflow: 'hidden'
-      }}>
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 12,
-          padding: '14px 18px',
-          borderBottom: '1px solid var(--hair)'
-        }}>
-          <Icon name="search" size={16} className="muted" />
-          <input
-            ref={inputRef}
-            value={q}
-            onChange={e => setQ(e.target.value)}
-            placeholder="Cari brand, produk, playbook, halaman…"
-            style={{ border: 'none', outline: 'none', flex: 1, fontSize: 15, background: 'transparent' }}
-          />
-          <span className="mono" style={{
-            fontSize: 10.5, color: 'var(--ink-3)',
-            padding: '3px 8px', background: 'var(--paper-2)',
-            border: '1px solid var(--hair)', borderRadius: 4
-          }}>ESC</span>
+      <div class="fr">
+        <div class="fg"><label>Website</label><input id="nb-web" placeholder="www.brand.com"></div>
+        <div class="fg"><label>Status</label>
+          <select id="nb-act"><option value="true">Aktif</option><option value="false">Nonaktif</option></select>
         </div>
-        <div style={{ maxHeight: 420, overflowY: 'auto' }}>
-          {items.length === 0 && (
-            <div style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--ink-3)', fontSize: 13 }}>
-              Tidak ada hasil untuk "<strong>{q}</strong>"
+      </div>
+      <div class="fr f1">
+        <div class="fg"><label>Deskripsi</label>
+          <textarea id="nb-desc" placeholder="Deskripsi singkat…"></textarea>
+        </div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label>Tipe Brand</label>
+          <select id="nb-type">
+            <option value="products">Products (Grid)</option>
+            <option value="flipbook">Flipbook Embed</option>
+            <option value="external">External Link</option>
+          </select>
+        </div>
+        <div class="fg"><label>Flipbook / External URL</label>
+          <input id="nb-flip" placeholder="https://online.fliphtml5.com/…">
+        </div>
+      </div>
+      <div class="fr f1">
+        <div class="fg">
+          <label>Logo Brand</label>
+          <div class="uz" id="blz" onclick="document.getElementById('bli').click()">
+            <div id="blpw">
+              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"
+                   viewBox="0 0 24 24" style="opacity:.4">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <p>Klik untuk upload logo</p>
             </div>
-          )}
-          {items.map((it, i) => (
-            <button key={it.id} onClick={() => { it.action(); onClose(); }}
-              onMouseEnter={() => setCursor(i)}
-              style={{
-                width: '100%',
-                display: 'flex', alignItems: 'center', gap: 12,
-                padding: '10px 18px',
-                textAlign: 'left',
-                fontSize: 13.5,
-                background: cursor === i ? 'var(--paper-2)' : 'transparent',
-                transition: 'background .08s',
-                cursor: 'pointer'
-              }}>
-              <div style={{
-                width: 30, height: 30, borderRadius: 'var(--r-s)',
-                background: 'var(--surface)', border: '1px solid var(--hair)',
-                display: 'grid', placeItems: 'center',
-                color: 'var(--ink-2)', flexShrink: 0
-              }}>
-                <Icon name={it.icon} size={14} />
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontWeight: 600, letterSpacing: '-.005em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{it.title}</div>
-                <div style={{ fontSize: 12, color: 'var(--ink-3)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{it.sub}</div>
-              </div>
-              <span className="badge" style={{ fontSize: 10, textTransform: 'uppercase' }}>{it.kind}</span>
-              {cursor === i && <Icon name="arrow" size={13} className="muted" />}
-            </button>
-          ))}
-        </div>
-        <div style={{
-          padding: '10px 18px', borderTop: '1px solid var(--hair)',
-          fontSize: 11, color: 'var(--ink-3)', display: 'flex', gap: 18, alignItems: 'center',
-          background: 'var(--paper-2)'
-        }}>
-          <span><span className="mono" style={{ background: 'var(--surface)', padding: '1px 5px', borderRadius: 3, border: '1px solid var(--hair)' }}>↑↓</span> navigasi</span>
-          <span><span className="mono" style={{ background: 'var(--surface)', padding: '1px 5px', borderRadius: 3, border: '1px solid var(--hair)' }}>↵</span> buka</span>
-          <span style={{ marginLeft: 'auto' }}>{items.length} hasil</span>
+          </div>
+          <input type="file" id="bli" accept="image/*" style="display:none" onchange="prevLogo(this)">
         </div>
       </div>
+      <input type="hidden" id="nb-editid">
+      <div class="br">
+        <button class="btn bgh bsm" onclick="clearBrandForm()">Reset</button>
+        <button class="btn bgd" onclick="saveBrand()">💾 <span id="nb-savelbl">Simpan Brand</span></button>
+      </div>
     </div>
-  );
-};
 
-// ─── APP ──────────────────────────────────────────────
-const App = () => {
-  const [route, setRoute] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('csap_route')) || { name: 'home' }; }
-    catch { return { name: 'home' }; }
-  });
-  const [product, setProduct] = useState(null);
-  const [cmdOpen, setCmdOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [query, setQuery] = useState('');
+    <!-- Add/Edit Product -->
+    <div class="apan" id="ap-aprod">
+      <input type="hidden" id="np-editid">
+      <div class="fr">
+        <div class="fg"><label>Brand *</label><select id="np-brand"></select></div>
+        <div class="fg"><label>Kategori *</label><input id="np-cat" placeholder="Tile / Toilet / Faucet / Basin…"></div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label>Kode Produk</label><input id="np-code" placeholder="C10207 / CT1132A…"></div>
+        <div class="fg"><label>Nama Produk *</label><input id="np-name" placeholder="Nama produk"></div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label>Subkategori</label><input id="np-sub" placeholder="Polished / Smart Toilet…"></div>
+        <div class="fg"><label>Series</label><input id="np-series" placeholder="Carrara / Marble / GEO…"></div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label>Finish</label><input id="np-finish" placeholder="Polished / Matte / Carving…"></div>
+        <div class="fg"><label>Ukuran</label><input id="np-size" placeholder="600×1200mm / 430×670×520mm"></div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label>Face Type</label><input id="np-face" placeholder="2 Connecting Faces / Single Face"></div>
+        <div class="fg"><label>Status</label>
+          <select id="np-act"><option value="true">Aktif</option><option value="false">Nonaktif</option></select>
+        </div>
+      </div>
+      <div class="fr f1">
+        <div class="fg"><label>Deskripsi / Spesifikasi</label>
+          <textarea id="np-desc" placeholder="Fitur, spesifikasi, keterangan…"></textarea>
+        </div>
+      </div>
+      <div class="fr f1">
+        <div class="fg">
+          <label>Foto Produk</label>
+          <div class="uz" id="piz" onclick="document.getElementById('pii').click()">
+            <div id="pipw">
+              <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"
+                   viewBox="0 0 24 24" style="opacity:.4">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <p>Klik untuk upload foto produk</p>
+            </div>
+          </div>
+          <input type="file" id="pii" accept="image/*" style="display:none" onchange="prevProd(this)">
+          <input type="hidden" id="np-imgurl">
+        </div>
+      </div>
+      <div class="br">
+        <button class="btn bgh bsm" onclick="clearProdForm()">Reset</button>
+        <button class="btn bgh bsm" id="cancedit" onclick="cancelEdit()" style="display:none">Batal Edit</button>
+        <button class="btn bgd" onclick="saveProd()">💾 <span id="np-savelbl">Simpan Produk</span></button>
+      </div>
+    </div>
 
-  useEffect(() => { localStorage.setItem('csap_route', JSON.stringify(route)); }, [route]);
+    <!-- Playbook admin -->
+    <div class="apan" id="ap-aplay">
+      <div class="atabs pltabs">
+        <button class="atb pltb on" onclick="playAdmSubTab('div',this)">📋 Divisi</button>
+        <button class="atb pltb"    onclick="playAdmSubTab('gap',this)">📊 Gap Analysis</button>
+        <button class="atb pltb"    onclick="playAdmSubTab('args',this)">💬 Killer Args</button>
+        <button class="atb pltb"    onclick="playAdmSubTab('pkg',this)">🎁 Paket</button>
+      </div>
+      <div class="plpan on" id="pp-adm-div"></div>
+      <div class="plpan"    id="pp-adm-gap"></div>
+      <div class="plpan"    id="pp-adm-args"></div>
+      <div class="plpan"    id="pp-adm-pkg"></div>
+    </div>
 
-  useEffect(() => {
-    const h = e => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setCmdOpen(o => !o);
-      }
-    };
-    window.addEventListener('keydown', h);
-    return () => window.removeEventListener('keydown', h);
-  }, []);
+    <!-- Catalog tab -->
+    <div class="apan" id="ap-acat">
+      <div id="acl" style="margin-bottom:16px"></div>
+      <div style="border-top:1px solid var(--bd);padding-top:16px">
+        <p style="font-size:12px;font-weight:600;color:var(--txs);margin-bottom:12px">
+          <span id="nc-formlbl">+ Tambah Katalog</span>
+        </p>
+        <div class="fr">
+          <div class="fg"><label>Nama / Brand *</label>
+            <input id="nc-brand" placeholder="UNO 30×60 &amp; ARNA 60×60">
+          </div>
+          <div class="fg"><label>Judul Katalog *</label>
+            <input id="nc-title" placeholder="E-Catalog UNO 3060 mix ARNA 6060">
+          </div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label>Deskripsi</label>
+            <input id="nc-desc" placeholder="Update Oktober 2024">
+          </div>
+          <div class="fg"><label>Jumlah Halaman</label>
+            <input id="nc-pages" type="number" placeholder="70">
+          </div>
+        </div>
+        <div class="fr f1">
+          <div class="fg">
+            <label>Upload PDF Katalog *</label>
+            <div class="uz" id="cpz" onclick="document.getElementById('cpi').click()">
+              <div id="cppw">
+                <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"
+                     viewBox="0 0 24 24" style="opacity:.4">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                <p>Klik untuk upload PDF katalog</p>
+              </div>
+            </div>
+            <input type="file" id="cpi" accept=".pdf,application/pdf" style="display:none" onchange="prevCatalog(this)">
+            <input type="hidden" id="nc-fileurl">
+          </div>
+        </div>
+        <input type="hidden" id="nc-editid">
+        <div class="br">
+          <button class="btn bgh bsm" onclick="clearCatForm()">Reset</button>
+          <button class="btn bgh bsm" id="nc-canceledit" onclick="clearCatForm()" style="display:none">Batal Edit</button>
+          <button class="btn bgd" onclick="saveCatalog()" id="nc-savebtn">💾 <span id="nc-savelbl">Simpan Katalog</span></button>
+        </div>
+      </div>
+      <div style="margin-top:12px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r8);
+           padding:10px 12px;font-size:11px;color:var(--txs);line-height:1.7">
+        ⚠️ <strong style="color:var(--pu)">Setup Supabase:</strong>
+        Buat tabel <code style="color:var(--pu)">catalogs</code> dulu di SQL Editor:<br>
+        <code style="color:var(--txm);font-size:10px">create table catalogs (id uuid default gen_random_uuid() primary key, brand text, title text, description text, file_url text, pages int, sort_order int default 0, is_active bool default true, created_at timestamptz default now());</code>
+      </div>
+    </div>
 
-  const goTo = (name, params) => { setRoute({ name, params }); setQuery(''); };
-  const openBrand = id => setRoute({ name: 'catalog', params: { brandId: id } });
-  const openProduct = p => setProduct(p);
+  </div>
+</div>
 
-  return (
-    <ToastProvider>
-      <Topbar
-        route={route}
-        onRoute={setRoute}
-        onOpenCmd={() => setCmdOpen(true)}
-        onToggleMobile={() => setMobileOpen(true)}
-        mobileOpen={mobileOpen}
-        query={query}
-      />
+<!-- ── MODAL: SPEK KERAMIK ───────────────────────────────── -->
+<div class="ov h" id="mod-spek">
+  <div class="mo" style="max-width:1020px;width:100%;max-height:92vh">
+    <button class="mc" onclick="closeMod('mod-spek')">✕</button>
+    <h3>Spek Keramik CSAP</h3>
+    <p class="sub">E-Catalog produk keramik &amp; granit</p>
+    <div id="spek-body"><div class="ldg"><div class="spin"></div></div></div>
+  </div>
+</div>
 
-      <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} route={route} onRoute={setRoute} />
+<!-- ── MODAL: SALES PLAYBOOK ─────────────────────────────── -->
+<div class="ov h" id="mod-play">
+  <div class="mo" style="max-width:940px;width:100%">
+    <button class="mc" onclick="closeMod('mod-play')">✕</button>
+    <h3>CSAP Sales Playbook</h3>
+    <p class="sub">Peta Persaingan, Killer Arguments &amp; Cross-Selling Strategy · MT Sales Supervisor</p>
+    <div class="atabs">
+      <button class="atb on" onclick="playTab('exec',this)">🎯 Executive</button>
+      <button class="atb"    onclick="playTab('div1',this)">Divisi 1</button>
+      <button class="atb"    onclick="playTab('div2',this)">Divisi 2</button>
+      <button class="atb"    onclick="playTab('div3',this)">Divisi 3</button>
+      <button class="atb"    onclick="playTab('div4',this)">Divisi 4</button>
+      <button class="atb"    onclick="playTab('bundle',this)">🎁 Cross-Selling</button>
+      <button class="atb"    onclick="playTab('cheat',this)">⚡ Cheatsheet</button>
+    </div>
 
-      <main className="main">
-        {route.name === 'home'     && <HomeView     onGo={goTo} onOpenBrand={openBrand} />}
-        {route.name === 'catalog'  && <CatalogView  initial={route.params} onOpenBrand={openBrand} onOpenProduct={openProduct} query={query} />}
-        {route.name === 'playbook' && <PlaybookView initial={route.params} />}
-        {route.name === 'spek'     && <SpekView />}
-        {route.name === 'admin'    && <AdminView />}
-      </main>
+    <!-- Panels rendered dynamically by playbook.js -->
+    <div class="play-panel on" id="pp-exec"></div>
+    <div class="play-panel"    id="pp-div1"></div>
+    <div class="play-panel"    id="pp-div2"></div>
+    <div class="play-panel"    id="pp-div3"></div>
+    <div class="play-panel"    id="pp-div4"></div>
+    <div class="play-panel"    id="pp-bundle"></div>
+    <div class="play-panel"    id="pp-cheat"></div>
 
-      <ProductDrawer product={product} open={!!product} onClose={() => setProduct(null)} />
+  </div>
+</div>
 
-      <CommandPalette
-        open={cmdOpen}
-        onClose={() => setCmdOpen(false)}
-        onRoute={setRoute}
-        onOpenBrand={openBrand}
-        onOpenProduct={openProduct}
-      />
+<!-- ── SCRIPTS ───────────────────────────────────────────── -->
+<script src="assets/js/config.js"></script>
+<script src="assets/js/state.js"></script>
+<script src="assets/js/supabase.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/catalog.js"></script>
+<script src="assets/js/search.js"></script>
+<script src="assets/js/admin.js"></script>
+<script src="assets/js/playbook.js"></script>
+<script src="assets/js/spek.js"></script>
+<script src="assets/js/main.js"></script>
 
-      {/* Floating Cmd+K hint on desktop only (mobile uses search icon) */}
-    </ToastProvider>
-  );
-};
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
 </body>
 </html>
