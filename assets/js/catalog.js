@@ -74,6 +74,7 @@ function renderBrands() {
 }
 
 function selBrand(id) {
+  closeSidebar();
   S.curFilt = 'Semua';
   const b = S.brands.find(x => x.id === id);
   if (b && b.brand_type === 'flipbook') {

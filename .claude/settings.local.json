@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/yehez/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/333f5c8d-f049-41f3-a326-ebcd75fbb093/2d929937-d8ad-4b09-a301-8199dcb29ce4/skills/docx/**)",
+      "Bash(pandoc --track-changes=all \"C:\\\\Users\\\\yehez\\\\Downloads\\\\csap sales playbook.docx\" -o output.md)",
+      "Bash(python scripts/office/unpack.py \"C:\\\\Users\\\\yehez\\\\Downloads\\\\csap sales playbook.docx\" /tmp/docx_unpacked/)",
+      "Bash(python3 -c ':*)",
+      "Bash(where python3:*)",
+      "Bash(where python:*)",
+      "Bash(where py:*)",
+      "Bash(powershell -Command ':*)",
+      "Bash(where node:*)",
+      "Bash(where npm:*)",
+      "Read(//c/tmp/**)",
+      "Bash(npm list:*)",
+      "Bash(mkdir -p \"C:\\\\Users\\\\yehez\\\\AppData\\\\Roaming\\\\npm\")",
+      "Bash(npm install:*)",
+      "Bash(node -e ':*)",
+      "Bash(node -e \"const m = require\\('pdf-parse'\\); console.log\\(typeof m, Object.keys\\(m\\).join\\(','\\)\\);\")"
+    ]
+  }
+}

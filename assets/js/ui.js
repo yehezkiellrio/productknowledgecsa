@@ -34,6 +34,10 @@ function toast(msg, type = 'info') {
 function openMod(id)  { document.getElementById(id).classList.remove('h'); }
 function closeMod(id) { document.getElementById(id).classList.add('h'); }
 
+/* ── SIDEBAR TOGGLE ──────────────────────────────────────── */
+function toggleSidebar() { document.body.classList.toggle('sidebar-open'); }
+function closeSidebar()  { document.body.classList.remove('sidebar-open'); }
+
 function initModalClose() {
   document.querySelectorAll('.ov').forEach(el => {
     el.addEventListener('click', e => {

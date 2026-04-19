@@ -374,12 +374,96 @@
 #emp p { font-size: 15px; opacity: .7; color: var(--txs); }
 #emp small { font-size: 12px; opacity: .6; }
 
-/* ── RESPONSIVE ──────────────────────────────────────────── */
+/* ── HAMBURGER ───────────────────────────────────────────── */
+.hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  background: none;
+  border: none;
+  border-radius: var(--r8);
+  cursor: pointer;
+  color: var(--txs);
+  transition: var(--t);
+  flex-shrink: 0;
+}
+.hamburger:hover { background: var(--s2); color: var(--tx); }
+
+/* ── SIDEBAR OVERLAY ─────────────────────────────────────── */
+#sb-ov {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  cursor: pointer;
+}
+
+/* ── RESPONSIVE: TABLET & PHONE (≤768px) — off-canvas sidebar */
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+
+  #sb {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 260px;
+    min-width: 260px;
+    z-index: 300;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+  body.sidebar-open #sb {
+    transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(26,24,20,0.18);
+  }
+  body.sidebar-open #sb-ov { display: block; }
+  body.sidebar-open { overflow: hidden; }
+
+  #main { width: 100%; }
+}
+
+/* ── RESPONSIVE: PHONE (≤640px) — header 2-row */
 @media (max-width: 640px) {
-  #sb { width: 175px; min-width: 175px; }
-  #gr { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 10px; }
-  #gw { padding: 14px; }
-  .bhi p { display: none; }
-  #bh { padding: 14px 16px; }
-  #fb { padding: 8px 16px; }
+  #hdr {
+    height: auto;
+    min-height: unset;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 12px;
+    gap: 4px;
+  }
+  .logo {
+    font-size: 14px;
+    flex: 1;
+  }
+  .logo span { display: none; }
+  .hdr-r { gap: 4px; margin-left: 0; }
+  .hdr-btn {
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: var(--r8);
+    justify-content: center;
+  }
+  .btn-label { display: none; }
+  #tbadge    { display: none; }
+  #sw {
+    order: 3;
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 4px 0 10px;
+  }
+
+  #gr  { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 10px; }
+  #gw  { padding: 14px; }
+  #bh  { padding: 14px 16px; }
+  #fb  { padding: 8px 16px; }
+  .bhi p   { display: none; }
+  .bhi h2  { word-wrap: break-word; font-size: 17px; }
 }

@@ -17,6 +17,14 @@
 
 <!-- ── HEADER ───────────────────────────────────────────── -->
 <header id="hdr">
+  <button class="hamburger" id="hbg" onclick="toggleSidebar()" aria-label="Menu">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+
   <div class="logo">CSAP<span>Product Knowledge</span></div>
 
   <div id="sw">
@@ -32,7 +40,7 @@
         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
       </svg>
-      Spek Keramik
+      <span class="btn-label">Spek Keramik</span>
     </button>
     <button class="hdr-btn" onclick="openPlaybook()">
       <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -41,7 +49,7 @@
         <line x1="16" y1="13" x2="8" y2="13"/>
         <line x1="16" y1="17" x2="8" y2="17"/>
       </svg>
-      Sales Playbook
+      <span class="btn-label">Sales Playbook</span>
     </button>
     <span id="tbadge">— produk</span>
   </div>
@@ -49,6 +57,7 @@
 
 <!-- ── APP ──────────────────────────────────────────────── -->
 <div id="app">
+  <div id="sb-ov" onclick="closeSidebar()"></div>
 
   <!-- SIDEBAR -->
   <aside id="sb">
