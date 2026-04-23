@@ -6,3 +6,6 @@ assets/js/config.js
 Thumbs.db
 .vscode/
 *.log
+
+# Generated SQL import files (run manual di Supabase, no need to commit)
+import-data/brands/**/insert.sql

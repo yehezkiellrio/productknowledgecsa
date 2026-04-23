@@ -4,3 +4,26 @@ const PIN      = '10102001';
 const BUCKET_P = 'products';
 const BUCKET_B = 'brands';
 const BUCKET_C = 'product-images';
+const BUCKET_E = 'product-images';
+
+const LEARN_CATS = [
+  { key: 'sales',    label: 'Sales Skill',              icon: '💼', color: '#9b7428', subs: [
+    'Closing Techniques', 'Effective Sales Communication', 'Handling Objection',
+    'Negotiation Skill', 'Standart Sales Grooming', '7 Step of Selling Process'
+  ]},
+  { key: 'customer', label: 'Customer & Market',        icon: '👥', color: '#1e7840', subs: [
+    'Customer Typology', 'Know Your Customer'
+  ]},
+  { key: 'product',  label: 'Product Knowledge',        icon: '📦', color: '#b89030', subs: [
+    'Product Knowledge'
+  ]},
+  { key: 'safety',   label: 'Safety & Compliance',      icon: '🛡️', color: '#c03030', subs: [
+    'Safety Riding'
+  ]},
+  { key: 'tips',     label: 'Tips & Experience',        icon: '💡', color: '#d18b1a', subs: [
+    'TipsHacksbyPengalaman'
+  ]},
+  { key: 'sop',      label: 'SOP / Training / Internal', icon: '📋', color: '#555', subs: [
+    'Commercial Division', 'Training MT', 'IT as an Accelerator CSA'
+  ]},
+];

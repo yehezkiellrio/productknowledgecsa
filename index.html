@@ -51,6 +51,13 @@
       </svg>
       <span class="btn-label">Sales Playbook</span>
     </button>
+    <button class="hdr-btn" onclick="openLearn()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+      </svg>
+      <span class="btn-label">E-Learning</span>
+    </button>
     <span id="tbadge">— produk</span>
   </div>
 </header>
@@ -165,6 +172,7 @@
       <button class="atb"    onclick="aTab('aprod',this)">+ Produk</button>
       <button class="atb"    onclick="aTab('acat',this)">📂 Katalog</button>
       <button class="atb"    onclick="aTab('aplay',this)">🎯 Playbook</button>
+      <button class="atb"    onclick="aTab('alearn',this)">🎓 E-Learning</button>
     </div>
 
     <!-- Brand list -->
@@ -363,6 +371,66 @@
       </div>
     </div>
 
+    <!-- E-Learning admin tab -->
+    <div class="apan" id="ap-alearn">
+      <div id="all" style="margin-bottom:16px"></div>
+      <div style="border-top:1px solid var(--bd);padding-top:16px">
+        <p style="font-size:12px;font-weight:600;color:var(--txs);margin-bottom:12px">
+          <span id="nl-formlbl">+ Tambah Materi E-Learning</span>
+        </p>
+        <div class="fr">
+          <div class="fg"><label>Judul Materi *</label>
+            <input id="nl-title" placeholder="Cara Closing yang Efektif">
+          </div>
+          <div class="fg"><label>Kategori Utama *</label>
+            <select id="nl-cat" onchange="onLearnCatChange()"></select>
+          </div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label>Sub-Kategori *</label>
+            <select id="nl-sub"></select>
+          </div>
+          <div class="fg"><label>Status</label>
+            <select id="nl-act"><option value="true">Aktif</option><option value="false">Nonaktif</option></select>
+          </div>
+        </div>
+        <div class="fr f1">
+          <div class="fg"><label>Deskripsi</label>
+            <textarea id="nl-desc" placeholder="Ringkasan singkat materi ini…"></textarea>
+          </div>
+        </div>
+        <div class="fr f1">
+          <div class="fg">
+            <label>Upload PDF Materi *</label>
+            <div class="uz" id="lpz" onclick="document.getElementById('lpi').click()">
+              <div id="lppw">
+                <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"
+                     viewBox="0 0 24 24" style="opacity:.4">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                <p>Klik untuk upload PDF materi</p>
+              </div>
+            </div>
+            <input type="file" id="lpi" accept=".pdf,application/pdf" style="display:none" onchange="prevLearn(this)">
+            <input type="hidden" id="nl-fileurl">
+          </div>
+        </div>
+        <input type="hidden" id="nl-editid">
+        <div class="br">
+          <button class="btn bgh bsm" onclick="clearLearnForm()">Reset</button>
+          <button class="btn bgh bsm" id="nl-canceledit" onclick="clearLearnForm()" style="display:none">Batal Edit</button>
+          <button class="btn bgd" onclick="saveLearn()" id="nl-savebtn">💾 <span id="nl-savelbl">Simpan Materi</span></button>
+        </div>
+      </div>
+      <div style="margin-top:12px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r8);
+           padding:10px 12px;font-size:11px;color:var(--txs);line-height:1.7">
+        ⚠️ <strong style="color:var(--pu)">Setup Supabase:</strong>
+        Buat tabel <code style="color:var(--pu)">elearning_materials</code> di SQL Editor:<br>
+        <code style="color:var(--txm);font-size:10px">create table elearning_materials (id uuid default gen_random_uuid() primary key, title text, category text, subcategory text, description text, file_url text, sort_order int default 0, is_active bool default true, created_at timestamptz default now());</code>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -404,6 +472,24 @@
   </div>
 </div>
 
+<!-- ── MODAL: E-LEARNING ─────────────────────────────────── -->
+<div class="ov h" id="mod-learn">
+  <div class="mo" style="max-width:1100px;width:100%;max-height:92vh">
+    <button class="mc" onclick="closeMod('mod-learn')">✕</button>
+    <h3>E-Learning CSAP</h3>
+    <p class="sub">Materi pembelajaran &amp; training internal</p>
+    <div id="learn-body"><div class="ldg"><div class="spin"></div></div></div>
+  </div>
+</div>
+
+<!-- ── MODAL: E-LEARNING MATERIAL VIEWER ─────────────────── -->
+<div class="ov h" id="mod-learn-doc">
+  <div class="mo" style="max-width:1100px;width:100%;max-height:94vh">
+    <button class="mc" onclick="closeMod('mod-learn-doc')">✕</button>
+    <div id="learn-doc-body"></div>
+  </div>
+</div>
+
 <!-- ── SCRIPTS ───────────────────────────────────────────── -->
 <script src="assets/js/config.js"></script>
 <script src="assets/js/state.js"></script>
@@ -414,6 +500,7 @@
 <script src="assets/js/admin.js"></script>
 <script src="assets/js/playbook.js"></script>
 <script src="assets/js/spek.js"></script>
+<script src="assets/js/elearning.js"></script>
 <script src="assets/js/main.js"></script>
 
 </body>

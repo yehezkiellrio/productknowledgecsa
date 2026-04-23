@@ -47,6 +47,8 @@ function populateAdm() {
   loadAdmProds();
   loadAdmCatalogs();
   loadAdmPlay();
+  initLearnForm();
+  loadAdmLearn();
 }
 
 function aTab(t, el) {
@@ -379,7 +381,7 @@ function rmProdImg(e) {
 
 /* ── DRAG & DROP ─────────────────────────────────────────── */
 function initDragDrop() {
-  ['blz', 'piz', 'cpz'].forEach(id => {
+  ['blz', 'piz', 'cpz', 'lpz'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
     el.addEventListener('dragover',  e => { e.preventDefault(); el.classList.add('drag'); });
@@ -392,7 +394,8 @@ function initDragDrop() {
       const fakeInput = { files: [f] };
       if      (id === 'blz') prevLogo(fakeInput);
       else if (id === 'piz') prevProd(fakeInput);
-      else                   prevCatalog(fakeInput);
+      else if (id === 'cpz') prevCatalog(fakeInput);
+      else                   prevLearn(fakeInput);
     });
   });
 }
@@ -961,4 +964,181 @@ async function delPkgItem(id) {
   if (error) { toast('Gagal hapus item', 'err'); return; }
   toast('Item dihapus', 'ok');
   loadAdmPlay();
+}
+
+/* ── E-LEARNING CRUD ─────────────────────────────────────── */
+let learnFile = null;
+
+function initLearnForm() {
+  const catSel = document.getElementById('nl-cat');
+  if (!catSel.options.length) {
+    catSel.innerHTML = LEARN_CATS.map(c =>
+      `<option value="${c.key}">${c.icon} ${esc(c.label)}</option>`).join('');
+  }
+  onLearnCatChange();
+}
+
+function onLearnCatChange() {
+  const key = document.getElementById('nl-cat').value;
+  const cat = LEARN_CATS.find(c => c.key === key);
+  const subSel = document.getElementById('nl-sub');
+  if (!cat) { subSel.innerHTML = ''; return; }
+  subSel.innerHTML = cat.subs.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+}
+
+async function loadAdmLearn() {
+  const el = document.getElementById('all');
+  if (!el) return;
+  el.innerHTML = '<div class="ldg"><div class="spin"></div></div>';
+  const { data, error } = await sb.from('elearning_materials').select('*')
+    .order('category').order('subcategory').order('sort_order').order('created_at');
+  if (error) {
+    el.innerHTML = `<p style="color:var(--red);font-size:12px">
+      Gagal load. Pastikan tabel <code>elearning_materials</code> sudah dibuat.</p>`;
+    return;
+  }
+  if (!data || !data.length) {
+    el.innerHTML = '<p style="font-size:12px;color:var(--txm)">Belum ada materi. Tambahkan di form bawah.</p>';
+    return;
+  }
+  el.innerHTML = `<table class="atbl">
+    <thead><tr><th>Kategori</th><th>Sub</th><th>Judul</th><th>File</th><th>Status</th><th>Aksi</th></tr></thead>
+    <tbody>${data.map(m => {
+      const cat = LEARN_CATS.find(c => c.key === m.category);
+      return `<tr>
+        <td><strong>${cat ? cat.icon + ' ' + esc(cat.label) : esc(m.category || '—')}</strong></td>
+        <td style="font-size:11px;color:var(--txs)">${esc(m.subcategory || '—')}</td>
+        <td style="font-size:11px">${esc(m.title || '—')}</td>
+        <td>${m.file_url
+          ? `<a href="${esc(m.file_url)}" target="_blank" style="color:var(--pu);font-size:11px">↗ Lihat</a>`
+          : '<span style="color:var(--txm);font-size:11px">—</span>'}</td>
+        <td><span class="sbadge ${m.is_active ? 'sok' : 'sno'}">${m.is_active ? 'Aktif' : 'Nonaktif'}</span></td>
+        <td style="white-space:nowrap">
+          <button class="btn bgh bsm" style="font-size:11px" onclick="editLearn('${m.id}')">Edit</button>
+          <button class="btn brd bsm" style="font-size:11px;margin-left:4px" onclick="delLearn('${m.id}','${esc(m.title)}')">Hapus</button>
+        </td>
+      </tr>`;
+    }).join('')}
+    </tbody>
+  </table>`;
+}
+
+function prevLearn(input) {
+  const f = input.files[0];
+  if (!f) return;
+  learnFile = f;
+  document.getElementById('lppw').innerHTML = `
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"
+         viewBox="0 0 24 24" style="opacity:.6">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+    </svg>
+    <p style="color:var(--grn)">${esc(f.name)}</p>`;
+}
+
+async function saveLearn() {
+  const title = document.getElementById('nl-title').value.trim();
+  const cat   = document.getElementById('nl-cat').value;
+  const sub   = document.getElementById('nl-sub').value;
+  const desc  = document.getElementById('nl-desc').value.trim();
+  const act   = document.getElementById('nl-act').value === 'true';
+  const eid   = document.getElementById('nl-editid').value;
+  if (!title || !cat || !sub) { toast('Judul, kategori, & sub-kategori wajib diisi', 'err'); return; }
+
+  const btn = document.getElementById('nl-savebtn');
+  const lbl = document.getElementById('nl-savelbl');
+  btn.disabled = true;
+  lbl.textContent = 'Mengupload…';
+
+  let fileUrl = document.getElementById('nl-fileurl').value || null;
+  if (learnFile) {
+    const fn = 'elearning/' + Date.now() + '_' + learnFile.name.replace(/\s+/g, '_');
+    const { error: ue } = await sb.storage.from(BUCKET_E).upload(fn, learnFile, {
+      upsert: true, contentType: 'application/pdf'
+    });
+    if (ue) {
+      toast('Gagal upload PDF: ' + ue.message, 'err');
+      btn.disabled = false;
+      lbl.textContent = eid ? 'Update Materi' : 'Simpan Materi';
+      return;
+    }
+    const { data: ud } = sb.storage.from(BUCKET_E).getPublicUrl(fn);
+    fileUrl = ud.publicUrl;
+  }
+
+  if (!fileUrl) {
+    toast('PDF wajib diupload', 'err');
+    btn.disabled = false;
+    lbl.textContent = eid ? 'Update Materi' : 'Simpan Materi';
+    return;
+  }
+
+  const payload = {
+    title, category: cat, subcategory: sub,
+    description: desc || null, file_url: fileUrl, is_active: act
+  };
+  const { error } = eid
+    ? await sb.from('elearning_materials').update(payload).eq('id', eid)
+    : await sb.from('elearning_materials').insert(payload);
+  btn.disabled = false;
+  if (error) {
+    toast('Gagal simpan: ' + error.message, 'err');
+    lbl.textContent = eid ? 'Update Materi' : 'Simpan Materi';
+    return;
+  }
+  toast(eid ? 'Materi diupdate!' : 'Materi ditambahkan!', 'ok');
+  clearLearnForm();
+  loadAdmLearn();
+}
+
+async function editLearn(id) {
+  const { data } = await sb.from('elearning_materials').select('*').eq('id', id).single();
+  if (!data) return;
+  document.getElementById('nl-title').value   = data.title       || '';
+  document.getElementById('nl-cat').value     = data.category    || LEARN_CATS[0].key;
+  onLearnCatChange();
+  document.getElementById('nl-sub').value     = data.subcategory || '';
+  document.getElementById('nl-desc').value    = data.description || '';
+  document.getElementById('nl-act').value     = String(data.is_active);
+  document.getElementById('nl-fileurl').value = data.file_url    || '';
+  document.getElementById('nl-editid').value  = id;
+  document.getElementById('nl-savelbl').textContent = 'Update Materi';
+  document.getElementById('nl-formlbl').textContent = '✏ Edit Materi';
+  document.getElementById('nl-canceledit').style.display = '';
+  if (data.file_url) {
+    document.getElementById('lppw').innerHTML =
+      '<p style="color:var(--grn);font-size:12px">✓ File sudah ada — upload baru untuk ganti</p>';
+  }
+  toast('Edit: ' + data.title, 'info');
+}
+
+async function delLearn(id, title) {
+  if (!confirm('Hapus materi "' + title + '"?')) return;
+  const { error } = await sb.from('elearning_materials').delete().eq('id', id);
+  if (error) { toast('Gagal hapus', 'err'); return; }
+  toast('Materi dihapus', 'ok');
+  loadAdmLearn();
+}
+
+function clearLearnForm() {
+  ['nl-title','nl-desc','nl-fileurl','nl-editid'].forEach(i => {
+    const e = document.getElementById(i);
+    if (e) e.value = '';
+  });
+  document.getElementById('nl-cat').value = LEARN_CATS[0].key;
+  onLearnCatChange();
+  document.getElementById('nl-act').value = 'true';
+  learnFile = null;
+  document.getElementById('lpi').value = '';
+  document.getElementById('nl-savelbl').textContent = 'Simpan Materi';
+  document.getElementById('nl-formlbl').textContent = '+ Tambah Materi E-Learning';
+  document.getElementById('nl-canceledit').style.display = 'none';
+  document.getElementById('nl-savebtn').disabled = false;
+  document.getElementById('lppw').innerHTML = `
+    <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"
+         viewBox="0 0 24 24" style="opacity:.4">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+    </svg>
+    <p>Klik untuk upload PDF materi</p>`;
 }
