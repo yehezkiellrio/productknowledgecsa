@@ -161,7 +161,7 @@ async function editBrand(id) {
   const { data } = await sb.from('brands').select('*').eq('id', id).single();
   if (!data) return;
   document.getElementById('nb-name').value = data.label || '';
-  document.getElementById('nb-div').value  = data.division || 'Divisi 1';
+  document.getElementById('nb-div').value  = data.division || 'Housebrand';
   document.getElementById('nb-web').value  = data.website || '';
   document.getElementById('nb-desc').value = data.description || '';
   document.getElementById('nb-act').value  = String(data.is_active);
@@ -190,7 +190,7 @@ async function delBrand(id, name) {
 
 function clearBrandForm() {
   ['nb-name', 'nb-web', 'nb-desc', 'nb-flip'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('nb-div').value = 'Divisi 1';
+  document.getElementById('nb-div').value = 'Housebrand';
   document.getElementById('nb-act').value = 'true';
   document.getElementById('nb-type').value = 'products';
   document.getElementById('nb-editid').value = '';

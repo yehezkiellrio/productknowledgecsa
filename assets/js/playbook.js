@@ -1,8 +1,10 @@
 const PB = { loaded: false, divisions: [], gaps: [], args: [], packages: [], items: [] };
 
-async function openPlaybook() {
-  openMod('mod-play');
+async function loadPlaybookIfNeeded() {
   if (PB.loaded) return;
+  document.querySelectorAll('#sec-playbook .play-panel').forEach(p => {
+    p.innerHTML = '<div class="ldg"><div class="spin"></div></div>';
+  });
   await loadPlaybookData();
   PB.loaded = true;
   renderAllPlaybookPanels();
@@ -185,8 +187,8 @@ function renderCheatPanel() {
 }
 
 function playTab(t, el) {
-  document.querySelectorAll('#mod-play .atb').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('#play-tabs .atb').forEach(b => b.classList.remove('on'));
   el.classList.add('on');
-  document.querySelectorAll('.play-panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('#sec-playbook .play-panel').forEach(p => p.classList.remove('on'));
   document.getElementById('pp-' + t).classList.add('on');
 }

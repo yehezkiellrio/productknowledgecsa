@@ -1,15 +1,4 @@
-async function openSpek() {
-  openMod('mod-spek');
-  const body = document.getElementById('spek-body');
-  body.innerHTML = '<div class="ldg"><div class="spin"></div></div>';
-  let cats = [];
-  try {
-    const { data, error } = await sb.from('catalogs').select('*')
-      .eq('is_active', true).order('sort_order').order('created_at');
-    if (!error) cats = data || [];
-  } catch (e) {}
-  renderSpekBody(cats);
-}
+/* openSpek() now handled by router.js loadSpekIfNeeded() */
 
 function renderSpekBody(cats) {
   const body = document.getElementById('spek-body');
@@ -77,7 +66,7 @@ function renderSpekBody(cats) {
 }
 
 function spekTabDyn(idx, el) {
-  document.querySelectorAll('#mod-spek .stb').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('#spek-body .stb').forEach(b => b.classList.remove('on'));
   el.classList.add('on');
   document.querySelectorAll('#spek-body .spek-panel').forEach((p, i) =>
     p.classList.toggle('on', i === idx)

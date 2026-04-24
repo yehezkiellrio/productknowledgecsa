@@ -19,21 +19,33 @@ async function loadBrands() {
     return;
   }
   S.brands = (data || []).filter(b => b.is_active !== false);
+  updateHomeStats();
+}
+
+function updateHomeStats() {
+  const brandEl = document.getElementById('stat-brands');
+  const prodEl  = document.getElementById('stat-products');
+  if (brandEl) brandEl.textContent = S.brands.length || '—';
+  if (!prodEl) return;
+  if (S.products.length) {
+    prodEl.textContent = S.products.length;
+  } else {
+    sb.from('products').select('*', { count: 'exact', head: true })
+      .then(({ count }) => { if (prodEl) prodEl.textContent = count || '—'; });
+  }
 }
 
 /* ── DIVISION HELPERS ────────────────────────────────────── */
 function divList() {
-  if (!S.brands.length) return [];
-  const all = [...new Set(S.brands.map(b => b.division || 'Umum'))];
-  return all.sort((a, b) => {
-    const ai = a.startsWith('Divisi') ? parseInt(a.split(' ')[1] || 99) : 99;
-    const bi = b.startsWith('Divisi') ? parseInt(b.split(' ')[1] || 99) : 99;
-    return ai - bi || a.localeCompare(b);
-  });
+  const order   = ['Housebrand', 'Local Brand'];
+  const present = [...new Set(S.brands.map(b => b.division || 'Housebrand'))];
+  const sorted  = order.filter(d => present.includes(d));
+  present.forEach(d => { if (!sorted.includes(d)) sorted.push(d); });
+  return sorted;
 }
 
 function brandsInDiv(d) {
-  return S.brands.filter(b => (b.division || 'Umum') === d);
+  return S.brands.filter(b => (b.division || 'Housebrand') === d);
 }
 
 /* ── RENDER: DIVISION TABS ───────────────────────────────── */

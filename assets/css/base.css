@@ -1,32 +1,55 @@
 :root {
-  /* Surfaces */
-  --bg:  #F7F5F1;
-  --s1:  #FFFFFF;
-  --s2:  #F2EFE8;
-  --s3:  #E8E4DA;
+  /* Primary — CSA Red */
+  --red-primary: #E31E24;
+  --red-dark:    #B71C1C;
+  --red-light:   #FFEBEE;
+  --red-accent:  rgba(227, 30, 36, 0.10);
 
-  /* Borders */
-  --bd:  #DDD8CE;
-  --bd2: #C8C3B6;
-
-  /* Text */
-  --tx:  #1A1814;
-  --txs: #6A625A;
-  --txm: #AAA298;
-
-  /* Primary accent — deep warm gold (replaces purple) */
-  --pu:  #9B7428;
-  --pu2: #BE9030;
-  --pua: rgba(155,116,40,.10);
-
-  /* Gold highlight */
-  --gd:  #B89030;
-  --gd2: #D0AA40;
-  --gda: rgba(184,144,48,.10);
+  /* Neutral */
+  --black:       #1A1A1A;
+  --dark-gray:   #333333;
+  --gray:        #666666;
+  --light-gray:  #999999;
+  --border:      #E0E0E0;
+  --bg-light:    #F5F5F5;
+  --white:       #FFFFFF;
 
   /* Status */
-  --red: #C03030;
-  --grn: #1E7840;
+  --green:       #2E7D32;
+  --gold:        #F9A825;
+
+  /* Surfaces */
+  --bg:   #F8F8F8;
+  --s1:   #FFFFFF;
+  --s2:   #F5F5F5;
+  --s3:   #EEEEEE;
+
+  /* Borders */
+  --bd:   #E0E0E0;
+  --bd2:  #CCCCCC;
+
+  /* Text */
+  --tx:   #1A1A1A;
+  --txs:  #555555;
+  --txm:  #999999;
+
+  /* Primary accent — CSA Red (maps old --pu to red) */
+  --pu:   #E31E24;
+  --pu2:  #B71C1C;
+  --pua:  rgba(227, 30, 36, 0.10);
+
+  /* Gold (kept for secondary accent / badges) */
+  --gd:   #E31E24;
+  --gd2:  #B71C1C;
+  --gda:  rgba(227, 30, 36, 0.10);
+
+  /* Status */
+  --red:  #E31E24;
+  --grn:  #2E7D32;
+
+  /* Surfaces alias */
+  --surface:   #FFFFFF;
+  --surface-2: #F2F2F2;
 
   /* Radii */
   --r4:  4px;
@@ -35,8 +58,8 @@
   --r16: 16px;
 
   /* Elevation */
-  --sh:  0 2px 12px rgba(26,24,20,.07), 0 1px 3px rgba(26,24,20,.04);
-  --sh2: 0 8px 32px rgba(26,24,20,.12), 0 2px 8px rgba(26,24,20,.06);
+  --sh:  0 2px 12px rgba(26,26,26,.08), 0 1px 3px rgba(26,26,26,.04);
+  --sh2: 0 8px 32px rgba(26,26,26,.14), 0 2px 8px rgba(26,26,26,.07);
 
   --t: .18s ease;
 }
@@ -66,3 +89,8 @@ body {
 @keyframes su { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes sp { to { transform: rotate(360deg); } }
 @keyframes fd { from { opacity: 0; } to { opacity: 1; } }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%,60% { transform: translateX(-8px); }
+  40%,80% { transform: translateX(8px); }
+}
