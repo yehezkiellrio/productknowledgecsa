@@ -1,75 +1,65 @@
 :root {
-  /* Primary — CSA Red */
+  /* ── Surfaces (DOMINAN PUTIH) ── */
+  --bg:        #FAFAFA;
+  --surface:   #FFFFFF;
+  --surface-2: #F5F5F5;
+  --surface-3: #EEEEEE;
+
+  /* Alias lama agar JS tidak perlu diubah */
+  --s1: #FFFFFF;
+  --s2: #F5F5F5;
+  --s3: #EEEEEE;
+
+  /* ── Text ── */
+  --tx:  #1A1A1A;
+  --txs: #555555;
+  --txm: #999999;
+
+  /* ── Borders ── */
+  --bd:  #E5E5E5;
+  --bd2: #D0D0D0;
+
+  /* ── Accent — Merah CSA (HANYA AKSEN) ── */
+  --red:         #E31E24;
   --red-primary: #E31E24;
   --red-dark:    #B71C1C;
-  --red-light:   #FFEBEE;
-  --red-accent:  rgba(227, 30, 36, 0.10);
+  --red-light:   #FFF5F5;
+  --red-accent:  rgba(227, 30, 36, 0.08);
 
-  /* Neutral */
-  --black:       #1A1A1A;
-  --dark-gray:   #333333;
-  --gray:        #666666;
-  --light-gray:  #999999;
-  --border:      #E0E0E0;
-  --bg-light:    #F5F5F5;
-  --white:       #FFFFFF;
+  /* Alias lama */
+  --pu:  #E31E24;
+  --pu2: #B71C1C;
+  --pua: rgba(227, 30, 36, 0.08);
+  --gd:  #E31E24;
+  --gd2: #B71C1C;
+  --gda: rgba(227, 30, 36, 0.08);
 
-  /* Status */
-  --green:       #2E7D32;
-  --gold:        #F9A825;
+  /* ── Hitam (AKSEN, terutama footer) ── */
+  --black: #1A1A1A;
+  --dark:  #2D2D2D;
 
-  /* Surfaces */
-  --bg:   #F8F8F8;
-  --s1:   #FFFFFF;
-  --s2:   #F5F5F5;
-  --s3:   #EEEEEE;
+  /* ── Status ── */
+  --green: #2E7D32;
+  --grn:   #2E7D32;
+  --gold:  #F9A825;
 
-  /* Borders */
-  --bd:   #E0E0E0;
-  --bd2:  #CCCCCC;
-
-  /* Text */
-  --tx:   #1A1A1A;
-  --txs:  #555555;
-  --txm:  #999999;
-
-  /* Primary accent — CSA Red (maps old --pu to red) */
-  --pu:   #E31E24;
-  --pu2:  #B71C1C;
-  --pua:  rgba(227, 30, 36, 0.10);
-
-  /* Gold (kept for secondary accent / badges) */
-  --gd:   #E31E24;
-  --gd2:  #B71C1C;
-  --gda:  rgba(227, 30, 36, 0.10);
-
-  /* Status */
-  --red:  #E31E24;
-  --grn:  #2E7D32;
-
-  /* Surfaces alias */
-  --surface:   #FFFFFF;
-  --surface-2: #F2F2F2;
-
-  /* Radii */
+  /* ── Radii ── */
   --r4:  4px;
   --r8:  8px;
   --r12: 12px;
   --r16: 16px;
 
-  /* Elevation */
-  --sh:  0 2px 12px rgba(26,26,26,.08), 0 1px 3px rgba(26,26,26,.04);
-  --sh2: 0 8px 32px rgba(26,26,26,.14), 0 2px 8px rgba(26,26,26,.07);
+  /* ── Elevation (subtle!) ── */
+  --sh:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --sh2: 0 4px 12px rgba(0,0,0,.08);
 
   --t: .18s ease;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body {
-  height: 100%;
-  overflow: hidden;
-}
+html { height: 100%; }
+body { height: 100%; overflow: hidden; }
 
 body {
   font-family: 'Outfit', sans-serif;
@@ -82,9 +72,9 @@ body {
 }
 
 ::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: var(--s2); }
+::-webkit-scrollbar-track { background: var(--surface-2); }
 ::-webkit-scrollbar-thumb { background: var(--bd2); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: var(--pu); }
+::-webkit-scrollbar-thumb:hover { background: var(--red); }
 
 @keyframes su { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes sp { to { transform: rotate(360deg); } }
