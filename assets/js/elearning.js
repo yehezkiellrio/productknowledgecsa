@@ -1,13 +1,16 @@
 /* ── E-LEARNING USER VIEW ────────────────────────────────── */
 let LEARN = { items: [], curCat: null, curSub: null };
+let elearningLoaded = false;
 
-async function openLearn() {
-  openMod('mod-learn');
+async function loadElearningIfNeeded() {
+  if (elearningLoaded) return;
+  elearningLoaded = true;
   const body = document.getElementById('learn-body');
   body.innerHTML = '<div class="ldg"><div class="spin"></div></div>';
   const { data, error } = await sb.from('elearning_materials').select('*')
     .eq('is_active', true).order('sort_order').order('created_at');
   if (error) {
+    elearningLoaded = false;
     body.innerHTML = `
       <div style="text-align:center;padding:48px 24px;color:var(--txs)">
         <p style="font-size:14px;color:var(--red);font-weight:600;margin-bottom:6px">Gagal memuat materi</p>
@@ -23,6 +26,8 @@ async function openLearn() {
   LEARN.curSub = null;
   renderLearnBody();
 }
+
+function openLearn() { navTo('elearning'); }
 
 function renderLearnBody() {
   const body = document.getElementById('learn-body');

@@ -1,4 +1,4 @@
-const SECTIONS = ['beranda', 'katalog', 'playbook', 'spek', 'profil'];
+const SECTIONS = ['beranda', 'katalog', 'playbook', 'spek', 'profil', 'elearning'];
 
 function navTo(section) {
   closeSidebar();
@@ -21,8 +21,9 @@ function navTo(section) {
     bl.classList.add('hidden');
   }
 
-  if (section === 'playbook') loadPlaybookIfNeeded();
-  if (section === 'spek')     loadSpekIfNeeded();
+  if (section === 'playbook')  loadPlaybookIfNeeded();
+  if (section === 'spek')      loadSpekIfNeeded();
+  if (section === 'elearning') loadElearningIfNeeded();
 
   S.curSection = section;
 }

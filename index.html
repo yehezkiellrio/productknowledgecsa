@@ -19,9 +19,8 @@
 <div id="gate">
   <div class="gate-box">
     <div class="gate-logo">
-      <div class="gate-logo-icon">CSA</div>
+      <img class="gate-logo-img" src="assets/img/logo-csa.png.png" alt="CSA">
       <h1>CSA Learning Center</h1>
-      <p>Pusat Pembelajaran Perusahaan</p>
     </div>
     <div class="gate-form">
       <input type="password" id="gate-input" placeholder="Masukkan kode akses…"
@@ -44,7 +43,7 @@
   </button>
 
   <div class="logo" onclick="navTo('beranda')" style="cursor:pointer">
-    <div class="logo-badge">CSA</div>
+    <img class="logo-badge" src="assets/img/logo-csa.png.png" alt="CSA">
     <div class="logo-text">
       <strong>CSA Learning Center</strong>
       <span>PT Catur Sentosa Adiprana Tbk</span>
@@ -93,6 +92,9 @@
       </button>
       <button class="nav-item" id="nav-profil" onclick="navTo('profil')">
         <span class="nav-ic">🏢</span> Profil Perusahaan
+      </button>
+      <button class="nav-item" id="nav-elearning" onclick="navTo('elearning')">
+        <span class="nav-ic">🎓</span> E-Learning
       </button>
     </div>
 
@@ -161,6 +163,13 @@
             <div class="module-info">
               <h4>Profil Perusahaan</h4>
               <p>Visi, misi, nilai, dan informasi korporat CSA</p>
+            </div>
+          </div>
+          <div class="module-card" onclick="navTo('elearning')">
+            <div class="module-icon">🎓</div>
+            <div class="module-info">
+              <h4>E-Learning</h4>
+              <p>Materi training, SOP, dan dokumen pembelajaran internal</p>
             </div>
           </div>
         </div>
@@ -232,7 +241,7 @@
     <!-- PROFIL PERUSAHAAN -->
     <div class="main-section" id="sec-profil">
         <div class="profil-header">
-          <div class="profil-logo-box">CSA</div>
+          <img class="profil-logo-img" src="assets/img/logo-csa.png.png" alt="CSA">
           <div class="profil-title">
             <h2>PT Catur Sentosa Adiprana Tbk</h2>
             <p>Distributor &amp; retailer bahan bangunan terkemuka di Indonesia</p>
@@ -275,6 +284,17 @@
             </div>
           </div>
         </div>
+    </div>
+
+    <!-- E-LEARNING -->
+    <div class="main-section" id="sec-elearning">
+      <div class="section-hdr">
+        <h2>E-Learning CSAP</h2>
+        <p>Materi pembelajaran &amp; training internal</p>
+      </div>
+      <div class="section-inner" id="learn-body">
+        <div class="ldg"><div class="spin"></div></div>
+      </div>
     </div>
 
   </main>
@@ -609,16 +629,6 @@
       </div>
     </div>
 
-  </div>
-</div>
-
-<!-- ── MODAL: E-LEARNING ─────────────────────────────────── -->
-<div class="ov h" id="mod-learn">
-  <div class="mo" style="max-width:1100px;width:100%;max-height:92vh">
-    <button class="mc" onclick="closeMod('mod-learn')">✕</button>
-    <h3>E-Learning CSAP</h3>
-    <p class="sub">Materi pembelajaran &amp; training internal</p>
-    <div id="learn-body"><div class="ldg"><div class="spin"></div></div></div>
   </div>
 </div>
 

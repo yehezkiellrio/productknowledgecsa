@@ -20,20 +20,13 @@
 .gate-logo {
   margin-bottom: 32px;
 }
-.gate-logo-icon {
-  width: 64px;
-  height: 64px;
-  background: var(--red);
-  border-radius: var(--r12);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: 900;
-  color: #fff;
-  letter-spacing: -1px;
-  margin-bottom: 18px;
-  font-family: 'Outfit', sans-serif;
+.gate-logo-img {
+  height: 72px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 18px;
 }
 .gate-logo h1 {
   font-size: 24px;
@@ -110,7 +103,7 @@
 
 @media (max-width: 480px) {
   .gate-logo h1 { font-size: 20px; }
-  .gate-logo-icon { width: 52px; height: 52px; font-size: 20px; }
+  .gate-logo-img { height: 56px; }
   .gate-form { padding: 20px 16px; }
 }
 
@@ -141,17 +134,10 @@
   cursor: pointer;
 }
 .logo-badge {
-  width: 32px;
-  height: 32px;
-  background: var(--red);
-  border-radius: 7px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 900;
-  color: #fff;
-  letter-spacing: -1px;
+  height: 34px;
+  width: auto;
+  max-width: 90px;
+  object-fit: contain;
   flex-shrink: 0;
 }
 .logo-text {
@@ -447,7 +433,7 @@
 
 /* Sections */
 .main-section { display: none; flex: 1; flex-direction: column; overflow: hidden; }
-.main-section.active { display: flex; }
+.main-section.active { display: flex; animation: fd .22s ease both; }
 
 /* Brand header */
 #bh {
@@ -692,20 +678,12 @@
   padding: 22px 24px;
   box-shadow: var(--sh);
 }
-.profil-logo-box {
-  width: 56px;
+.profil-logo-img {
   height: 56px;
-  background: var(--red);
-  border-radius: var(--r12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  font-weight: 900;
-  color: #fff;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
   flex-shrink: 0;
-  letter-spacing: -1px;
-  font-family: 'Outfit', sans-serif;
 }
 .profil-title h2 {
   font-size: 18px;
