@@ -25,7 +25,22 @@ function navTo(section) {
   if (section === 'spek')      loadSpekIfNeeded();
   if (section === 'elearning') loadElearningIfNeeded();
 
+  updateSearchPlaceholder(section);
   S.curSection = section;
+}
+
+function updateSearchPlaceholder(section) {
+  const el = document.getElementById('si');
+  if (!el) return;
+  const map = {
+    beranda:   'Cari menu atau modul…',
+    katalog:   'Cari produk, kode, series…',
+    playbook:  'Cari brand, strategi, killer argument…',
+    spek:      'Cari katalog keramik…',
+    elearning: 'Cari materi pembelajaran…',
+    profil:    'Cari informasi perusahaan…',
+  };
+  el.placeholder = map[section] || 'Cari…';
 }
 
 let spekLoaded = false;

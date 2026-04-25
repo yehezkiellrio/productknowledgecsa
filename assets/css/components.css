@@ -553,6 +553,7 @@
 .ltab.on {
   background: var(--red-accent);
   border-color: rgba(227,30,36,.2);
+  border-bottom: 2px solid var(--red);
   color: var(--red);
   font-weight: 600;
 }
@@ -586,7 +587,7 @@
   align-items: center;
   gap: 5px;
 }
-.lsub:hover { background: var(--surface-3); color: var(--tx); }
+.lsub:hover { background: var(--surface-3); color: var(--tx); transform: scale(1.02); }
 .lsub.on {
   background: var(--red-accent);
   border-color: rgba(227,30,36,.2);
@@ -594,6 +595,8 @@
   font-weight: 600;
 }
 .lsub.on .lcnt { background: var(--red); color: #fff; }
+.lsub.dimmed { opacity: .45; font-weight: 400; }
+.lsub.dimmed:hover { opacity: .75; }
 
 .lgrid {
   display: grid;
@@ -618,23 +621,33 @@
 }
 .lthumb {
   position: relative;
-  aspect-ratio: 4 / 3;
+  height: 110px;
   background: var(--surface-2);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
-.lthumb-ic { font-size: 48px; opacity: .5; }
+.lthumb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--lc, transparent);
+  opacity: 0.08;
+  pointer-events: none;
+}
+.lthumb-ic { font-size: 54px; opacity: .65; position: relative; z-index: 1; }
 .lthumb-pdf {
   position: absolute;
-  top: 8px; right: 8px;
+  top: 7px; right: 7px;
   background: var(--red);
   color: #fff;
   font-size: 9px;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 2px 7px;
   border-radius: 99px;
   letter-spacing: .5px;
+  z-index: 1;
 }
 .lcardb { padding: 12px 13px 14px; display: flex; flex-direction: column; gap: 5px; }
 .lsubtag {
@@ -707,6 +720,15 @@
   align-items: center;
   justify-content: center;
   height: 180px;
+}
+
+/* ── GLOBAL INTERACTION STATES ───────────────────────────── */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+button:active:not(.gate-btn):not(.nav-item):not(.npb) {
+  transform: scale(.97);
 }
 
 /* ── MOBILE MODAL ────────────────────────────────────────── */

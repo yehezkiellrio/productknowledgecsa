@@ -66,7 +66,7 @@ function renderLearnPanel() {
     </button>
     ${subs.map(s => {
       const n = catItems.filter(i => i.subcategory === s).length;
-      return `<button class="lsub ${subFilter === s ? 'on' : ''}" onclick="selLearnSub('${esc(s).replace(/'/g,"\\'")}')">
+      return `<button class="lsub ${n === 0 ? 'dimmed' : ''} ${subFilter === s ? 'on' : ''}" onclick="selLearnSub('${esc(s).replace(/'/g,"\\'")}')">
         ${esc(s)} <span class="lcnt">${n}</span>
       </button>`;
     }).join('')}`;
